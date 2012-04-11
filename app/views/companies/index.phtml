@@ -1,0 +1,44 @@
+<?php echo $this->getContent(); ?>
+
+<div align="right">
+	<?php echo Phalcon_Tag::linkTo(array("companies/new", "Create Companies", "class" => "btn btn-primary")) ?>
+</div>
+
+<?php echo Phalcon_Tag::form(array("companies/search")) ?>
+
+<div class="center scaffold">
+
+	<h2>Search companies</h2>
+
+	<div class="clearfix">
+		<label for="id">Id</label>
+		<?php echo Phalcon_Tag::textField(array("id", "size" => 10, "maxlength" => 10, "type" => "number")) ?>
+	</div>
+
+	<div class="clearfix">
+		<label for="name">Name</label>
+		<?php echo Phalcon_Tag::textField(array("name", "size" => 24, "maxlength" => 70)) ?>
+	</div>
+
+	<div class="clearfix">
+		<label for="telephone">Telephone</label>
+		<?php echo Phalcon_Tag::textField(array("telephone", "size" => 10, "maxlength" => 30)) ?>
+	</div>
+
+	<div class="clearfix">
+		<label for="address">Address</label>
+		<?php echo Phalcon_Tag::textField(array("address", "size" => 14, "maxlength" => 40)) ?>
+	</div>
+
+	<div class="clearfix">
+		<label for="city">City</label>
+		<?php echo Phalcon_Tag::textField(array("city", "size" => 14, "maxlength" => 40)) ?>
+	</div>
+
+	<div class="clearfix">
+		<?php echo Phalcon_Tag::submitButton(array("Search", "class" => "btn btn-primary")) ?></td>
+	</div>
+
+</div>
+
+</form>

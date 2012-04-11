@@ -1,0 +1,51 @@
+<?php echo $this->getContent(); ?>
+
+<ul class="pager">
+	<li class="previous pull-left">
+		<?php echo Phalcon_Tag::linkTo("companies/index", "&larr; Go Back"); ?>
+	</li>
+	<li class="pull-right">
+		<?php echo Phalcon_Tag::linkTo(array("companies/new", "Create companies", "class" => "btn btn-primary")); ?>
+	</li>
+</ul>
+
+<table class="table table-bordered table-striped" align="center">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Telephone</th>
+			<th>Address</th>
+			<th>City</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php
+		if(isset($page->items)){
+			foreach($page->items as $companies){ ?>
+		<tr>
+			<td><?php echo $companies->id ?></td>
+			<td><?php echo $companies->name ?></td>
+			<td><?php echo $companies->telephone ?></td>
+			<td><?php echo $companies->address ?></td>
+			<td><?php echo $companies->city ?></td>
+			<td width="12%"><?php echo Phalcon_Tag::linkTo(array("companies/edit/".$companies->id, '<i class="icon-pencil"></i> Edit', "class" => "btn")); ?></td>
+			<td width="12%"><?php echo Phalcon_Tag::linkTo(array("companies/delete/".$companies->id, '<i class="icon-remove"></i> Delete', "class" => "btn")); ?></td>
+		</tr>
+	<?php }
+		} ?>
+	</tbody>
+	<tbody>
+		<tr>
+			<td colspan="7" align="right">
+				<div class="btn-group">
+					<?php echo Phalcon_Tag::linkTo(array("companies/search", '<i class="icon-fast-backward"></i> First', "class" => "btn")) ?>
+					<?php echo Phalcon_Tag::linkTo(array("companies/search?page=".$page->before, '<i class="icon-step-backward"></i> Previous', "class" => "btn ")) ?>
+					<?php echo Phalcon_Tag::linkTo(array("companies/search?page=".$page->next, '<i class="icon-step-forward"></i> Next', "class" => "btn")) ?>
+					<?php echo Phalcon_Tag::linkTo(array("companies/search?page=".$page->last, '<i class="icon-fast-forward"></i> Last', "class" => "btn")) ?>
+					<span class="help-inline"><?php echo $page->current, "/", $page->total_pages ?></span>
+				</div>
+			</td>
+		</tr>
+	<tbody>
+</table>

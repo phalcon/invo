@@ -1,0 +1,38 @@
+
+<?php echo $this->getContent() ?>
+
+<div class="block center login small">
+	<div class="block_head">
+		<h2>Contact Us</h2>
+	</div>
+	<div class="block_content left">
+		<?php echo Phalcon_Tag::form('contact/send') ?>
+			<p>Send us a message and let us know how we can help. Please be as descriptive as possible as it will help us serve you better.</p>
+			<hr>
+			<div class="clearfix">
+				<label for="name">Your Full Name:</label>
+				<div class="input">
+					<?php echo Phalcon_Tag::textField(array("name", "size" => "30", "class" => "span6")) ?>
+					<span class="help-block">Required.</span>
+				</div>
+			</div>
+			<div class="clearfix">
+				<label for="email">Email Address:</label>
+				<div class="input">
+					<?php echo Phalcon_Tag::textField(array("email", "size" => "30", "class" => "span6")) ?>
+					<span class="help-block">Required.</span>
+				</div>
+			</div>
+			<div class="clearfix">
+				<label for="comments">Comments:</label>
+				<div class="input">
+					<?php echo Phalcon_Tag::textArea(array("comments", "cols" => "30", "rows" => "5", "class" => "span6")) ?>
+					<span class="help-block">Required.</span>
+				</div>
+			</div>
+			<div class="clearfix">
+				<?php echo Phalcon_Tag::submitButton(array('Send', 'class' => 'btn btn-primary btn-large btn-info')) ?>
+			</div>
+		</form>
+	</div>
+</div>

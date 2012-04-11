@@ -1,0 +1,139 @@
+
+body {
+    color: #333333;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 20px;
+    padding-bottom: 40px;
+    padding-top: 60px;
+}
+
+.topbar .header {
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #E0E0E0;
+    padding: 9px 0 0;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 26px;
+}
+
+input.span6, textarea.span6 {
+    display: inline-block;
+    float: none;
+    margin-left: 0;
+    width: 330px;
+}
+
+.container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+	width: 80%;
+}
+
+.span4 {
+    width: 250px;
+}
+
+.span6 {
+    width: 340px;
+}
+
+input, textarea, .uneditable-input {
+    color: #333333;
+    font-size: 14px;
+    line-height: 19px;
+    padding: 7px;
+}
+
+input, textarea {
+    -moz-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+input, textarea, select, .uneditable-input {
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    color: #666666;
+    display: inline-block;
+    font-size: 13px;
+    height: 18px;
+    line-height: 18px;
+    padding: 4px;
+    width: 210px;
+}
+
+.block.small.login {
+    margin-bottom: 18px;
+    margin-top: 30px;
+    padding-bottom: 5px;
+    width: 350px;
+}
+
+.block.small.register {
+    margin-bottom: 18px;
+    margin-top: 30px;
+    padding-bottom: 5px;
+    width: 350px;
+}
+
+.block.small.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.block .block_head {
+    background-color: #EEEEEE;
+    background-image: -moz-linear-gradient(center top , #F5F5F5 0%, #EEEEEE 100%);
+    background-repeat: repeat-x;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px 4px 4px 4px;
+    height: 36px;
+    width: 100%;
+    padding: 10px;
+}
+
+.block .block_head h2 {
+	padding: 5px;
+}
+
+.block .block_content {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+    overflow: hidden;
+    padding: 10px;
+    width: 100%;
+}
+
+div.center {
+	text-align: center;
+}
+
+div.left {
+	text-align: left;
+}
+
+div.right {
+	text-align: right;
+}
+
+div.login-or-signup {
+	padding-left: 50px;
+	padding-top: 20px;
+}
+
+.row {
+    margin-left: 0px;
+}
+
+select {
+	padding: 5px;
+	height: auto;
+}
+
+div.scaffold h2 {
+	margin: 10px;
+}
