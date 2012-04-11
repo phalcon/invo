@@ -77,7 +77,7 @@ abstract class Elements {
 				'action' => 'end'
 			);
 		} else {
-			unset(self::$_headerMenu['pull-right']['invoices']);
+			unset(self::$_headerMenu['pull-left']['invoices']);
 		}
 
 		echo '<div class="nav-collapse">';
