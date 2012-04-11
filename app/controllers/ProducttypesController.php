@@ -5,6 +5,19 @@ use Phalcon_Flash as Flash;
 
 class ProductTypesController extends ControllerBase {
 
+	public function initialize(){
+		$this->view->setTemplateAfter('main');
+		Tag::setTitle('Manage your products');
+		parent::initialize();
+	}
+
+	public function beforeDispatch(){
+		if(!Phalcon_Session::get('auth')){
+			Flash::error('You don\'t have access to this module', 'alert alert-error');
+			$this->_forward('index/index');
+		}
+	}
+
 	function indexAction(){
 		$this->session->conditions = null;
 	}
@@ -62,7 +75,7 @@ class ProductTypesController extends ControllerBase {
 				return $this->_forward("producttypes/index");
 			}
 			$this->view->setVar("id", $producttypes->id);
-		
+
 			Tag::displayTo("id", $producttypes->id);
 			Tag::displayTo("name", $producttypes->name);
 		}

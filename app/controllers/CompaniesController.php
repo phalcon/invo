@@ -7,7 +7,7 @@ class CompaniesController extends ControllerBase {
 
 	public function initialize(){
 		$this->view->setTemplateAfter('main');
-		Tag::setTitle('Manage your product types');
+		Tag::setTitle('Manage your companies');
 		parent::initialize();
 	}
 
