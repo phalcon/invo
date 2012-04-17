@@ -28,7 +28,7 @@ abstract class Elements {
 		),
 		'pull-right' => array(
 			'session' => array(
-				'caption' => 'Sign Up',
+				'caption' => 'Log In/Sign Up',
 				'action' => 'index'
 			),
 		)
