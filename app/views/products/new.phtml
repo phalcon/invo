@@ -14,9 +14,6 @@
 <div class="center scaffold">
 	<h2>Create products</h2>
 
-
-	<input type="hidden" name="id" id="id" value="<?php echo $id ?>" />
-
 	<div class="clearfix">
 		<label for="product_types_id">Product Type</label>
 		<?php echo Phalcon_Tag::select(array("product_types_id", $productTypes, "using" => array("id", "name"), "useDummy" => true)) ?>

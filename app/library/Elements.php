@@ -68,7 +68,7 @@ abstract class Elements {
 	 * @param	Phalcon_View $view
 	 * @return	string
 	 */
-	public function getMenu($view){
+	public static function getMenu($view){
 
 		$auth = Phalcon_Session::get('auth');
 		if($auth){
@@ -98,7 +98,7 @@ abstract class Elements {
 		echo '</div>';
 	}
 
-	public function getTabs($view){
+	public static function getTabs($view){
 		$controllerName = $view->getControllerName();
 		$actionName = $view->getActionName();
 		echo '<ul class="nav nav-tabs">';
