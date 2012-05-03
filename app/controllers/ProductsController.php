@@ -3,170 +3,169 @@
 use Phalcon_Tag as Tag;
 use Phalcon_Flash as Flash;
 
-class ProductsController extends ControllerBase {
+class ProductsController extends ControllerBase
+{
+    public function initialize()
+    {
+        $this->view->setTemplateAfter('main');
+        Tag::setTitle('Manage your product types');
+        parent::initialize();
+    }
 
-	public function initialize(){
-		$this->view->setTemplateAfter('main');
-		Tag::setTitle('Manage your product types');
-		parent::initialize();
-	}
+    public function beforeDispatch()
+    {
+        if (!Phalcon_Session::get('auth')) {
+            Flash::error('You don\'t have access to this module', 'alert alert-error');
+            $this->_forward('index/index');
+        }
+    }
 
-	public function beforeDispatch(){
-		if(!Phalcon_Session::get('auth')){
-			Flash::error('You don\'t have access to this module', 'alert alert-error');
-			$this->_forward('index/index');
-		}
-	}
+    function indexAction()
+    {
+        $this->session->conditions = null;
+        $this->view->setVar("productTypes", ProductTypes::find());
+    }
 
-	function indexAction(){
-		$this->session->conditions = null;
+    function searchAction()
+    {
+        $numberPage = 1;
+        if ($this->request->isPost()) {
+            $query = Phalcon_Model_Query::fromInput("Products", $_POST);
+            $this->session->conditions = $query->getConditions();
+        } else {
+            $numberPage = $this->request->getQuery("page", "int");
+            if ($numberPage <= 0) {
+                $numberPage = 1;
+            }
+        }
 
-		$this->view->setVar("productTypes", ProductTypes::find());
-	}
+        $parameters = array();
+        if ($this->session->conditions) {
+            $parameters["conditions"] = $this->session->conditions;
+        }
+        $parameters["order"] = "id";
 
-	function searchAction(){
+        $products = Products::find($parameters);
+        if (count($products) == 0) {
+            Flash::notice("The search did not find any products", "alert alert-info");
+            return $this->_forward("products/index");
+        }
 
-		$numberPage = 1;
-		if($this->request->isPost()){
-			$query = Phalcon_Model_Query::fromInput("Products", $_POST);
-			$this->session->conditions = $query->getConditions();
-		} else {
-			$numberPage = $this->request->getQuery("page", "int");
-			if($numberPage<=0){
-				$numberPage = 1;
-			}
-		}
+        $paginator = Phalcon_Paginator::factory("Model", array(
+                    "data" => $products,
+                    "limit" => 5,
+                    "page" => $numberPage
+                ));
+        $page = $paginator->getPaginate();
 
-		$parameters = array();
-		if($this->session->conditions){
-			$parameters["conditions"] = $this->session->conditions;
-		}
-		$parameters["order"] = "id";
+        $this->view->setVar("page", $page);
+        $this->view->setVar("products", $products);
+    }
 
-		$products = Products::find($parameters);
-		if(count($products)==0){
-			Flash::notice("The search did not find any products", "alert alert-info");
-			return $this->_forward("products/index");
-		}
+    function newAction()
+    {
+        $this->view->setVar("productTypes", ProductTypes::find());
+    }
 
-		$paginator = Phalcon_Paginator::factory("Model", array(
-			"data" => $products,
-			"limit"=> 5,
-			"page" => $numberPage
-		));
-		$page = $paginator->getPaginate();
+    function editAction($id)
+    {
+        $request = Phalcon_Request::getInstance();
+        if (!$request->isPost()) {
 
-		$this->view->setVar("page", $page);
-		$this->view->setVar("products", $products);
-	}
+            $id = $this->filter->sanitize($id, array("int"));
 
-	function newAction(){
+            $products = Products::findFirst('id="' . $id . '"');
+            if (!$products) {
+                Flash::error("products was not found", "alert alert-error");
+                return $this->_forward("products/index");
+            }
+            $this->view->setVar("id", $products->id);
 
-		$this->view->setVar("productTypes", ProductTypes::find());
-	}
+            Tag::displayTo("id", $products->id);
+            Tag::displayTo("product_types_id", $products->product_types_id);
+            Tag::displayTo("name", $products->name);
+            Tag::displayTo("price", $products->price);
+            Tag::displayTo("active", $products->active);
 
-	function editAction($id){
+            $this->view->setVar("productTypes", ProductTypes::find());
+        }
+    }
 
-		$request = Phalcon_Request::getInstance();
-		if(!$request->isPost()){
+    function createAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->_forward("products/index");
+        }
 
-			$id = $this->filter->sanitize($id, array("int"));
+        $products = new Products();
+        $products->id = $this->request->getPost("id", "int");
+        $products->product_types_id = $this->request->getPost("product_types_id", "int");
+        $products->name = $this->request->getPost("name");
+        $products->price = $this->request->getPost("price");
+        $products->active = $this->request->getPost("active");
 
-			$products = Products::findFirst('id="'.$id.'"');
-			if(!$products){
-				Flash::error("products was not found", "alert alert-error");
-				return $this->_forward("products/index");
-			}
-			$this->view->setVar("id", $products->id);
+        $products->name = strip_tags($products->name);
 
-			Tag::displayTo("id", $products->id);
-			Tag::displayTo("product_types_id", $products->product_types_id);
-			Tag::displayTo("name", $products->name);
-			Tag::displayTo("price", $products->price);
-			Tag::displayTo("active", $products->active);
+        if (!$products->save()) {
+            foreach ($products->getMessages() as $message) {
+                Flash::error((string) $message, "alert alert-error");
+            }
+            return $this->_forward("products/new");
+        } else {
+            Flash::success("products was created successfully", "alert alert-success");
+            return $this->_forward("products/index");
+        }
+    }
 
-		$this->view->setVar("productTypes", ProductTypes::find());
-		}
-	}
+    function saveAction()
+    {
+        if (!$this->request->isPost()) {
+            return $this->_forward("products/index");
+        }
 
-	function createAction(){
+        $id = $this->request->getPost("id", "int");
+        $products = Products::findFirst("id='$id'");
+        if ($products == false) {
+            Flash::error("products does not exist " . $id, "alert alert-error");
+            return $this->_forward("products/index");
+        }
+        $products->id = $this->request->getPost("id", "int");
+        $products->product_types_id = $this->request->getPost("product_types_id", "int");
+        $products->name = $this->request->getPost("name");
+        $products->price = $this->request->getPost("price");
+        $products->active = $this->request->getPost("active");
 
-		if(!$this->request->isPost()){
-			return $this->_forward("products/index");
-		}
+        $products->name = strip_tags($products->name);
 
-		$products = new Products();
-		$products->id = $this->request->getPost("id", "int");
-		$products->product_types_id = $this->request->getPost("product_types_id", "int");
-		$products->name = $this->request->getPost("name");
-		$products->price = $this->request->getPost("price");
-		$products->active = $this->request->getPost("active");
+        if (!$products->save()) {
+            foreach ($products->getMessages() as $message) {
+                Flash::error((string) $message, "alert alert-error");
+            }
+            return $this->_forward("products/edit/" . $products->id);
+        } else {
+            Flash::success("products was updated successfully", "alert alert-success");
+            return $this->_forward("products/index");
+        }
+    }
 
-		$products->name = strip_tags($products->name);
+    function deleteAction($id)
+    {
+        $id = $this->filter->sanitize($id, array("int"));
 
-		if(!$products->save()){
-			foreach($products->getMessages() as $message){
-				Flash::error((string) $message, "alert alert-error");
-			}
-			return $this->_forward("products/new");
-		} else {
-			Flash::success("products was created successfully", "alert alert-success");
-			return $this->_forward("products/index");
-		}
+        $products = Products::findFirst('id="' . $id . '"');
+        if (!$products) {
+            Flash::error("products was not found", "alert alert-error");
+            return $this->_forward("products/index");
+        }
 
-	}
-
-	function saveAction(){
-
-		if(!$this->request->isPost()){
-			return $this->_forward("products/index");
-		}
-
-		$id = $this->request->getPost("id", "int");
-		$products = Products::findFirst("id='$id'");
-		if($products==false){
-			Flash::error("products does not exist ".$id, "alert alert-error");
-			return $this->_forward("products/index");
-		}
-		$products->id = $this->request->getPost("id", "int");
-		$products->product_types_id = $this->request->getPost("product_types_id", "int");
-		$products->name = $this->request->getPost("name");
-		$products->price = $this->request->getPost("price");
-		$products->active = $this->request->getPost("active");
-
-		$products->name = strip_tags($products->name);
-
-		if(!$products->save()){
-			foreach($products->getMessages() as $message){
-				Flash::error((string) $message, "alert alert-error");
-			}
-			return $this->_forward("products/edit/".$products->id);
-		} else {
-			Flash::success("products was updated successfully", "alert alert-success");
-			return $this->_forward("products/index");
-		}
-
-	}
-
-	function deleteAction($id){
-
-		$id = $this->filter->sanitize($id, array("int"));
-
-		$products = Products::findFirst('id="'.$id.'"');
-		if(!$products){
-			Flash::error("products was not found", "alert alert-error");
-			return $this->_forward("products/index");
-		}
-
-		if(!$products->delete()){
-			foreach($products->getMessages() as $message){
-				Flash::error((string) $message, "alert alert-error");
-			}
-			return $this->_forward("products/search");
-		} else {
-			Flash::success("products was deleted", "alert alert-success");
-			return $this->_forward("products/index");
-		}
-	}
-
+        if (!$products->delete()) {
+            foreach ($products->getMessages() as $message) {
+                Flash::error((string) $message, "alert alert-error");
+            }
+            return $this->_forward("products/search");
+        } else {
+            Flash::success("products was deleted", "alert alert-success");
+            return $this->_forward("products/index");
+        }
+    }
 }

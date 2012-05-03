@@ -1,73 +1,73 @@
-<?php use Phalcon_Tag as Tag; ?>
+<?php use Phalcon_Tag as Tag ?>
 
 <?php echo $this->getContent() ?>
 
 <div class="block center register small">
-	<div class="block_head">
-		<h2>Register for INVO</h2>
-	</div>
-	<div class="block_content left">
-		<?php echo Tag::form(array('session/register', 'id' => 'registerForm', 'onbeforesubmit' => 'return false')) ?>
-			<h2> </h2>
-			<p>Create your free account</p>
-			<hr>
-			<div class="clearfix">
-				<label for="name">Your Full Name:</label>
-				<div class="input">
-					<?php echo Tag::textField(array("name", "size" => "30", "class" => "span6")) ?>
-					<span class="help-block">Required.</span>
-					<div class="alert" id="name_alert">
-						<strong>Warning!</strong> Please enter your full name
-					</div>
-				</div>
-			</div>
-			<div class="clearfix">
-				<label for="username">Username:</label>
-				<div class="input">
-					<?php echo Tag::textField(array("username", "size" => "30", "class" => "span6")) ?>
-					<span class="help-block">Required.</span>
-					<div class="alert" id="username_alert">
-						<strong>Warning!</strong> Please enter your desired user name
-					</div>
-				</div>
-			</div>
-			<div class="clearfix">
-				<label for="email">Email Address:</label>
-				<div class="input">
-					<?php echo Tag::textField(array("email", "size" => "30", "class" => "span6")) ?>
-					<span class="help-block">Required.</span>
-					<div class="alert" id="email_alert">
-						<strong>Warning!</strong> Please enter your email
-					</div>
-				</div>
-			</div>
-			<div class="clearfix">
-				<label for="password">Password:</label>
-				<div class="input">
-					<?php echo Tag::passwordField(array("password", "size" => "30", "class" => "span6")) ?>
-				</div>
-				<span class="help-block">Minimum 8 characters.</span>
-				<div class="alert" id="password_alert">
-					<strong>Warning!</strong> Please provide a valid password
-				</div>
-			</div>
-			<div class="clearfix">
-				<label for="repeatPassword">Repeat Password:</label>
-				<div class="input">
-					<?php echo Tag::passwordField(array("repeatPassword", "size" => "30", "class" => "span6")) ?>
-				</div>
-				<div class="alert" id="repeatPassword_alert">
-					<strong>Warning!</strong> The password does not match
-				</div>
-			</div>
-			<div class="clearfix">
-				<p>
-					By signing up, you accept terms of use and privacy policy.
-				</p>
-			</div>
-			<div class="clearfix center">
-				<input type="button" value="Register" class="btn btn-primary btn-large btn-info" onclick="SignUp.validate()">
-			</div>
-		</form>
-	</div>
+    <div class="block_head">
+        <h2>Register for INVO</h2>
+    </div>
+    <div class="block_content left">
+        <?php echo Tag::form(array('session/register', 'id' => 'registerForm', 'onbeforesubmit' => 'return false')) ?>
+            <h2> </h2>
+            <p>Create your free account</p>
+            <hr>
+            <div class="clearfix">
+                <label for="name">Your Full Name:</label>
+                <div class="input">
+                    <?php echo Tag::textField(array("name", "size" => "30", "class" => "span6")) ?>
+                    <span class="help-block">Required.</span>
+                    <div class="alert" id="name_alert">
+                        <strong>Warning!</strong> Please enter your full name
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <label for="username">Username:</label>
+                <div class="input">
+                    <?php echo Tag::textField(array("username", "size" => "30", "class" => "span6")) ?>
+                    <span class="help-block">Required.</span>
+                    <div class="alert" id="username_alert">
+                        <strong>Warning!</strong> Please enter your desired user name
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <label for="email">Email Address:</label>
+                <div class="input">
+                    <?php echo Tag::textField(array("email", "size" => "30", "class" => "span6")) ?>
+                    <span class="help-block">Required.</span>
+                    <div class="alert" id="email_alert">
+                        <strong>Warning!</strong> Please enter your email
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">
+                <label for="password">Password:</label>
+                <div class="input">
+                    <?php echo Tag::passwordField(array("password", "size" => "30", "class" => "span6")) ?>
+                </div>
+                <span class="help-block">Minimum 8 characters.</span>
+                <div class="alert" id="password_alert">
+                    <strong>Warning!</strong> Please provide a valid password
+                </div>
+            </div>
+            <div class="clearfix">
+                <label for="repeatPassword">Repeat Password:</label>
+                <div class="input">
+                    <?php echo Tag::passwordField(array("repeatPassword", "size" => "30", "class" => "span6")) ?>
+                </div>
+                <div class="alert" id="repeatPassword_alert">
+                    <strong>Warning!</strong> The password does not match
+                </div>
+            </div>
+            <div class="clearfix">
+                <p>
+                    By signing up, you accept terms of use and privacy policy.
+                </p>
+            </div>
+            <div class="clearfix center">
+                <input type="button" value="Register" class="btn btn-primary btn-large btn-info" onclick="SignUp.validate()">
+            </div>
+        </form>
+    </div>
 </div>
