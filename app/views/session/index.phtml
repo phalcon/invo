@@ -1,50 +1,50 @@
-<?php use Phalcon_Tag as Tag; ?>
+<?php use Phalcon_Tag as Tag ?>
 
 <?php echo $this->getContent() ?>
 
 <div class="login-or-signup">
-	<div class="row">
-		<div class="span6">
-			<div class="block_head">
-				<h2>Log In</h2>
-			</div>
-			<div class="block_content">
-				<?php echo Tag::form('session/start') ?>
-					<p>Start session to begin to generate invoices online</p>
-					<hr>
-					<div class="clearfix">
-						<label for="name">Username/Email:</label>
-						<div class="input">
-							<?php echo Tag::textField(array("email", "size" => "30", "class" => "span6")) ?>
-						</div>
-					</div>
-					<div class="clearfix">
-						<label for="email">Password:</label>
-						<div class="input">
-							<?php echo Tag::passwordField(array("password", "size" => "30", "class" => "span6")) ?>
-						</div>
-					</div>
-					<div class="clearfix center">
-						<?php echo Tag::submitButton(array('Login', 'class' => 'btn btn-primary btn-large btn-info')) ?>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="span6">
-			<h2>Don't have an account yet?</h2>
+    <div class="row">
+        <div class="span6">
+            <div class="block_head">
+                <h2>Log In</h2>
+            </div>
+            <div class="block_content">
+                <?php echo Tag::form('session/start') ?>
+                    <p>Start session to begin to generate invoices online</p>
+                    <hr>
+                    <div class="clearfix">
+                        <label for="name">Username/Email:</label>
+                        <div class="input">
+                            <?php echo Tag::textField(array("email", "size" => "30", "class" => "span6")) ?>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <label for="email">Password:</label>
+                        <div class="input">
+                            <?php echo Tag::passwordField(array("password", "size" => "30", "class" => "span6")) ?>
+                        </div>
+                    </div>
+                    <div class="clearfix center">
+                        <?php echo Tag::submitButton(array('Login', 'class' => 'btn btn-primary btn-large btn-info')) ?>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="span6">
+            <h2>Don't have an account yet?</h2>
 
-			<p>Create an account offers the following advantages</p>
+            <p>Create an account offers the following advantages</p>
 
-			<ul>
-	    		<li>Create, track and export your invoices online</li>
-	    		<li>Gain critical insights into how your business is doing</li>
-	    		<li>Stay informed about promotions and special packages</li>
-	    	</ul>
+            <ul>
+                <li>Create, track and export your invoices online</li>
+                <li>Gain critical insights into how your business is doing</li>
+                <li>Stay informed about promotions and special packages</li>
+            </ul>
 
-	    	<div class="clearfix center">
-				<?php echo Tag::linkTo(array('session/register', 'Sign Up', 'class' => 'btn btn-primary btn-large btn-success')) ?>
-			</div>
+            <div class="clearfix center">
+                <?php echo Tag::linkTo(array('session/register', 'Sign Up', 'class' => 'btn btn-primary btn-large btn-success')) ?>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>

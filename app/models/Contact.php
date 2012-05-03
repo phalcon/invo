@@ -1,5 +1,5 @@
 <?php
 
-class Contact extends Phalcon_Model_Base {
-
+class Contact extends Phalcon_Model_Base
+{
 }
