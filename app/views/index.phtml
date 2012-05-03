@@ -1,20 +1,20 @@
-<?php use Phalcon_Tag as Tag; ?>
+<?php use Phalcon_Tag as Tag ?>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<?php echo Tag::getTitle() ?>
-		<?php echo Tag::stylesheetLink('bootstrap/css/bootstrap.css') ?>
-		<?php echo Tag::stylesheetLink('bootstrap/css/bootstrap-responsive.css') ?>
-		<?php echo Tag::stylesheetLink('css/style.css') ?>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Your invoices">
-		<meta name="author" content="Phalcon Team">
-	</head>
-	<body>
-		<?php echo $this->getContent(); ?>
-		<?php echo Tag::javascriptInclude('javascript/jquery.min.js') ?>
-		<?php echo Tag::javascriptInclude('bootstrap/js/bootstrap.js') ?>
-		<?php echo Tag::javascriptInclude('javascript/utils.js') ?>
-	</body>
+    <head>
+        <meta charset="utf-8">
+        <?php echo Tag::getTitle() ?>
+        <?php echo Tag::stylesheetLink('bootstrap/css/bootstrap.css') ?>
+        <?php echo Tag::stylesheetLink('bootstrap/css/bootstrap-responsive.css') ?>
+        <?php echo Tag::stylesheetLink('css/style.css') ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Your invoices">
+        <meta name="author" content="Phalcon Team">
+    </head>
+    <body>
+        <?php echo $this->getContent() ?>
+        <?php echo Tag::javascriptInclude('javascript/jquery.min.js') ?>
+        <?php echo Tag::javascriptInclude('bootstrap/js/bootstrap.js') ?>
+        <?php echo Tag::javascriptInclude('javascript/utils.js') ?>
+    </body>
 </html>
