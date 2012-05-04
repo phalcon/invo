@@ -4,37 +4,49 @@
 
 <div class="login-or-signup">
     <div class="row">
+
         <div class="span6">
-            <div class="block_head">
+            <div class="page-header">
                 <h2>Log In</h2>
             </div>
-            <div class="block_content">
-                <?php echo Tag::form('session/start') ?>
-                    <p>Start session to begin to generate invoices online</p>
-                    <hr>
-                    <div class="clearfix">
-                        <label for="name">Username/Email:</label>
-                        <div class="input">
-                            <?php echo Tag::textField(array("email", "size" => "30", "class" => "span6")) ?>
+            <?php echo Tag::form(array('session/start', 'class' => 'form-inline')) ?>
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="email">Username/Email</label>
+                        <div class="controls">
+                            <?php echo Tag::textField(array(
+                                'email',
+                                'size' => "30",
+                                'class' => "input-xlarge",
+                            )) ?>
                         </div>
                     </div>
-                    <div class="clearfix">
-                        <label for="email">Password:</label>
-                        <div class="input">
-                            <?php echo Tag::passwordField(array("password", "size" => "30", "class" => "span6")) ?>
+                    <div class="control-group">
+                        <label class="control-label" for="password">Password</label>
+                        <div class="controls">
+                            <?php echo Tag::passwordField(array(
+                                'password',
+                                'size' => "30",
+                                'class' => "input-xlarge",
+                            )) ?>
                         </div>
                     </div>
-                    <div class="clearfix center">
-                        <?php echo Tag::submitButton(array('Login', 'class' => 'btn btn-primary btn-large btn-info')) ?>
+                    <div class="form-actions">
+                        <?php echo Tag::submitButton(array(
+                            'Login',
+                            'class' => 'btn btn-primary btn-large',
+                        )) ?>
                     </div>
-                </form>
-            </div>
+                </fieldset>
+            </form>
         </div>
+
         <div class="span6">
-            <h2>Don't have an account yet?</h2>
+            <div class="page-header">
+                <h2>Don't have an account yet?</h2>
+            </div>
 
-            <p>Create an account offers the following advantages</p>
-
+            <p>Create an account offers the following advantages:</p>
             <ul>
                 <li>Create, track and export your invoices online</li>
                 <li>Gain critical insights into how your business is doing</li>
@@ -42,9 +54,13 @@
             </ul>
 
             <div class="clearfix center">
-                <?php echo Tag::linkTo(array('session/register', 'Sign Up', 'class' => 'btn btn-primary btn-large btn-success')) ?>
+                <?php echo Tag::linkTo(array(
+                    'session/register',
+                    'Sign Up',
+                    'class' => 'btn btn-primary btn-large btn-success',
+                )) ?>
             </div>
-
         </div>
+
     </div>
 </div>
