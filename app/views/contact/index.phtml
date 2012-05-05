@@ -2,38 +2,40 @@
 
 <?php echo $this->getContent() ?>
 
-<div class="block center login small">
-    <div class="block_head">
-        <h2>Contact Us</h2>
-    </div>
-    <div class="block_content left">
-        <?php echo Tag::form('contact/send') ?>
-            <p>Send us a message and let us know how we can help. Please be as descriptive as possible as it will help us serve you better.</p>
-            <hr>
-            <div class="clearfix">
-                <label for="name">Your Full Name:</label>
-                <div class="input">
-                    <?php echo Tag::textField(array("name", "size" => "30", "class" => "span6")) ?>
-                    <span class="help-block">Required.</span>
-                </div>
-            </div>
-            <div class="clearfix">
-                <label for="email">Email Address:</label>
-                <div class="input">
-                    <?php echo Tag::textField(array("email", "size" => "30", "class" => "span6")) ?>
-                    <span class="help-block">Required.</span>
-                </div>
-            </div>
-            <div class="clearfix">
-                <label for="comments">Comments:</label>
-                <div class="input">
-                    <?php echo Tag::textArea(array("comments", "cols" => "30", "rows" => "5", "class" => "span6")) ?>
-                    <span class="help-block">Required.</span>
-                </div>
-            </div>
-            <div class="clearfix">
-                <?php echo Tag::submitButton(array('Send', 'class' => 'btn btn-primary btn-large btn-info')) ?>
-            </div>
-        </form>
-    </div>
+<div class="page-header">
+    <h2>Contact Us</h2>
 </div>
+
+<p>Send us a message and let us know how we can help. Please be as descriptive as possible as it will help us serve you better.</p>
+
+<?php echo Tag::form(array(
+    'contact/send',
+    'class' => 'form-horizontal',
+)) ?>
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label" for="name">Your Full Name</label>
+            <div class="controls">
+                <?php echo Tag::textField(array('name', 'class' => 'input-xlarge')) ?>
+                <p class="help-block">(required)</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="email">Email Address</label>
+            <div class="controls">
+                <?php echo Tag::textField(array('email', 'class' => 'input-xlarge')) ?>
+                <p class="help-block">(required)</p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="comments">Comments</label>
+            <div class="controls">
+                <?php echo Tag::textArea(array('comments', 'rows' => '5', 'class' => 'input-xlarge')) ?>
+                <p class="help-block">(required)</p>
+            </div>
+        </div>
+        <div class="form-actions">
+            <?php echo Tag::submitButton(array('Send', 'class' => 'btn btn-primary btn-large')) ?>
+        </div>
+    </fieldset>
+</form>
