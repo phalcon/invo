@@ -1,3 +1,4 @@
+
 var Profile = {
     check: function (id) {
         if ($.trim($("#" + id)[0].value) == '') {
@@ -55,6 +56,6 @@ var SignUp = {
 }
 
 $(document).ready(function () {
-    $("div.register .alert").hide();
+    $("#registerForm .alert").hide();
     $("div.profile .alert").hide();
 });
