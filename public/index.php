@@ -1,6 +1,9 @@
 <?php
 
+error_reporting(E_ALL);
+
 try {
+
     require __DIR__.'/../app/controllers/ControllerBase.php';
     require __DIR__.'/../app/library/Elements.php';
 
@@ -12,6 +15,7 @@ try {
     $front->setConfig($config);
 
     echo $front->dispatchLoop()->getContent();
+
 } catch (Phalcon_Exception $e) {
     echo "PhalconException: ", $e->getMessage();
 }
