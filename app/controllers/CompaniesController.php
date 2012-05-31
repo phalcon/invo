@@ -20,12 +20,12 @@ class CompaniesController extends ControllerBase
         }
     }
 
-    function indexAction()
+    public function indexAction()
     {
         $this->session->conditions = null;
     }
 
-    function searchAction()
+    public function searchAction()
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
@@ -47,6 +47,7 @@ class CompaniesController extends ControllerBase
         $companies = Companies::find($parameters);
         if (count($companies) == 0) {
             Flash::notice("The search did not find any companies", "alert alert-info");
+
             return $this->_forward("companies/index");
         }
 
@@ -61,11 +62,11 @@ class CompaniesController extends ControllerBase
         $this->view->setVar("companies", $companies);
     }
 
-    function newAction()
+    public function newAction()
     {
     }
 
-    function editAction($id)
+    public function editAction($id)
     {
         $request = Phalcon_Request::getInstance();
         if (!$request->isPost()) {
@@ -75,6 +76,7 @@ class CompaniesController extends ControllerBase
             $companies = Companies::findFirst('id="' . $id . '"');
             if (!$companies) {
                 Flash::error("companies was not found", "alert alert-error");
+
                 return $this->_forward("companies/index");
             }
             $this->view->setVar("id", $companies->id);
@@ -87,7 +89,7 @@ class CompaniesController extends ControllerBase
         }
     }
 
-    function createAction()
+    public function createAction()
     {
         if (!$this->request->isPost()) {
             return $this->_forward("companies/index");
@@ -109,14 +111,16 @@ class CompaniesController extends ControllerBase
             foreach ($companies->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("companies/new");
         } else {
             Flash::success("companies was created successfully", "alert alert-success");
+
             return $this->_forward("companies/index");
         }
     }
 
-    function saveAction()
+    public function saveAction()
     {
         if (!$this->request->isPost()) {
             return $this->_forward("companies/index");
@@ -126,6 +130,7 @@ class CompaniesController extends ControllerBase
         $companies = Companies::findFirst("id='$id'");
         if ($companies == false) {
             Flash::error("companies does not exist " . $id, "alert alert-error");
+
             return $this->_forward("companies/index");
         }
         $companies->id = $this->request->getPost("id", "int");
@@ -143,20 +148,23 @@ class CompaniesController extends ControllerBase
             foreach ($companies->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("companies/edit/" . $companies->id);
         } else {
             Flash::success("companies was updated successfully", "alert alert-success");
+
             return $this->_forward("companies/index");
         }
     }
 
-    function deleteAction($id)
+    public function deleteAction($id)
     {
         $id = $this->filter->sanitize($id, array("int"));
 
         $companies = Companies::findFirst('id="' . $id . '"');
         if (!$companies) {
             Flash::error("companies was not found", "alert alert-error");
+
             return $this->_forward("companies/index");
         }
 
@@ -164,9 +172,11 @@ class CompaniesController extends ControllerBase
             foreach ($companies->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("companies/search");
         } else {
             Flash::success("companies was deleted", "alert alert-success");
+
             return $this->_forward("companies/index");
         }
     }
