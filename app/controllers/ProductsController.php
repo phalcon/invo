@@ -20,13 +20,13 @@ class ProductsController extends ControllerBase
         }
     }
 
-    function indexAction()
+    public function indexAction()
     {
         $this->session->conditions = null;
         $this->view->setVar("productTypes", ProductTypes::find());
     }
 
-    function searchAction()
+    public function searchAction()
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
@@ -48,6 +48,7 @@ class ProductsController extends ControllerBase
         $products = Products::find($parameters);
         if (count($products) == 0) {
             Flash::notice("The search did not find any products", "alert alert-info");
+
             return $this->_forward("products/index");
         }
 
@@ -62,12 +63,12 @@ class ProductsController extends ControllerBase
         $this->view->setVar("products", $products);
     }
 
-    function newAction()
+    public function newAction()
     {
         $this->view->setVar("productTypes", ProductTypes::find());
     }
 
-    function editAction($id)
+    public function editAction($id)
     {
         $request = Phalcon_Request::getInstance();
         if (!$request->isPost()) {
@@ -77,6 +78,7 @@ class ProductsController extends ControllerBase
             $products = Products::findFirst('id="' . $id . '"');
             if (!$products) {
                 Flash::error("products was not found", "alert alert-error");
+
                 return $this->_forward("products/index");
             }
             $this->view->setVar("id", $products->id);
@@ -91,7 +93,7 @@ class ProductsController extends ControllerBase
         }
     }
 
-    function createAction()
+    public function createAction()
     {
         if (!$this->request->isPost()) {
             return $this->_forward("products/index");
@@ -110,14 +112,16 @@ class ProductsController extends ControllerBase
             foreach ($products->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("products/new");
         } else {
             Flash::success("products was created successfully", "alert alert-success");
+
             return $this->_forward("products/index");
         }
     }
 
-    function saveAction()
+    public function saveAction()
     {
         if (!$this->request->isPost()) {
             return $this->_forward("products/index");
@@ -127,6 +131,7 @@ class ProductsController extends ControllerBase
         $products = Products::findFirst("id='$id'");
         if ($products == false) {
             Flash::error("products does not exist " . $id, "alert alert-error");
+
             return $this->_forward("products/index");
         }
         $products->id = $this->request->getPost("id", "int");
@@ -141,20 +146,23 @@ class ProductsController extends ControllerBase
             foreach ($products->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("products/edit/" . $products->id);
         } else {
             Flash::success("products was updated successfully", "alert alert-success");
+
             return $this->_forward("products/index");
         }
     }
 
-    function deleteAction($id)
+    public function deleteAction($id)
     {
         $id = $this->filter->sanitize($id, array("int"));
 
         $products = Products::findFirst('id="' . $id . '"');
         if (!$products) {
             Flash::error("products was not found", "alert alert-error");
+
             return $this->_forward("products/index");
         }
 
@@ -162,9 +170,11 @@ class ProductsController extends ControllerBase
             foreach ($products->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("products/search");
         } else {
             Flash::success("products was deleted", "alert alert-success");
+
             return $this->_forward("products/index");
         }
     }

@@ -33,9 +33,11 @@ class ContactController extends ControllerBase
                 foreach ($contact->getMessages() as $message) {
                     Phalcon_Flash::error((string) $message, 'alert alert-error');
                 }
+
                 return $this->_forward('contact/index');
             } else {
                 Phalcon_Flash::success('Thanks, We will contact you in the next few hours', 'alert alert-success');
+
                 return $this->_forward('index/index');
             }
         } else {

@@ -20,12 +20,12 @@ class ProductTypesController extends ControllerBase
         }
     }
 
-    function indexAction()
+    public function indexAction()
     {
         $this->session->conditions = null;
     }
 
-    function searchAction()
+    public function searchAction()
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
@@ -47,6 +47,7 @@ class ProductTypesController extends ControllerBase
         $producttypes = ProductTypes::find($parameters);
         if (count($producttypes) == 0) {
             Flash::notice("The search did not find any product types", "alert alert-info");
+
             return $this->_forward("producttypes/index");
         }
 
@@ -61,11 +62,11 @@ class ProductTypesController extends ControllerBase
         $this->view->setVar("producttypes", $producttypes);
     }
 
-    function newAction()
+    public function newAction()
     {
     }
 
-    function editAction($id)
+    public function editAction($id)
     {
         $request = Phalcon_Request::getInstance();
         if (!$request->isPost()) {
@@ -75,6 +76,7 @@ class ProductTypesController extends ControllerBase
             $producttypes = ProductTypes::findFirst('id="' . $id . '"');
             if (!$producttypes) {
                 Flash::error("product types was not found", "alert alert-error");
+
                 return $this->_forward("producttypes/index");
             }
             $this->view->setVar("id", $producttypes->id);
@@ -84,7 +86,7 @@ class ProductTypesController extends ControllerBase
         }
     }
 
-    function createAction()
+    public function createAction()
     {
         if (!$this->request->isPost()) {
             return $this->_forward("producttypes/index");
@@ -100,14 +102,16 @@ class ProductTypesController extends ControllerBase
             foreach ($producttypes->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("producttypes/new");
         } else {
             Flash::success("product types was created successfully", "alert alert-success");
+
             return $this->_forward("producttypes/index");
         }
     }
 
-    function saveAction()
+    public function saveAction()
     {
         if (!$this->request->isPost()) {
             return $this->_forward("producttypes/index");
@@ -117,6 +121,7 @@ class ProductTypesController extends ControllerBase
         $producttypes = ProductTypes::findFirst("id='$id'");
         if ($producttypes == false) {
             Flash::error("product types does not exist " . $id, "alert alert-error");
+
             return $this->_forward("producttypes/index");
         }
         $producttypes->id = $this->request->getPost("id", "int");
@@ -128,20 +133,23 @@ class ProductTypesController extends ControllerBase
             foreach ($producttypes->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("producttypes/edit/" . $producttypes->id);
         } else {
             Flash::success("product types was updated successfully", "alert alert-success");
+
             return $this->_forward("producttypes/index");
         }
     }
 
-    function deleteAction($id)
+    public function deleteAction($id)
     {
         $id = $this->filter->sanitize($id, array("int"));
 
         $producttypes = ProductTypes::findFirst('id="' . $id . '"');
         if (!$producttypes) {
             Flash::error("product types was not found", "alert alert-error");
+
             return $this->_forward("producttypes/index");
         }
 
@@ -149,9 +157,11 @@ class ProductTypesController extends ControllerBase
             foreach ($producttypes->getMessages() as $message) {
                 Flash::error((string) $message, "alert alert-error");
             }
+
             return $this->_forward("producttypes/search");
         } else {
             Flash::success("product types was deleted", "alert alert-success");
+
             return $this->_forward("producttypes/index");
         }
     }

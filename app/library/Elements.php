@@ -7,7 +7,7 @@
  */
 abstract class Elements
 {
-    static private $_headerMenu = array(
+    private static $_headerMenu = array(
         'pull-left' => array(
             'index' => array(
                 'caption' => 'Home',
@@ -65,8 +65,8 @@ abstract class Elements
     /**
      * Builds header menu with left and right items
      *
-     * @param    Phalcon_View $view
-     * @return    string
+     * @param  Phalcon_View $view
+     * @return string
      */
     public static function getMenu($view)
     {
