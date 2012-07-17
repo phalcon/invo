@@ -1,8 +1,8 @@
 <?php
 
-use Phalcon_Tag as Tag;
-use Phalcon_Flash as Flash;
-use Phalcon_Session as Session;
+use Phalcon\Tag as Tag;
+use Phalcon\Flash as Flash;
+use Phalcon\Session as Session;
 
 class InvoicesController extends ControllerBase
 {
@@ -34,7 +34,7 @@ class InvoicesController extends ControllerBase
         //Get session info
         $auth = Session::get('auth');
 
-        //Query the active user
+        //Query the active user        
         $user = Users::findFirst($auth['id']);
         if ($user == false) {
             $this->_forward('index/index');

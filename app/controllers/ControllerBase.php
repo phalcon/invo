@@ -1,9 +1,9 @@
 <?php
 
-class ControllerBase extends Phalcon_Controller
+class ControllerBase extends Phalcon\Controller
 {
     public function initialize()
     {
-        Phalcon_Tag::prependTitle('INVO | ');
+        Phalcon\Tag::prependTitle('INVO | ');
     }
 }

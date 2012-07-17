@@ -1,7 +1,7 @@
 <?php
 
-use Phalcon_Tag as Tag;
-use Phalcon_Flash as Flash;
+use Phalcon\Tag as Tag;
+use Phalcon\Flash as Flash;
 
 class SessionController extends ControllerBase
 {
@@ -32,7 +32,6 @@ class SessionController extends ControllerBase
 
             if ($password != $repeatPassword) {
                 Flash::error((string) $message, 'alert alert-error');
-
                 return false;
             }
 
@@ -44,7 +43,7 @@ class SessionController extends ControllerBase
             $user->password = sha1($password);
             $user->name = $name;
             $user->email = $email;
-            $user->created_at = new Phalcon_Db_RawValue('now()');
+            $user->created_at = new Phalcon\Db\RawValue('now()');
             $user->active = 'Y';
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
@@ -54,7 +53,6 @@ class SessionController extends ControllerBase
                 Tag::setDefault('email', '');
                 Tag::setDefault('password', '');
                 Flash::success('Thanks for sign-up, please log-in to start generating invoices', 'alert alert-success');
-
                 return $this->_forward('session/index');
             }
         }
@@ -67,7 +65,7 @@ class SessionController extends ControllerBase
      */
     private function _registerSession($user)
     {
-        Phalcon_Session::set('auth', array(
+        Phalcon\Session::set('auth', array(
             'id' => $user->id,
             'name' => $user->name
         ));
@@ -89,7 +87,6 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 Flash::success('Welcome ' . $user->name, 'alert alert-success');
-
                 return $this->_forward('invoices/index');
             }
 
@@ -98,7 +95,6 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 Flash::success('Welcome ' . $user->name, 'alert alert-success');
-
                 return $this->_forward('invoices/index');
             }
 
@@ -117,7 +113,6 @@ class SessionController extends ControllerBase
     {
         unset($_SESSION['auth']);
         Flash::success('Goodbye!', 'alert alert-success');
-
         return $this->_forward('index/index');
     }
 }
