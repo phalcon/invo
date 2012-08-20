@@ -5,7 +5,7 @@ class ContactController extends ControllerBase
     public function initialize()
     {
         $this->view->setTemplateAfter('main');
-        Phalcon\Tag::setTitle('Contact us');
+        Phalcon_Tag::setTitle('Contact us');
         parent::initialize();
     }
 
@@ -28,16 +28,20 @@ class ContactController extends ControllerBase
             $contact->name = $name;
             $contact->email = $email;
             $contact->comments = $comments;
-            $contact->created_at = new Phalcon\Db\RawValue('now()');
+            $contact->created_at = new Phalcon_Db_RawValue('now()');
             if ($contact->save() == false) {
                 foreach ($contact->getMessages() as $message) {
-                    Phalcon\Flash::error((string) $message, 'alert alert-error');
-                }                
+                    Phalcon_Flash::error((string) $message, 'alert alert-error');
+                }
+
+                return $this->_forward('contact/index');
             } else {
-                Phalcon\Flash::success('Thanks, We will contact you in the next few hours', 'alert alert-success');
-                return $this->forward('index/index');
+                Phalcon_Flash::success('Thanks, We will contact you in the next few hours', 'alert alert-success');
+
+                return $this->_forward('index/index');
             }
-        } 
-        return $this->forward('contact/index');        
+        } else {
+            return $this->_forward('contact/index');
+        }
     }
 }

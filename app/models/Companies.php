@@ -1,8 +1,6 @@
 <?php
 
-use Phalcon\Model\Base as Model;
-
-class Companies extends Model
+class Companies extends Phalcon_Model_Base
 {
     /**
      * @var integer

@@ -70,7 +70,7 @@ abstract class Elements
      */
     public static function getMenu($view)
     {
-        $auth = Phalcon\Session::get('auth');
+        $auth = Phalcon_Session::get('auth');
         if ($auth) {
             self::$_headerMenu['pull-right']['session'] = array(
                 'caption' => 'Log Out',
@@ -90,7 +90,7 @@ abstract class Elements
                 } else {
                     echo '<li>';
                 }
-                echo Phalcon\Tag::linkTo($controller.'/'.$option['action'], $option['caption']);
+                echo Phalcon_Tag::linkTo($controller.'/'.$option['action'], $option['caption']);
                 echo '</li>';
             }
             echo '</ul>';
@@ -109,7 +109,7 @@ abstract class Elements
             } else {
                 echo '<li>';
             }
-            echo Phalcon\Tag::linkTo($option['controller'].'/'.$option['action'], $caption), '<li>';
+            echo Phalcon_Tag::linkTo($option['controller'].'/'.$option['action'], $caption), '<li>';
         }
         echo '</ul>';
     }
