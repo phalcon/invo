@@ -1,6 +1,6 @@
 <?php
 
-class ControllerBase extends Phalcon\Mvc\Controller
+class ControllerBase extends Phalcon\Controller
 {
     public function initialize()
     {
