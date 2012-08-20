@@ -1,6 +1,12 @@
-app/config/config.ini
-
+app/config/config.ini*
 .DS_Store*
 ehthumbs.db
 Icon?
 Thumbs.db
+.project
+.settings
+.buildpath
+*.komodoproject
+*.sublime-project
+*.sublime-workspace
+.idea/
