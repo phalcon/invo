@@ -1,6 +1,6 @@
 <?php
 
-class Products extends Phalcon_Model_Base
+class Products extends Phalcon\Mvc\Model
 {
     /**
      * @var integer

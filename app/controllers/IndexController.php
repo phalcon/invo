@@ -5,14 +5,14 @@ class IndexController extends ControllerBase
     public function initialize()
     {
         $this->view->setTemplateAfter('main');
-        Phalcon_Tag::setTitle('Welcome');
+        Phalcon\Tag::setTitle('Welcome');
         parent::initialize();
     }
 
     public function indexAction()
     {
         if (!$this->request->isPost()) {
-            Phalcon_Flash::notice('This is a sample application of the Phalcon PHP Framework.
+            Phalcon\Flash::notice('This is a sample application of the Phalcon PHP Framework.
                 Please don\'t provide us any personal information. Thanks', 'alert alert-info');
         }
     }
