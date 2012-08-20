@@ -4,3 +4,10 @@ app/config/config.ini
 ehthumbs.db
 Icon?
 Thumbs.db
+.project
+.settings
+.buildpath
+*.komodoproject
+*.sublime-project
+*.sublime-workspace
+
