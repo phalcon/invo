@@ -1,7 +1,7 @@
 <?php
 
-use Phalcon\Tag as Tag;
-use Phalcon\Flash as Flash;
+use Phalcon_Tag as Tag;
+use Phalcon_Flash as Flash;
 
 class CompaniesController extends ControllerBase
 {
@@ -14,7 +14,7 @@ class CompaniesController extends ControllerBase
 
     public function beforeDispatch()
     {
-        if (!Phalcon\Session::get('auth')) {
+        if (!Phalcon_Session::get('auth')) {
             Flash::error('You don\'t have access to this module', 'alert alert-error');
             $this->_forward('index/index');
         }
@@ -29,7 +29,7 @@ class CompaniesController extends ControllerBase
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Phalcon\Model\Query::fromInput("Companies", $_POST);
+            $query = Phalcon_Model_Query::fromInput("Companies", $_POST);
             $this->session->conditions = $query->getConditions();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -51,7 +51,7 @@ class CompaniesController extends ControllerBase
             return $this->_forward("companies/index");
         }
 
-        $paginator = Phalcon\Paginator::factory("Model", array(
+        $paginator = Phalcon_Paginator::factory("Model", array(
                     "data" => $companies,
                     "limit" => 10,
                     "page" => $numberPage
@@ -68,7 +68,7 @@ class CompaniesController extends ControllerBase
 
     public function editAction($id)
     {
-        $request = Phalcon\Request::getInstance();
+        $request = Phalcon_Request::getInstance();
         if (!$request->isPost()) {
 
             $id = $this->filter->sanitize($id, array("int"));

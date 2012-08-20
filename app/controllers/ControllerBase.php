@@ -1,20 +1,9 @@
 <?php
 
-class ControllerBase extends Phalcon\Mvc\Controller
+class ControllerBase extends Phalcon_Controller
 {
-
-    protected function initialize()
+    public function initialize()
     {
-        Phalcon\Tag::prependTitle('INVO | ');
-    }
-
-    protected function forward($uri){
-    	$uriParts = explode('/', $uri);
-    	return $this->dispatcher->forward(
-    		array(
-    			'controller' => $uriParts[0], 
-    			'action' => $uriParts[1]
-    		)
-    	);
+        Phalcon_Tag::prependTitle('INVO | ');
     }
 }
