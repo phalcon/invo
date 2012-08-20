@@ -1,18 +1,5 @@
 <?php
 
-use Phalcon\Model\Base as Model;
-
-class Contact extends Model
+class Contact extends Phalcon_Model_Base
 {
-
-	public $id;
-
-	public $name;
-
-	public $email;
-
-	public $comments;
-
-	public $created_at;
-
 }

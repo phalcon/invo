@@ -1,8 +1,6 @@
 <?php
 
-use Phalcon\Model\Base as Model;
-
-class ProductTypes extends Model
+class ProductTypes extends Phalcon_Model_Base
 {
     /**
      * @var integer

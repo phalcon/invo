@@ -7,15 +7,15 @@ try {
     require __DIR__.'/../app/controllers/ControllerBase.php';
     require __DIR__.'/../app/library/Elements.php';
 
-    Phalcon\Session::start();
+    Phalcon_Session::start();
 
-    $front = Phalcon\Controller\Front::getInstance();
+    $front = Phalcon_Controller_Front::getInstance();
 
-    $config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../app/config/config.ini');
+    $config = new Phalcon_Config_Adapter_Ini(__DIR__.'/../app/config/config.ini');
     $front->setConfig($config);
 
     echo $front->dispatchLoop()->getContent();
 
-} catch (Phalcon\Exception $e) {
+} catch (Phalcon_Exception $e) {
     echo "PhalconException: ", $e->getMessage();
 }

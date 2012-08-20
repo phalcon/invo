@@ -1,8 +1,6 @@
 <?php
 
-use Phalcon\Model\Base as Model;
-
-class Users extends Model
+class Users extends Phalcon_Model_Base
 {
     public function validation()
     {
