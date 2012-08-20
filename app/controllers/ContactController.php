@@ -35,9 +35,9 @@ class ContactController extends ControllerBase
                 }                
             } else {
                 Phalcon\Flash::success('Thanks, We will contact you in the next few hours', 'alert alert-success');
-                return $this->_forward('index/index');
+                return $this->forward('index/index');
             }
         } 
-        return $this->_forward('contact/index');        
+        return $this->forward('contact/index');        
     }
 }

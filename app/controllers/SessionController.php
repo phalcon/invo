@@ -53,7 +53,7 @@ class SessionController extends ControllerBase
                 Tag::setDefault('email', '');
                 Tag::setDefault('password', '');
                 Flash::success('Thanks for sign-up, please log-in to start generating invoices', 'alert alert-success');
-                return $this->_forward('session/index');
+                return $this->forward('session/index');
             }
         }
     }
@@ -87,7 +87,7 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 Flash::success('Welcome ' . $user->name, 'alert alert-success');
-                return $this->_forward('invoices/index');
+                return $this->forward('invoices/index');
             }
 
             $username = $this->request->getPost('email', 'string');
@@ -95,13 +95,13 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 Flash::success('Welcome ' . $user->name, 'alert alert-success');
-                return $this->_forward('invoices/index');
+                return $this->forward('invoices/index');
             }
 
             Flash::error('Wrong email/password', 'alert alert-error');
         }
 
-        return $this->_forward('session/index');
+        return $this->forward('session/index');
     }
 
     /**
@@ -113,6 +113,6 @@ class SessionController extends ControllerBase
     {
         unset($_SESSION['auth']);
         Flash::success('Goodbye!', 'alert alert-success');
-        return $this->_forward('index/index');
+        return $this->forward('index/index');
     }
 }
