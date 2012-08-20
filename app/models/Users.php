@@ -6,7 +6,7 @@ class Users extends Phalcon\Mvc\Model
 {
     public function validation()
     {
-        $this->validate(new EmailEmailValidator(array(
+        $this->validate(new EmailValidator(array(
             'field' => 'email'
         )));
         /*$this->validate('Uniqueness', array(
