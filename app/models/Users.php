@@ -1,22 +1,22 @@
 <?php
 
-use Phalcon\Mvc\Model\Validator\Email as EmailValidator;
+use Phalcon\Model\Base as Model;
 
-class Users extends Phalcon\Mvc\Model
+class Users extends Model
 {
     public function validation()
     {
-        $this->validate(new EmailEmailValidator(array(
+        $this->validate('Email', array(
             'field' => 'email'
-        )));
-        /*$this->validate('Uniqueness', array(
+        ));
+        $this->validate('Uniqueness', array(
             'field' => 'email',
             'message' => 'Sorry, The email was registered by another user'
         ));
         $this->validate('Uniqueness', array(
             'field' => 'username',
             'message' => 'Sorry, That username is already taken'
-        ));*/
+        ));
         if ($this->validationHasFailed() == true) {
             return false;
         }

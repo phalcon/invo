@@ -1,6 +1,8 @@
 <?php
 
-class Contact extends Phalcon\Mvc\Model
+use Phalcon\Model\Base as Model;
+
+class Contact extends Model
 {
 
 	public $id;

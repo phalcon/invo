@@ -5,13 +5,13 @@ error_reporting(E_ALL);
 
 try {
 
-	require __DIR__.'/../app/controllers/ControllerBase.php';
-	require __DIR__.'/../app/library/Elements.php';
+    require __DIR__.'/../app/controllers/ControllerBase.php';
+    require __DIR__.'/../app/library/Elements.php';
 
-	Phalcon\Session::start();
+    Phalcon\Session::start();
 
-	//Read the configuration
-	$config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../app/config/config.ini');
+    //Read the configuration
+    $config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../app/config/config.ini');
 
 	$loader = new \Phalcon\Loader();
 
@@ -36,19 +36,10 @@ try {
 	});		
 
 	//Registering a Http\Response 
-	$di->set('response', function(){
-		return new Phalcon\Http\Response();
-	});
+	$di->set('response', 'Phalcon\Http\Response');
 
 	//Registering a Http\Request
-	$di->set('request', function(){
-		return new Phalcon\Http\Request();
-	});
-
-	//Registering a Http\Request
-	$di->set('filter', function(){
-		return new Phalcon\Filter();
-	});	
+	$di->set('request', 'Phalcon\Http\Request');
 
 	//Register the url service with a default baseUri
 	$di->set('url', function() use ($config){
@@ -95,7 +86,5 @@ try {
 	echo $application->handle()->getContent();
 
 } catch (Phalcon\Exception $e) {
-	echo $e->getMessage();
-} catch (PDOException $e){
 	echo $e->getMessage();
 }
