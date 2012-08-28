@@ -12,14 +12,6 @@ class CompaniesController extends ControllerBase
         parent::initialize();
     }
 
-    public function beforeDispatch()
-    {
-        if (!Phalcon\Session::get('auth')) {
-            Flash::error('You don\'t have access to this module', 'alert alert-error');
-            $this->_forward('index/index');
-        }
-    }
-
     public function indexAction()
     {
         $this->session->conditions = null;

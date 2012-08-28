@@ -1,6 +1,6 @@
 <?php use Phalcon\Tag as Tag ?>
 
-<?php echo Tag::form("products/create") ?>
+<?php echo Tag::form(array("products/create", "autocomplete" => "off")) ?>
 
 <ul class="pager">
     <li class="previous pull-left">

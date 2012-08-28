@@ -70,7 +70,8 @@ abstract class Elements
      */
     public static function getMenu($view)
     {
-        $auth = Phalcon\Session::get('auth');
+        //$auth = Phalcon\Session::get('auth');
+        $auth = false;
         if ($auth) {
             self::$_headerMenu['pull-right']['session'] = array(
                 'caption' => 'Log Out',

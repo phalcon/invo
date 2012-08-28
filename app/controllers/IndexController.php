@@ -12,8 +12,8 @@ class IndexController extends ControllerBase
     public function indexAction()
     {
         if (!$this->request->isPost()) {
-            Phalcon\Flash::notice('This is a sample application of the Phalcon PHP Framework.
-                Please don\'t provide us any personal information. Thanks', 'alert alert-info');
+            $this->flash->notice('This is a sample application of the Phalcon PHP Framework.
+                Please don\'t provide us any personal information. Thanks');
         }
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Tag as Tag;
-use Phalcon\Flash as Flash;
 
 class SessionController extends ControllerBase
 {
@@ -22,21 +21,19 @@ class SessionController extends ControllerBase
 
     public function registerAction()
     {
-        if ($this->request->isPost()) {
+        $request = $this->request;
+        if ($request->isPost()) {
 
-            $name = $this->request->getPost('name', 'string');
-            $username = $this->request->getPost('username', 'string');
-            $email = $this->request->getPost('email', 'email');
-            $password = $this->request->getPost('password');
+            $name = $request->getPost('name', array('string', 'striptags'));
+            $username = $request->getPost('username', 'alphanum');
+            $email = $request->getPost('email', 'email');
+            $password = $request->getPost('password');
             $repeatPassword = $this->request->getPost('repeatPassword');
 
             if ($password != $repeatPassword) {
-                Flash::error((string) $message, 'alert alert-error');
+                $this->flash->error('Passwords are diferent');
                 return false;
             }
-
-            $name = strip_tags($name);
-            $username = strip_tags($username);
 
             $user = new Users();
             $user->username = $username;
@@ -47,12 +44,12 @@ class SessionController extends ControllerBase
             $user->active = 'Y';
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
-                    Flash::error((string) $message, 'alert alert-error');
+                    $this->flash->error((string) $message);
                 }
             } else {
                 Tag::setDefault('email', '');
                 Tag::setDefault('password', '');
-                Flash::success('Thanks for sign-up, please log-in to start generating invoices', 'alert alert-success');
+                $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
                 return $this->forward('session/index');
             }
         }
@@ -65,7 +62,7 @@ class SessionController extends ControllerBase
      */
     private function _registerSession($user)
     {
-        Phalcon\Session::set('auth', array(
+        $this->session->set('auth', array(
             'id' => $user->id,
             'name' => $user->name
         ));
@@ -79,26 +76,26 @@ class SessionController extends ControllerBase
     {
         if ($this->request->isPost()) {
             $email = $this->request->getPost('email', 'email');
-            $password = $this->request->getPost('password');
 
+            $password = $this->request->getPost('password');
             $password = sha1($password);
 
             $user = Users::findFirst("email='$email' AND password='$password' AND active='Y'");
             if ($user != false) {
                 $this->_registerSession($user);
-                Flash::success('Welcome ' . $user->name, 'alert alert-success');
+                $this->flash->success('Welcome ' . $user->name);
                 return $this->forward('invoices/index');
             }
 
-            $username = $this->request->getPost('email', 'string');
+            $username = $this->request->getPost('email', 'alphanum');
             $user = Users::findFirst("username='$email' AND password='$password' AND active='Y'");
             if ($user != false) {
                 $this->_registerSession($user);
-                Flash::success('Welcome ' . $user->name, 'alert alert-success');
+                $this->flash->success('Welcome ' . $user->name);
                 return $this->forward('invoices/index');
             }
 
-            Flash::error('Wrong email/password', 'alert alert-error');
+            $this->flash->error('Wrong email/password');
         }
 
         return $this->forward('session/index');
@@ -112,7 +109,7 @@ class SessionController extends ControllerBase
     public function endAction()
     {
         unset($_SESSION['auth']);
-        Flash::success('Goodbye!', 'alert alert-success');
+        $this->flash->success('Goodbye!');
         return $this->forward('index/index');
     }
 }
