@@ -108,7 +108,7 @@ class SessionController extends ControllerBase
      */
     public function endAction()
     {
-        unset($_SESSION['auth']);
+        $this->session->remove('auth');
         $this->flash->success('Goodbye!');
         return $this->forward('index/index');
     }
