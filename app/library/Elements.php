@@ -5,9 +5,10 @@
  *
  * Helps to build UI elements for the application
  */
-abstract class Elements
+class Elements extends Phalcon\Mvc\User\Component
 {
-    private static $_headerMenu = array(
+
+    private $_headerMenu = array(
         'pull-left' => array(
             'index' => array(
                 'caption' => 'Home',
@@ -34,7 +35,7 @@ abstract class Elements
         )
     );
 
-    private static $_tabs = array(
+    private $_tabs = array(
         'Invoices' => array(
             'controller' => 'invoices',
             'action' => 'index',
@@ -65,27 +66,24 @@ abstract class Elements
     /**
      * Builds header menu with left and right items
      *
-     * @param  Phalcon_View $view
      * @return string
      */
-    public static function getMenu($view)
+    public function getMenu()
     {
 
-        $session = Phalcon\DI::getDefault()->getShared('session');
-
-        $auth = $session->get('auth');
+        $auth = $this->session->get('auth');
         if ($auth) {
-            self::$_headerMenu['pull-right']['session'] = array(
+            $this->_headerMenu['pull-right']['session'] = array(
                 'caption' => 'Log Out',
                 'action' => 'end'
             );
         } else {
-            unset(self::$_headerMenu['pull-left']['invoices']);
+            unset($this->_headerMenu['pull-left']['invoices']);
         }
 
         echo '<div class="nav-collapse">';
-        $controllerName = $view->getControllerName();
-        foreach (self::$_headerMenu as $position => $menu) {
+        $controllerName = $this->view->getControllerName();
+        foreach ($this->_headerMenu as $position => $menu) {
             echo '<ul class="nav ', $position, '">';
             foreach ($menu as $controller => $option) {
                 if ($controllerName == $controller) {
@@ -101,12 +99,12 @@ abstract class Elements
         echo '</div>';
     }
 
-    public static function getTabs($view)
+    public function getTabs()
     {
-        $controllerName = $view->getControllerName();
-        $actionName = $view->getActionName();
+        $controllerName = $this->view->getControllerName();
+        $actionName = $this->view->getActionName();
         echo '<ul class="nav nav-tabs">';
-        foreach (self::$_tabs as $caption => $option) {
+        foreach ($this->_tabs as $caption => $option) {
             if ($option['controller'] == $controllerName && ($option['action'] == $actionName || $option['any'])) {
                 echo '<li class="active">';
             } else {

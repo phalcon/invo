@@ -4,9 +4,6 @@ error_reporting(E_ALL);
 
 try {
 
-	require __DIR__.'/../app/controllers/ControllerBase.php';
-	require __DIR__.'/../app/library/Elements.php';
-
 	//Read the configuration
 	$config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../app/config/config.ini');
 
@@ -18,8 +15,9 @@ try {
 	$loader->registerDirs(
 		array(
 			__DIR__.$config->phalcon->controllersDir,
+			__DIR__.$config->phalcon->pluginsDir,
+			__DIR__.$config->phalcon->libraryDir,
 			__DIR__.$config->phalcon->modelsDir,
-			__DIR__.$config->phalcon->pluginsDir
 		)
 	)->register();
 
@@ -35,10 +33,12 @@ try {
 
 		$eventsManager = $di->getShared('eventsManager');
 
+		$security = new Security($di);
+
 		/**
 		 * We listen for events in the dispatcher using the Security plugin
-		 */
-		$eventsManager->attach('dispatch', new Security());
+         */
+		$eventsManager->attach('dispatch', $security);
 
 		$dispatcher = new Phalcon\Mvc\Dispatcher();
 		$dispatcher->setEventsManager($eventsManager);
@@ -102,6 +102,11 @@ try {
 			'notice' => 'alert alert-info',
 		));
 		return $flash;
+	});
+
+	//Register a user component
+	$di->set('elements', function(){
+		return new Elements();
 	});
 
 	$application = new \Phalcon\Mvc\Application();
