@@ -14,10 +14,10 @@ try {
 	 */
 	$loader->registerDirs(
 		array(
-			__DIR__.$config->phalcon->controllersDir,
-			__DIR__.$config->phalcon->pluginsDir,
-			__DIR__.$config->phalcon->libraryDir,
-			__DIR__.$config->phalcon->modelsDir,
+			__DIR__.$config->application->controllersDir,
+			__DIR__.$config->application->pluginsDir,
+			__DIR__.$config->application->libraryDir,
+			__DIR__.$config->application->modelsDir,
 		)
 	)->register();
 
@@ -37,7 +37,7 @@ try {
 
 		/**
 		 * We listen for events in the dispatcher using the Security plugin
-         */
+        	 */
 		$eventsManager->attach('dispatch', $security);
 
 		$dispatcher = new Phalcon\Mvc\Dispatcher();
@@ -51,14 +51,14 @@ try {
 	 */
 	$di->set('url', function() use ($config){
 		$url = new \Phalcon\Mvc\Url();
-		$url->setBaseUri($config->phalcon->baseUri);
+		$url->setBaseUri($config->application->baseUri);
 		return $url;
 	});
 
 
 	$di->set('view', function() use ($config) {
 		$view = new \Phalcon\Mvc\View();
-		$view->setViewsDir(__DIR__.$config->phalcon->viewsDir);
+		$view->setViewsDir(__DIR__.$config->application->viewsDir);
 		return $view;
 	});
 
@@ -87,14 +87,18 @@ try {
 		}
 	});
 
-	//Start the session the first time some component request the session service
+	/**
+         * Start the session the first time some component request the session service
+         */
 	$di->set('session', function(){
 		$session = new Phalcon\Session\Adapter\Files();
 		$session->start();
 		return $session;
 	});
 
-	//Register the flash service with custom CSS classes
+	/**
+         * Register the flash service with custom CSS classes
+         */
 	$di->set('flash', function(){
 		$flash = new Phalcon\Flash\Direct(array(
 			'error' => 'alert alert-error',
@@ -104,7 +108,9 @@ try {
 		return $flash;
 	});
 
-	//Register a user component
+	/**
+         * Register a user component
+         */
 	$di->set('elements', function(){
 		return new Elements();
 	});

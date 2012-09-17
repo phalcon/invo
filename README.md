@@ -18,7 +18,7 @@ The master branch will always contain the latest stable version. If you wish
 to check older versions or newer ones currently under development, please
 switch to the relevant branch.
 
-Latest stable release: 0.4.4
+Latest stable release: 0.5.0
 
 Get Started
 -----------
