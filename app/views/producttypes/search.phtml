@@ -1,4 +1,4 @@
-<?php use Phalcon_Tag as Tag ?>
+<?php use Phalcon\Tag as Tag ?>
 
 <?php echo $this->getContent() ?>
 
@@ -21,12 +21,12 @@
     <tbody>
     <?php
         if(isset($page->items)){
-            foreach($page->items as $producttypes){ ?>
+            foreach($page->items as $productType){ ?>
         <tr>
-            <td><?php echo $producttypes->id ?></td>
-            <td><?php echo $producttypes->name ?></td>
-            <td width="12%"><?php echo Tag::linkTo(array("producttypes/edit/".$producttypes->id, '<i class="icon-pencil"></i> Edit', "class" => "btn")) ?></td>
-            <td width="12%"><?php echo Tag::linkTo(array("producttypes/delete/".$producttypes->id, '<i class="icon-remove"></i> Delete', "class" => "btn")) ?></td>
+            <td><?php echo $productType->id ?></td>
+            <td><?php echo $productType->name ?></td>
+            <td width="12%"><?php echo Tag::linkTo(array("producttypes/edit/".$productType->id, '<i class="icon-pencil"></i> Edit', "class" => "btn")) ?></td>
+            <td width="12%"><?php echo Tag::linkTo(array("producttypes/delete/".$productType->id, '<i class="icon-remove"></i> Delete', "class" => "btn")) ?></td>
         </tr>
     <?php }
         } ?>

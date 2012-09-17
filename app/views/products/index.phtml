@@ -1,4 +1,4 @@
-<?php use Phalcon_Tag as Tag ?>
+<?php use Phalcon\Tag as Tag ?>
 
 <?php echo $this->getContent() ?>
 
@@ -6,7 +6,7 @@
     <?php echo Tag::linkTo(array("products/new", "Create Products", "class" => "btn btn-primary")) ?>
 </div>
 
-<?php echo Tag::form(array("products/search")) ?>
+<?php echo Tag::form(array("products/search", "autocomplete" => "off")) ?>
 
 <div class="center scaffold">
 

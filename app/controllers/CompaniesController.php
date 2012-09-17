@@ -1,7 +1,7 @@
 <?php
 
-use Phalcon_Tag as Tag;
-use Phalcon_Flash as Flash;
+use Phalcon\Tag as Tag;
+use Phalcon\Mvc\Model\Criteria;
 
 class CompaniesController extends ControllerBase
 {
@@ -10,14 +10,6 @@ class CompaniesController extends ControllerBase
         $this->view->setTemplateAfter('main');
         Tag::setTitle('Manage your companies');
         parent::initialize();
-    }
-
-    public function beforeDispatch()
-    {
-        if (!Phalcon_Session::get('auth')) {
-            Flash::error('You don\'t have access to this module', 'alert alert-error');
-            $this->_forward('index/index');
-        }
     }
 
     public function indexAction()
@@ -29,8 +21,8 @@ class CompaniesController extends ControllerBase
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Phalcon_Model_Query::fromInput("Companies", $_POST);
-            $this->session->conditions = $query->getConditions();
+            $query = Criteria::fromInput($this->di, "Companies", $_POST);
+            $this->persistent->searchParams = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
             if ($numberPage <= 0) {
@@ -39,23 +31,21 @@ class CompaniesController extends ControllerBase
         }
 
         $parameters = array();
-        if ($this->session->conditions) {
-            $parameters["conditions"] = $this->session->conditions;
+        if ($this->persistent->searchParams) {
+            $parameters = $this->persistent->searchParams;
         }
-        $parameters["order"] = "id";
 
         $companies = Companies::find($parameters);
         if (count($companies) == 0) {
-            Flash::notice("The search did not find any companies", "alert alert-info");
-
-            return $this->_forward("companies/index");
+            $this->flash->notice("The search did not find any companies");
+            return $this->forward("companies/index");
         }
 
-        $paginator = Phalcon_Paginator::factory("Model", array(
-                    "data" => $companies,
-                    "limit" => 10,
-                    "page" => $numberPage
-                ));
+        $paginator = new Phalcon\Paginator\Adapter\Model(array(
+            "data" => $companies,
+            "limit" => 10,
+            "page" => $numberPage
+        ));
         $page = $paginator->getPaginate();
 
         $this->view->setVar("page", $page);
@@ -68,16 +58,13 @@ class CompaniesController extends ControllerBase
 
     public function editAction($id)
     {
-        $request = Phalcon_Request::getInstance();
+        $request = $this->request;
         if (!$request->isPost()) {
 
-            $id = $this->filter->sanitize($id, array("int"));
-
-            $companies = Companies::findFirst('id="' . $id . '"');
+            $companies = Companies::findFirst(array('id=:id:', 'bind' => array('id' => $id)));
             if (!$companies) {
-                Flash::error("companies was not found", "alert alert-error");
-
-                return $this->_forward("companies/index");
+                $this->flash->error("companies was not found");
+                return $this->forward("companies/index");
             }
             $this->view->setVar("id", $companies->id);
 
@@ -92,92 +79,73 @@ class CompaniesController extends ControllerBase
     public function createAction()
     {
         if (!$this->request->isPost()) {
-            return $this->_forward("companies/index");
+            return $this->forward("companies/index");
         }
 
         $companies = new Companies();
         $companies->id = $this->request->getPost("id", "int");
-        $companies->name = $this->request->getPost("name");
-        $companies->telephone = $this->request->getPost("telephone");
-        $companies->address = $this->request->getPost("address");
-        $companies->city = $this->request->getPost("city");
-
-        $companies->name = strip_tags($companies->name);
-        $companies->telephone = strip_tags($companies->telephone);
-        $companies->address = strip_tags($companies->address);
-        $companies->city = strip_tags($companies->city);
+        $companies->name = $this->request->getPost("name", "striptags");
+        $companies->telephone = $this->request->getPost("telephone", "striptags");
+        $companies->address = $this->request->getPost("address", "striptags");
+        $companies->city = $this->request->getPost("city", "striptags");
 
         if (!$companies->save()) {
             foreach ($companies->getMessages() as $message) {
-                Flash::error((string) $message, "alert alert-error");
+                $this->flash->error((string) $message);
             }
-
-            return $this->_forward("companies/new");
+            return $this->forward("companies/new");
         } else {
-            Flash::success("companies was created successfully", "alert alert-success");
-
-            return $this->_forward("companies/index");
+            $this->flash->success("companies was created successfully");
+            return $this->forward("companies/index");
         }
     }
 
     public function saveAction()
     {
         if (!$this->request->isPost()) {
-            return $this->_forward("companies/index");
+            return $this->forward("companies/index");
         }
 
         $id = $this->request->getPost("id", "int");
         $companies = Companies::findFirst("id='$id'");
         if ($companies == false) {
-            Flash::error("companies does not exist " . $id, "alert alert-error");
-
-            return $this->_forward("companies/index");
+            $this->flash->error("companies does not exist ".$id);
+            return $this->forward("companies/index");
         }
         $companies->id = $this->request->getPost("id", "int");
-        $companies->name = $this->request->getPost("name");
-        $companies->telephone = $this->request->getPost("telephone");
-        $companies->address = $this->request->getPost("address");
-        $companies->city = $this->request->getPost("city");
-
-        $companies->name = strip_tags($companies->name);
-        $companies->telephone = strip_tags($companies->telephone);
-        $companies->address = strip_tags($companies->address);
-        $companies->city = strip_tags($companies->city);
+        $companies->name = $this->request->getPost("name", "striptags");
+        $companies->telephone = $this->request->getPost("telephone", "striptags");
+        $companies->address = $this->request->getPost("address", "striptags");
+        $companies->city = $this->request->getPost("city", "striptags");
 
         if (!$companies->save()) {
             foreach ($companies->getMessages() as $message) {
-                Flash::error((string) $message, "alert alert-error");
+                $this->flash->error((string) $message);
             }
-
-            return $this->_forward("companies/edit/" . $companies->id);
+            return $this->forward("companies/edit/".$companies->id);
         } else {
-            Flash::success("companies was updated successfully", "alert alert-success");
-
-            return $this->_forward("companies/index");
+            $this->flash->success("companies was updated successfully");
+            return $this->forward("companies/index");
         }
     }
 
     public function deleteAction($id)
     {
-        $id = $this->filter->sanitize($id, array("int"));
 
-        $companies = Companies::findFirst('id="' . $id . '"');
+        $companies = Companies::findFirst(array('id=:id:', 'bind' => array('id' => $id)));
         if (!$companies) {
-            Flash::error("companies was not found", "alert alert-error");
-
-            return $this->_forward("companies/index");
+            $this->flash->error("Company was not found");
+            return $this->forward("companies/index");
         }
 
         if (!$companies->delete()) {
             foreach ($companies->getMessages() as $message) {
-                Flash::error((string) $message, "alert alert-error");
+                $this->flash->error((string) $message);
             }
-
-            return $this->_forward("companies/search");
+            return $this->forward("companies/search");
         } else {
-            Flash::success("companies was deleted", "alert alert-success");
-
-            return $this->_forward("companies/index");
+            $this->flash->success("companies was deleted");
+            return $this->forward("companies/index");
         }
     }
 }

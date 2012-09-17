@@ -5,7 +5,7 @@ class AboutController extends ControllerBase
     public function initialize()
     {
         $this->view->setTemplateAfter('main');
-        Phalcon_Tag::setTitle('About us');
+        Phalcon\Tag::setTitle('About us');
         parent::initialize();
     }
 
