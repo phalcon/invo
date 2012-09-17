@@ -1,21 +1,21 @@
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="#">INVO</a>
-                <?php echo Elements::getMenu($this) ?>
-            </div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">INVO</a>
+            <?php echo $this->elements->getMenu() ?>
         </div>
     </div>
+</div>
 
-    <div class="container">
-        <?php echo $this->getContent() ?>
-        <hr>
-        <footer>
-            <p>&copy; Company 2012</p>
-        </footer>
-    </div>
+<div class="container">
+    <?php echo $this->getContent() ?>
+    <hr>
+    <footer>
+        <p>&copy; Company 2012</p>
+    </footer>
+</div>

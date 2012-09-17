@@ -1,6 +1,6 @@
 <?php
 
-class Companies extends Phalcon_Model_Base
+class Companies extends Phalcon\Mvc\Model
 {
     /**
      * @var integer
@@ -26,4 +26,5 @@ class Companies extends Phalcon_Model_Base
      * @var string
      */
     public $city;
+
 }

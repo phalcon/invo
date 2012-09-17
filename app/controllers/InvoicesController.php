@@ -1,8 +1,8 @@
 <?php
 
-use Phalcon_Tag as Tag;
-use Phalcon_Flash as Flash;
-use Phalcon_Session as Session;
+use Phalcon\Tag as Tag;
+use Phalcon\Flash as Flash;
+use Phalcon\Session as Session;
 
 class InvoicesController extends ControllerBase
 {
@@ -11,14 +11,6 @@ class InvoicesController extends ControllerBase
         $this->view->setTemplateAfter('main');
         Tag::setTitle('Manage your Invoices');
         parent::initialize();
-    }
-
-    public function beforeDispatch()
-    {
-        if (!Session::get('auth')) {
-            Flash::error('You don\'t have access to this module', 'alert alert-error');
-            $this->_forward('index/index');
-        }
     }
 
     public function indexAction()
@@ -32,7 +24,7 @@ class InvoicesController extends ControllerBase
     public function profileAction()
     {
         //Get session info
-        $auth = Session::get('auth');
+        $auth = $this->session->get('auth');
 
         //Query the active user
         $user = Users::findFirst($auth['id']);
@@ -40,13 +32,15 @@ class InvoicesController extends ControllerBase
             $this->_forward('index/index');
         }
 
-        if (!$this->request->isPost()) {
+        $request = $this->request;
+
+        if (!$request->isPost()) {
             Tag::setDefault('name', $user->name);
             Tag::setDefault('email', $user->email);
         } else {
 
-            $name = $this->request->getPost('name', 'string');
-            $email = $this->request->getPost('email', 'email');
+            $name = $request->getPost('name', 'string');
+            $email = $request->getPost('email', 'email');
 
             $name = strip_tags($name);
 
@@ -54,10 +48,10 @@ class InvoicesController extends ControllerBase
             $user->email = $email;
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
-                    Flash::error((string) $message, 'alert alert-error');
+                    $this->flash->error((string) $message);
                 }
             } else {
-                Flash::success('Your profile information was updated successfully', 'alert alert-success');
+                $this->flash->success('Your profile information was updated successfully');
             }
         }
     }
