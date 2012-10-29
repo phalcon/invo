@@ -88,8 +88,8 @@ try {
 	});
 
 	/**
-         * Start the session the first time some component request the session service
-         */
+	 * Start the session the first time some component request the session service
+	 */
 	$di->set('session', function(){
 		$session = new Phalcon\Session\Adapter\Files();
 		$session->start();
@@ -97,20 +97,19 @@ try {
 	});
 
 	/**
-         * Register the flash service with custom CSS classes
-         */
+	 * Register the flash service with custom CSS classes
+	 */
 	$di->set('flash', function(){
-		$flash = new Phalcon\Flash\Direct(array(
+		return new Phalcon\Flash\Direct(array(
 			'error' => 'alert alert-error',
 			'success' => 'alert alert-success',
 			'notice' => 'alert alert-info',
 		));
-		return $flash;
 	});
 
 	/**
-         * Register a user component
-         */
+	 * Register a user component
+	 */
 	$di->set('elements', function(){
 		return new Elements();
 	});
