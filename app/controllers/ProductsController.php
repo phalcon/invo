@@ -50,7 +50,6 @@ class ProductsController extends ControllerBase
         $page = $paginator->getPaginate();
 
         $this->view->setVar("page", $page);
-        $this->view->setVar("products", $products);
     }
 
     public function newAction()
