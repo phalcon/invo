@@ -41,7 +41,7 @@ class Security extends Phalcon\Mvc\User\Plugin
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
 			}
 
-			//Private area resources
+			//Public area resources
 			$publicResources = array(
 				'index' => array('index'),
 				'about' => array('index'),

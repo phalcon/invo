@@ -18,7 +18,7 @@ The master branch will always contain the latest stable version. If you wish
 to check older versions or newer ones currently under development, please
 switch to the relevant branch.
 
-Latest stable release: 0.5.0
+Latest stable release: >= 0.7.0
 
 Get Started
 -----------
@@ -27,7 +27,7 @@ Get Started
 
 To run this application on your machine, you need at least:
 
-* PHP 5.3.x
+* >= PHP 5.3.3
 * Apache Web Server with mod rewrite enabled
 * Latest Phalcon Framework extension enabled
 
