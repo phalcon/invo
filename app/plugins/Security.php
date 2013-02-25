@@ -1,12 +1,12 @@
 <?php
 
+/**
+ * Security
+ *
+ * This is the security plugin which controls that users only have access to the modules they're assigned to
+ */
 class Security extends Phalcon\Mvc\User\Plugin
 {
-
-	/**
-	 * @var Phalcon\Acl\Adapter\Memory
-	 */
-	protected $_acl;
 
 	public function __construct($dependencyInjector)
 	{
@@ -15,7 +15,7 @@ class Security extends Phalcon\Mvc\User\Plugin
 
 	public function getAcl()
 	{
-		if (!$this->_acl) {
+		if (!isset($this->persistent->acl)) {
 
 			$acl = new Phalcon\Acl\Adapter\Memory();
 
@@ -26,7 +26,7 @@ class Security extends Phalcon\Mvc\User\Plugin
 				'users' => new Phalcon\Acl\Role('Users'),
 				'guests' => new Phalcon\Acl\Role('Guests')
 			);
-			foreach($roles as $role){
+			foreach ($roles as $role) {
 				$acl->addRole($role);
 			}
 
@@ -37,7 +37,7 @@ class Security extends Phalcon\Mvc\User\Plugin
 				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
 				'invoices' => array('index', 'profile')
 			);
-			foreach($privateResources as $resource => $actions){
+			foreach ($privateResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
 			}
 
@@ -53,22 +53,24 @@ class Security extends Phalcon\Mvc\User\Plugin
 			}
 
 			//Grant access to public areas to both users and guests
-			foreach($roles as $role){
-				foreach($publicResources as $resource => $actions){
+			foreach ($roles as $role) {
+				foreach ($publicResources as $resource => $actions) {
 					$acl->allow($role->getName(), $resource, '*');
 				}
 			}
 
 			//Grant acess to private area to role Users
-			foreach($privateResources as $resource => $actions){
-				foreach($actions as $action){
+			foreach ($privateResources as $resource => $actions) {
+				foreach ($actions as $action){
 					$acl->allow('Users', $resource, $action);
 				}
 			}
 
-			$this->_acl = $acl;
+			//The acl is stored in session, APC would be useful here too
+			$this->persistent->acl = $acl;
+		} else {
+			return $this->persistent->acl;
 		}
-		return $this->_acl;
 	}
 
 	/**
