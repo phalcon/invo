@@ -7,13 +7,13 @@
                 <span class="icon-bar"></span>
             </a>
             <a class="brand" href="#">INVO</a>
-            <?php echo $this->elements->getMenu() ?>
+            {{ elements.getMenu() }}
         </div>
     </div>
 </div>
 
 <div class="container">
-    <?php echo $this->getContent() ?>
+    {{ content() }}
     <hr>
     <footer>
         <p>&copy; Company 2012</p>

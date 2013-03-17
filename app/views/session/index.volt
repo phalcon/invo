@@ -1,6 +1,5 @@
-<?php use Phalcon\Tag as Tag ?>
 
-<?php echo $this->getContent() ?>
+{{ content() }}
 
 <div class="login-or-signup">
     <div class="row">
@@ -9,33 +8,22 @@
             <div class="page-header">
                 <h2>Log In</h2>
             </div>
-            <?php echo Tag::form(array('session/start', 'class' => 'form-inline')) ?>
+            {{ form('session/start', 'class': 'form-inline') }}
                 <fieldset>
                     <div class="control-group">
                         <label class="control-label" for="email">Username/Email</label>
                         <div class="controls">
-                            <?php echo Tag::textField(array(
-                                'email',
-                                'size' => "30",
-                                'class' => "input-xlarge",
-                            )) ?>
+                            {{ text_field('email', 'size': "30", 'class': "input-xlarge") }}
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="password">Password</label>
                         <div class="controls">
-                            <?php echo Tag::passwordField(array(
-                                'password',
-                                'size' => "30",
-                                'class' => "input-xlarge",
-                            )) ?>
+                            {{ password_field('password', 'size': "30", 'class': "input-xlarge") }}
                         </div>
                     </div>
                     <div class="form-actions">
-                        <?php echo Tag::submitButton(array(
-                            'Login',
-                            'class' => 'btn btn-primary btn-large',
-                        )) ?>
+                        {{ submit_button('Login', 'class': 'btn btn-primary btn-large') }}
                     </div>
                 </fieldset>
             </form>
@@ -54,11 +42,7 @@
             </ul>
 
             <div class="clearfix center">
-                <?php echo Tag::linkTo(array(
-                    'session/register',
-                    'Sign Up',
-                    'class' => 'btn btn-primary btn-large btn-success',
-                )) ?>
+                {{ link_to('session/register', 'Sign Up', 'class': 'btn btn-primary btn-large btn-success') }}
             </div>
         </div>
 

@@ -4,8 +4,10 @@ error_reporting(E_ALL);
 
 try {
 
-	//Read the configuration
-	$config = new Phalcon\Config\Adapter\Ini(__DIR__.'/../app/config/config.ini');
+	/**
+	 * Read the configuration
+	 */
+	$config = new Phalcon\Config\Adapter\Ini(__DIR__ . '/../app/config/config.ini');
 
 	$loader = new \Phalcon\Loader();
 
@@ -14,10 +16,10 @@ try {
 	 */
 	$loader->registerDirs(
 		array(
-			__DIR__.$config->application->controllersDir,
-			__DIR__.$config->application->pluginsDir,
-			__DIR__.$config->application->libraryDir,
-			__DIR__.$config->application->modelsDir,
+			__DIR__ . $config->application->controllersDir,
+			__DIR__ . $config->application->pluginsDir,
+			__DIR__ . $config->application->libraryDir,
+			__DIR__ . $config->application->modelsDir,
 		)
 	)->register();
 
@@ -37,7 +39,7 @@ try {
 
 		/**
 		 * We listen for events in the dispatcher using the Security plugin
-        	 */
+		 */
 		$eventsManager->attach('dispatch', $security);
 
 		$dispatcher = new Phalcon\Mvc\Dispatcher();
@@ -57,10 +59,31 @@ try {
 
 
 	$di->set('view', function() use ($config) {
+
 		$view = new \Phalcon\Mvc\View();
-		$view->setViewsDir(__DIR__.$config->application->viewsDir);
+
+		$view->setViewsDir(__DIR__ . $config->application->viewsDir);
+
+		$view->registerEngines(array(
+			".volt" => 'volt'
+		));
+
 		return $view;
 	});
+
+	/**
+	 * Setting up volt
+	 */
+	$di->set('volt', function($view, $di) {
+
+		$volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
+
+		$volt->setOptions(array(
+			"compiledPath" => "../cache/volt/"
+		));
+
+		return $volt;
+	}, true);
 
 	/**
 	 * Database connection is created based in the parameters defined in the configuration file
@@ -78,13 +101,12 @@ try {
 	 * If the configuration specify the use of metadata adapter use it or use memory otherwise
 	 */
 	$di->set('modelsMetadata', function() use ($config) {
-		if(isset($config->models->metadata)){
+		if (isset($config->models->metadata)) {
 			$metaDataConfig = $config->models->metadata;
 			$metadataAdapter = 'Phalcon\Mvc\Model\Metadata\\'.$metaDataConfig->adapter;
 			return new $metadataAdapter();
-		} else {
-			return new Phalcon\Mvc\Model\Metadata\Memory();
 		}
+		return new Phalcon\Mvc\Model\Metadata\Memory();
 	});
 
 	/**

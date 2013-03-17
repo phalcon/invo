@@ -1,11 +1,16 @@
 <?php
 
+use Phalcon\Events\Event,
+	Phalcon\Mvc\User\Plugin,
+	Phalcon\Mvc\Dispatcher,
+	Phalcon\Acl;
+
 /**
  * Security
  *
  * This is the security plugin which controls that users only have access to the modules they're assigned to
  */
-class Security extends Phalcon\Mvc\User\Plugin
+class Security extends Plugin
 {
 
 	public function __construct($dependencyInjector)
@@ -48,7 +53,7 @@ class Security extends Phalcon\Mvc\User\Plugin
 				'session' => array('index', 'register', 'start', 'end'),
 				'contact' => array('index', 'send')
 			);
-			foreach($publicResources as $resource => $actions){
+			foreach ($publicResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
 			}
 
@@ -68,15 +73,15 @@ class Security extends Phalcon\Mvc\User\Plugin
 
 			//The acl is stored in session, APC would be useful here too
 			$this->persistent->acl = $acl;
-		} else {
-			return $this->persistent->acl;
 		}
+
+		return $this->persistent->acl;
 	}
 
 	/**
 	 * This action is executed before execute any action in the application
 	 */
-	public function beforeDispatch(Phalcon\Events\Event $event, Phalcon\Mvc\Dispatcher $dispatcher)
+	public function beforeDispatch(Event $event, Dispatcher $dispatcher)
 	{
 
 		$auth = $this->session->get('auth');
@@ -92,7 +97,7 @@ class Security extends Phalcon\Mvc\User\Plugin
 		$acl = $this->getAcl();
 
 		$allowed = $acl->isAllowed($role, $controller, $action);
-		if ($allowed != Phalcon\Acl::ALLOW) {
+		if ($allowed != Acl::ALLOW) {
 			$this->flash->error("You don't have access to this module");
 			$dispatcher->forward(
 				array(
