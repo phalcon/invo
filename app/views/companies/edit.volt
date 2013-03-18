@@ -1,4 +1,3 @@
-<?php use Phalcon\Tag as Tag ?>
 
 <form method="post" action="{{ url("companies/save") }}">
 
