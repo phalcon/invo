@@ -1,4 +1,3 @@
-
 {{ content() }}
 
 <ul class="pager">
@@ -31,7 +30,7 @@
             <td>{{ company.address }}</td>
             <td>{{ company.city }}</td>
             <td width="12%">{{ link_to("companies/edit/" ~ company.id, '<i class="icon-pencil"></i> Edit', "class": "btn") }}</td>
-            <td width="12%">{{ link_to("companies/delete/" ~ company.id, '<i class="icon-remove"></i> Delete', "class": "btn") }}></td>
+            <td width="12%">{{ link_to("companies/delete/" ~ company.id, '<i class="icon-remove"></i> Delete', "class": "btn") }}</td>
         </tr>
     </tbody>
 {% if loop.last %}
