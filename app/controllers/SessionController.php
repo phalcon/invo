@@ -88,7 +88,7 @@ class SessionController extends ControllerBase
             }
 
             $username = $this->request->getPost('email', 'alphanum');
-            $user = Users::findFirst("username='$email' AND password='$password' AND active='Y'");
+            $user = Users::findFirst("username='$username' AND password='$password' AND active='Y'");
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
