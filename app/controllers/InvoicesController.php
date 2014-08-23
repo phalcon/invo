@@ -1,15 +1,15 @@
 <?php
 
-use Phalcon\Tag as Tag;
-use Phalcon\Flash as Flash;
-use Phalcon\Session as Session;
+use Phalcon\Tag;
+use Phalcon\Flash;
+use Phalcon\Session;
 
 class InvoicesController extends ControllerBase
 {
     public function initialize()
     {
         $this->view->setTemplateAfter('main');
-        Tag::setTitle('Manage your Invoices');
+        $this->tag->setTitle('Manage your Invoices');
         parent::initialize();
     }
 
@@ -29,20 +29,16 @@ class InvoicesController extends ControllerBase
         //Query the active user
         $user = Users::findFirst($auth['id']);
         if ($user == false) {
-            $this->_forward('index/index');
+            return $this->_forward('index/index');
         }
 
-        $request = $this->request;
-
-        if (!$request->isPost()) {
-            Tag::setDefault('name', $user->name);
-            Tag::setDefault('email', $user->email);
+        if (!$this->request->isPost()) {
+            $this->tag->setDefault('name', $user->name);
+            $this->tag->setDefault('email', $user->email);
         } else {
 
-            $name = $request->getPost('name', 'string');
-            $email = $request->getPost('email', 'email');
-
-            $name = strip_tags($name);
+            $name = $this->request->getPost('name', array('string', 'striptags'));
+            $email = $this->request->getPost('email', 'email');
 
             $user->name = $name;
             $user->email = $email;

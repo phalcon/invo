@@ -1,7 +1,6 @@
 <?php
 
-use Phalcon\Tag,
-	Phalcon\Mvc\Model\Criteria,
+use Phalcon\Mvc\Model\Criteria,
 	Phalcon\Forms\Form,
 	Phalcon\Forms\Element\Text,
 	Phalcon\Forms\Element\Hidden;
@@ -11,7 +10,7 @@ class CompaniesController extends ControllerBase
 	public function initialize()
 	{
 		$this->view->setTemplateAfter('main');
-		Tag::setTitle('Manage your companies');
+		$this->tag->setTitle('Manage your companies');
 		parent::initialize();
 	}
 

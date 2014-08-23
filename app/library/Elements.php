@@ -91,7 +91,7 @@ class Elements extends Phalcon\Mvc\User\Component
                 } else {
                     echo '<li>';
                 }
-                echo Phalcon\Tag::linkTo($controller.'/'.$option['action'], $option['caption']);
+                echo Phalcon\Tag::linkTo($controller . '/' . $option['action'], $option['caption']);
                 echo '</li>';
             }
             echo '</ul>';
@@ -110,7 +110,7 @@ class Elements extends Phalcon\Mvc\User\Component
             } else {
                 echo '<li>';
             }
-            echo Phalcon\Tag::linkTo($option['controller'].'/'.$option['action'], $caption), '<li>';
+            echo Phalcon\Tag::linkTo($option['controller'] . '/' . $option['action'], $caption), '<li>';
         }
         echo '</ul>';
     }

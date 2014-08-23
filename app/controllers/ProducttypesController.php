@@ -61,7 +61,7 @@ class ProductTypesController extends ControllerBase
         $request = $this->request;
         if (!$request->isPost()) {
 
-            $producttypes = ProductTypes::findFirst(array('id=:id:', 'bind' => array('id' => $id)));
+            $producttypes = ProductTypes::findFirstById(array('id=:id:', 'bind' => array('id' => $id)));
             if (!$producttypes) {
                 $this->flash->error("Product type to edit was not found");
                 return $this->forward("producttypes/index");

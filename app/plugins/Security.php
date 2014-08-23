@@ -28,7 +28,7 @@ class Security extends Plugin
 
 			//Register roles
 			$roles = array(
-				'users' => new Phalcon\Acl\Role('Users'),
+				'users'  => new Phalcon\Acl\Role('Users'),
 				'guests' => new Phalcon\Acl\Role('Guests')
 			);
 			foreach ($roles as $role) {
@@ -37,10 +37,10 @@ class Security extends Plugin
 
 			//Private area resources
 			$privateResources = array(
-				'companies' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'products' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
+				'companies'    => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
+				'products'     => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
 				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'invoices' => array('index', 'profile')
+				'invoices'     => array('index', 'profile')
 			);
 			foreach ($privateResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
@@ -48,8 +48,8 @@ class Security extends Plugin
 
 			//Public area resources
 			$publicResources = array(
-				'index' => array('index'),
-				'about' => array('index'),
+				'index'   => array('index'),
+				'about'   => array('index'),
 				'session' => array('index', 'register', 'start', 'end'),
 				'contact' => array('index', 'send')
 			);
@@ -80,6 +80,9 @@ class Security extends Plugin
 
 	/**
 	 * This action is executed before execute any action in the application
+	 *
+	 * @param Event $event
+	 * @param Dispatcher $dispatcher
 	 */
 	public function beforeDispatch(Event $event, Dispatcher $dispatcher)
 	{
