@@ -1,6 +1,5 @@
 <?php
 
-use Phalcon\Tag;
 use Phalcon\Mvc\Model\Criteria;
 
 class ProductsController extends ControllerBase
@@ -8,7 +7,7 @@ class ProductsController extends ControllerBase
     public function initialize()
     {
         $this->view->setTemplateAfter('main');
-        Tag::setTitle('Manage your product types');
+        $this->tag->setTitle('Manage your product types');
         parent::initialize();
     }
 
@@ -72,11 +71,11 @@ class ProductsController extends ControllerBase
 
             $this->view->setVar("id", $products->id);
 
-            Tag::displayTo("id", $products->id);
-            Tag::displayTo("product_types_id", $products->product_types_id);
-            Tag::displayTo("name", $products->name);
-            Tag::displayTo("price", $products->price);
-            Tag::displayTo("active", $products->active);
+            $this->tag->displayTo("id", $products->id);
+            $this->tag->displayTo("product_types_id", $products->product_types_id);
+            $this->tag->displayTo("name", $products->name);
+            $this->tag->displayTo("price", $products->price);
+            $this->tag->displayTo("active", $products->active);
 
             $this->view->setVar("productTypes", ProductTypes::find());
         }

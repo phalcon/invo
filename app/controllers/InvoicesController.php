@@ -1,6 +1,5 @@
 <?php
 
-use Phalcon\Tag;
 use Phalcon\Flash;
 use Phalcon\Session;
 
