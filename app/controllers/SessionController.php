@@ -1,21 +1,18 @@
 <?php
 
-use Phalcon\Tag as Tag;
-
 class SessionController extends ControllerBase
 {
     public function initialize()
     {
-        $this->view->setTemplateAfter('main');
-        Tag::setTitle('Sign Up/Sign In');
+        $this->tag->setTitle('Sign Up/Sign In');
         parent::initialize();
     }
 
     public function indexAction()
     {
         if (!$this->request->isPost()) {
-            Tag::setDefault('email', 'demo@phalconphp.com');
-            Tag::setDefault('password', 'phalcon');
+            $this->tag->setDefault('email', 'demo@phalconphp.com');
+            $this->tag->setDefault('password', 'phalcon');
         }
     }
 
@@ -47,8 +44,8 @@ class SessionController extends ControllerBase
                     $this->flash->error((string) $message);
                 }
             } else {
-                Tag::setDefault('email', '');
-                Tag::setDefault('password', '');
+                $this->tag->setDefault('email', '');
+                $this->tag->setDefault('password', '');
                 $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
                 return $this->forward('session/index');
             }

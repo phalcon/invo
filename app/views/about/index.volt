@@ -1,5 +1,6 @@
-
-<p><h1>About INVO</h1></p>
+<div class="page-header">
+    <h2>About INVO</h2>
+</div>
 
 <p>
 This is a sample application for the <a href="http://phalconphp.com">Phalcon Framework</a>. We expect to implement as many features as possible to show how the framework works and its potential.

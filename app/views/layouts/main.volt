@@ -13,6 +13,7 @@
 </div>
 
 <div class="container">
+    {{ flash.output() }}
     {{ content() }}
     <hr>
     <footer>

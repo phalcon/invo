@@ -1,39 +1,37 @@
-<?php use Phalcon\Tag as Tag ?>
-
-<?php echo Tag::form(array("products/create", "autocomplete" => "off")) ?>
+{{ form("products/create", "autocomplete": "off") }}
 
 <ul class="pager">
     <li class="previous pull-left">
-        <?php echo Tag::linkTo(array("products", "&larr; Go Back")) ?>
+        {{ link_to("products", "&larr; Go Back") }}
     </li>
     <li class="pull-right">
-        <?php echo Tag::submitButton(array("Save", "class" => "btn btn-success")) ?>
+        {{ submit_button("Save", "class": "btn btn-success") }}
     </li>
 </ul>
 
-<?php echo $this->getContent() ?>
+{{ content() }}
 
 <div class="center scaffold">
     <h2>Create products</h2>
 
     <div class="clearfix">
         <label for="product_types_id">Product Type</label>
-        <?php echo Tag::select(array("product_types_id", $productTypes, "using" => array("id", "name"), "useDummy" => true)) ?>
+        {{ select("product_types_id", productTypes, "using": ["id", "name"], "useEmpty": true) }}
     </div>
 
     <div class="clearfix">
         <label for="name">Name</label>
-        <?php echo Tag::textField(array("name", "size" => 24, "maxlength" => 70)) ?>
+        {{ text_field("name", "size": 24, "maxlength": 70) }}
     </div>
 
     <div class="clearfix">
         <label for="price">Price</label>
-        <?php echo Tag::textField(array("price", "size" => 24, "maxlength" => 70, "type" => "number")) ?>
+        {{ numeric_field("price", "size": 24, "maxlength": 70, "step": "any") }}
     </div>
 
     <div class="clearfix">
         <label for="active">Active</label>
-        <?php echo Tag::selectStatic(array("active", array('Y'=>'Y','N'=>'N',), "useDummy" => true)) ?>
+        {{ select_static("active", ['Y': 'Y','N': 'N'], "useEmpty": true) }}
     </div>
 
 </div>

@@ -4,7 +4,6 @@ class ContactController extends ControllerBase
 {
     public function initialize()
     {
-        $this->view->setTemplateAfter('main');
         $this->tag->setTitle('Contact us');
         parent::initialize();
     }

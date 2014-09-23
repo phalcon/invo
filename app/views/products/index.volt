@@ -1,12 +1,10 @@
-<?php use Phalcon\Tag as Tag ?>
-
-<?php echo $this->getContent() ?>
+{{ content() }}
 
 <div align="right">
-    <?php echo Tag::linkTo(array("products/new", "Create Products", "class" => "btn btn-primary")) ?>
+    {{ link_to("products/new", "Create Products", "class": "btn btn-primary") }}
 </div>
 
-<?php echo Tag::form(array("products/search", "autocomplete" => "off")) ?>
+{{ form("products/search", "autocomplete": "off") }}
 
 <div class="center scaffold">
 
@@ -14,31 +12,31 @@
 
     <div class="clearfix">
         <label for="id">Id</label>
-        <?php echo Tag::textField(array("id", "size" => 10, "maxlength" => 10, "type" => "number")) ?>
+        {{ numeric_field("id", "size": 10, "maxlength": 10) }}
     </div>
 
     <div class="clearfix">
         <label for="product_types_id">Product Type</label>
-        <?php echo Tag::select(array("product_types_id", $productTypes, "using" => array("id", "name"), "useDummy" => true)) ?>
+        {{ select("product_types_id", productTypes, "using": ["id", "name"], "useEmpty": true) }}
     </div>
 
     <div class="clearfix">
         <label for="name">Name</label>
-        <?php echo Tag::textField(array("name", "size" => 24, "maxlength" => 70)) ?>
+        {{ text_field("name", "size": 24, "maxlength": 70) }}
     </div>
 
     <div class="clearfix">
         <label for="price">Price</label>
-        <?php echo Tag::textField(array("price", "size" => 24, "maxlength" => 70, "type" => "number")) ?>
+        {{ text_field("price", "size": 24, "maxlength": 70, "type": "number") }}
     </div>
 
     <div class="clearfix">
         <label for="active">Active</label>
-        <?php echo Tag::selectStatic(array("active", array('Y'=>'Y','N'=>'N',), "useDummy" => true)) ?>
+        {{ select_static("active", ['Y': 'Y', 'N': 'N'], "useEmpty": true) }}
     </div>
 
     <div class="clearfix">
-        <?php echo Tag::submitButton(array("Search", "class" => "btn btn-primary")) ?></td>
+        {{ submit_button("Search", "class": "btn btn-primary") }}</td>
     </div>
 
 </div>

@@ -82,6 +82,9 @@ try {
 			"compiledPath" => "../cache/volt/"
 		));
 
+		$compiler = $volt->getCompiler();
+		$compiler->addFunction('is_a', 'is_a');
+
 		return $volt;
 	}, true);
 
@@ -89,7 +92,8 @@ try {
 	 * Database connection is created based in the parameters defined in the configuration file
 	 */
 	$di->set('db', function() use ($config) {
-		return new \Phalcon\Db\Adapter\Pdo\Mysql(array(
+		$dbclass = sprintf('\Phalcon\Db\Adapter\Pdo\%s', $config->database->adapter);
+		return new $dbclass(array(
 			"host" => $config->database->host,
 			"username" => $config->database->username,
 			"password" => $config->database->password,
@@ -122,7 +126,7 @@ try {
 	 * Register the flash service with custom CSS classes
 	 */
 	$di->set('flash', function(){
-		return new Phalcon\Flash\Direct(array(
+		return new Phalcon\Flash\Session(array(
 			'error' => 'alert alert-error',
 			'success' => 'alert alert-success',
 			'notice' => 'alert alert-info',

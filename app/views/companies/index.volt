@@ -5,41 +5,29 @@
     {{ link_to("companies/new", "Create Companies", "class": "btn btn-primary") }}
 </div>
 
-<form method="post" action="{{ url("companies/search") }}">
+{{ form("companies/search") }}
 
-<div class="center scaffold">
+<h2>Search companies</h2>
 
-    <h2>Search companies</h2>
+<fieldset>
 
-    <div class="clearfix">
-        <label for="id">Id</label>
-        {{ form.render("id") }}
+{% for element in form %}
+    {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
+{{ element }}
+    {% else %}
+<div class="control-group">
+    {{ element.label(['class': 'control-label']) }}
+    <div class="controls">
+        {{ element }}
     </div>
-
-    <div class="clearfix">
-        <label for="name">Name</label>
-        {{ form.render("name") }}
-    </div>
-
-    <div class="clearfix">
-        <label for="telephone">Telephone</label>
-        {{ form.render("telephone") }}
-    </div>
-
-    <div class="clearfix">
-        <label for="address">Address</label>
-        {{ form.render("address") }}
-    </div>
-
-    <div class="clearfix">
-        <label for="city">City</label>
-        {{ form.render("city") }}
-    </div>
-
-    <div class="clearfix">
-        {{ submit_button("Search", "class": "btn btn-primary") }}
-    </div>
-
 </div>
+    {% endif %}
+{% endfor %}
+
+<div class="form-actions">
+    {{ submit_button("Search", "class": "btn btn-primary") }}
+</div>
+
+</fieldset>
 
 </form>

@@ -1,14 +1,12 @@
 <?php
 
-use Phalcon\Tag;
 use Phalcon\Mvc\Model\Criteria;
 
 class ProductTypesController extends ControllerBase
 {
     public function initialize()
     {
-        $this->view->setTemplateAfter('main');
-        Tag::setTitle('Manage your products');
+        $this->tag->setTitle('Manage your products');
         parent::initialize();
     }
 
@@ -61,15 +59,15 @@ class ProductTypesController extends ControllerBase
         $request = $this->request;
         if (!$request->isPost()) {
 
-            $producttypes = ProductTypes::findFirstById(array('id=:id:', 'bind' => array('id' => $id)));
+            $producttypes = ProductTypes::findFirstById($id);
             if (!$producttypes) {
                 $this->flash->error("Product type to edit was not found");
                 return $this->forward("producttypes/index");
             }
             $this->view->setVar("id", $producttypes->id);
 
-            Tag::displayTo("id", $producttypes->id);
-            Tag::displayTo("name", $producttypes->name);
+            $this->tag->displayTo("id", $producttypes->id);
+            $this->tag->displayTo("name", $producttypes->name);
         }
     }
 

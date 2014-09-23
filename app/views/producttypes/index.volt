@@ -1,12 +1,10 @@
-<?php use Phalcon\Tag as Tag ?>
-
-<?php echo $this->getContent() ?>
+{{ content() }}
 
 <div align="right">
-    <?php echo Tag::linkTo(array("producttypes/new", "Create Product types", "class" => "btn btn-primary")) ?>
+    {{ link_to("producttypes/new", "Create product types", "class": "btn btn-primary") }}
 </div>
 
-<?php echo Tag::form(array("producttypes/search", "autocomplete" => "off")) ?>
+{{ form("producttypes/search", "autocomplete": "off") }}
 
 <div class="center scaffold">
 
@@ -14,16 +12,16 @@
 
     <div class="clearfix">
         <label for="id">Id</label>
-        <?php echo Tag::textField(array("id", "size" => 10, "maxlength" => 10, "type" => "number")) ?>
+        {{ numeric_field("id", "size": 10, "maxlength": 10) }}
     </div>
 
     <div class="clearfix">
         <label for="name">Name</label>
-        <?php echo Tag::textField(array("name", "size" => 24, "maxlength" => 70)) ?>
+        {{ text_field("name", "size": 24, "maxlength": 70) }}
     </div>
 
     <div class="clearfix">
-        <?php echo Tag::submitButton(array("Search", "class" => "btn btn-primary")) ?></td>
+        {{ submit_button("Search", "class": "btn btn-primary") }}
     </div>
 
 </div>

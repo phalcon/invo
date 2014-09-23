@@ -9,7 +9,6 @@ class CompaniesController extends ControllerBase
 {
 	public function initialize()
 	{
-		$this->view->setTemplateAfter('main');
 		$this->tag->setTitle('Manage your companies');
 		parent::initialize();
 	}
@@ -19,33 +18,23 @@ class CompaniesController extends ControllerBase
 		$form = new Form($entity);
 
 		if (!$edit) {
-			$form->add(new Text("id", array(
-				"size" => 10,
-				"maxlength" => 10,
-			)));
+			$element = new Text("id", array("maxlength" => 10));
+			$form->add($element->setLabel("Id"));
 		} else {
 			$form->add(new Hidden("id"));
 		}
 
-		$form->add(new Text("name", array(
-			"size" => 24,
-			"maxlength" => 70
-		)));
+		$element = new Text("name", array("maxlength" => 70));
+		$form->add($element->setLabel("Name"));
 
-		$form->add(new Text("telephone", array(
-			"size" => 10,
-			"maxlength" => 30
-		)));
+		$element = new Text("telephone", array("maxlength" => 30));
+		$form->add($element->setLabel("Telephone"));
 
-		$form->add(new Text("address", array(
-			"size" => 14,
-			"maxlength" => 40
-		)));
+		$element = new Text("address", array("maxlength" => 40));
+		$form->add($element->setLabel("Address"));
 
-		$form->add(new Text("city", array(
-			"size" => 14,
-			"maxlength" => 40
-		)));
+		$element = new Text("city", array("maxlength" => 40));
+		$form->add($element->setLabel("City"));
 
 		return $form;
 	}
@@ -93,7 +82,7 @@ class CompaniesController extends ControllerBase
 
 	public function newAction()
 	{
-		$this->view->form = $this->getForm();
+		$this->view->form = $this->getForm(null, TRUE);
 	}
 
 	public function editAction($id)
