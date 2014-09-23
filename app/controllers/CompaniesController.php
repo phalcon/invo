@@ -82,7 +82,7 @@ class CompaniesController extends ControllerBase
 
 	public function newAction()
 	{
-		$this->view->form = $this->getForm();
+		$this->view->form = $this->getForm(null, TRUE);
 	}
 
 	public function editAction($id)
