@@ -1,5 +1,5 @@
 
-<form method="post" action="{{ url("companies/save") }}">
+{{ form("companies/save") }}
 
 <ul class="pager">
     <li class="previous pull-left">
@@ -12,30 +12,23 @@
 
 {{ content() }}
 
-<div class="center scaffold">
-    <h2>Edit companies</h2>
+<h2>Edit companies</h2>
 
-    {{ form.render("id") }}
+<fieldset>
 
-    <div class="clearfix">
-        <label for="name">Name</label>
-        {{ form.render("name") }}
+{% for element in form %}
+    {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
+{{ element }}
+    {% else %}
+<div class="control-group">
+    {{ element.label(['class': 'control-label']) }}
+    <div class="controls">
+        {{ element }}
     </div>
-
-    <div class="clearfix">
-        <label for="telephone">Telephone</label>
-        {{ form.render("telephone") }}
-    </div>
-
-    <div class="clearfix">
-        <label for="address">Address</label>
-        {{ form.render("address") }}
-    </div>
-
-    <div class="clearfix">
-        <label for="city">City</label>
-        {{ form.render("city") }}
-    </div>
-
-    </form>
 </div>
+    {% endif %}
+{% endfor %}
+
+</fieldset>
+
+</form>
