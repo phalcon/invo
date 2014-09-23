@@ -123,7 +123,7 @@ try {
 	 * Register the flash service with custom CSS classes
 	 */
 	$di->set('flash', function(){
-		return new Phalcon\Flash\Direct(array(
+		return new Phalcon\Flash\Session(array(
 			'error' => 'alert alert-error',
 			'success' => 'alert alert-success',
 			'notice' => 'alert alert-info',
