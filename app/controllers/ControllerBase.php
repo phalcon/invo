@@ -8,6 +8,7 @@ class ControllerBase extends Controller
     protected function initialize()
     {
         $this->tag->prependTitle('INVO | ');
+        $this->view->setTemplateAfter('main');
     }
 
     protected function forward($uri)
