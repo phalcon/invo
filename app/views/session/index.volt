@@ -3,32 +3,33 @@
 
 <div class="row">
 
-    <div class="span6">
+    <div class="col-md-6">
         <div class="page-header">
             <h2>Log In</h2>
         </div>
-        {{ form('session/start') }}
+        {{ form('session/start', 'role': 'form') }}
             <fieldset>
-                <div class="control-group">
-                    <label class="control-label" for="email">Username/Email</label>
+                <div class="form-group">
+                    <label for="email">Username/Email</label>
                     <div class="controls">
-                        {{ text_field('email', 'class': "span5") }}
+                        {{ text_field('email', 'class': "form-control") }}
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="password">Password</label>
+                <div class="form-group">
+                    <label for="password">Password</label>
                     <div class="controls">
-                        {{ password_field('password', 'class': "span5") }}
+                        {{ password_field('password', 'class': "form-control") }}
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     {{ submit_button('Login', 'class': 'btn btn-primary btn-large') }}
                 </div>
             </fieldset>
         </form>
     </div>
 
-    <div class="span6">
+    <div class="col-md-6">
+
         <div class="page-header">
             <h2>Don't have an account yet?</h2>
         </div>
@@ -41,7 +42,7 @@
         </ul>
 
         <div class="clearfix center">
-            {{ link_to('session/register', 'Sign Up', 'class': 'btn btn-primary btn-large btn-success') }}
+            {{ link_to('register', 'Sign Up', 'class': 'btn btn-primary btn-large btn-success') }}
         </div>
     </div>
 

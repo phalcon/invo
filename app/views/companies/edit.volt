@@ -1,5 +1,5 @@
 
-{{ form("companies/save") }}
+{{ form("companies/save", 'role': 'form') }}
 
 <ul class="pager">
     <li class="previous pull-left">
@@ -20,7 +20,7 @@
     {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
 {{ element }}
     {% else %}
-<div class="control-group">
+<div class="form-group">
     {{ element.label(['class': 'control-label']) }}
     <div class="controls">
         {{ element }}

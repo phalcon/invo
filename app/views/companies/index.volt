@@ -24,7 +24,7 @@
     {% endif %}
 {% endfor %}
 
-<div class="form-actions">
+<div class="control-group">
     {{ submit_button("Search", "class": "btn btn-primary") }}
 </div>
 

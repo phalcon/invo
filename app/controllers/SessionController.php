@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * SessionController
+ *
+ * Allows to authenticate users
+ */
 class SessionController extends ControllerBase
 {
     public function initialize()
@@ -16,48 +21,12 @@ class SessionController extends ControllerBase
         }
     }
 
-    public function registerAction()
-    {
-        $request = $this->request;
-        if ($request->isPost()) {
-
-            $name = $request->getPost('name', array('string', 'striptags'));
-            $username = $request->getPost('username', 'alphanum');
-            $email = $request->getPost('email', 'email');
-            $password = $request->getPost('password');
-            $repeatPassword = $this->request->getPost('repeatPassword');
-
-            if ($password != $repeatPassword) {
-                $this->flash->error('Passwords are diferent');
-                return false;
-            }
-
-            $user = new Users();
-            $user->username = $username;
-            $user->password = sha1($password);
-            $user->name = $name;
-            $user->email = $email;
-            $user->created_at = new Phalcon\Db\RawValue('now()');
-            $user->active = 'Y';
-            if ($user->save() == false) {
-                foreach ($user->getMessages() as $message) {
-                    $this->flash->error((string) $message);
-                }
-            } else {
-                $this->tag->setDefault('email', '');
-                $this->tag->setDefault('password', '');
-                $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
-                return $this->forward('session/index');
-            }
-        }
-    }
-
     /**
-     * Register authenticated user into session data
+     * Register an authenticated user into session data
      *
      * @param Users $user
      */
-    private function _registerSession($user)
+    private function _registerSession(Users $user)
     {
         $this->session->set('auth', array(
             'id' => $user->id,
@@ -66,26 +35,20 @@ class SessionController extends ControllerBase
     }
 
     /**
-     * This actions receive the input from the login form
+     * This action authenticate and logs an user into the application
      *
      */
     public function startAction()
     {
         if ($this->request->isPost()) {
-            $email = $this->request->getPost('email', 'email');
 
+            $email = $this->request->getPost('email');
             $password = $this->request->getPost('password');
-            $password = sha1($password);
 
-            $user = Users::findFirst("email='$email' AND password='$password' AND active='Y'");
-            if ($user != false) {
-                $this->_registerSession($user);
-                $this->flash->success('Welcome ' . $user->name);
-                return $this->forward('invoices/index');
-            }
-
-            $username = $this->request->getPost('email', 'alphanum');
-            $user = Users::findFirst("username='$username' AND password='$password' AND active='Y'");
+            $user = Users::findFirst(array(
+                "(email = :email: OR username = :email:) AND password = :password: AND active = 'Y'",
+                'bind' => array('email' => $email, 'password' => sha1($password))
+            ));
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);

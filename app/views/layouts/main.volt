@@ -1,16 +1,17 @@
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="#">INVO</a>
-            {{ elements.getMenu() }}
+            </button>
+            <a class="navbar-brand" href="#">INVO</a>
         </div>
+        {{ elements.getMenu() }}
     </div>
-</div>
+</nav>
 
 <div class="container">
     {{ flash.output() }}

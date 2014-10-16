@@ -1,35 +1,38 @@
 <?php
 
-use Phalcon\Events\Event,
-	Phalcon\Mvc\User\Plugin,
-	Phalcon\Mvc\Dispatcher,
-	Phalcon\Acl;
+use Phalcon\Acl;
+use Phalcon\Acl\Role;
+use Phalcon\Acl\Resource;
+use Phalcon\Events\Event;
+use Phalcon\Mvc\User\Plugin;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Acl\Adapter\Memory as AclList;
 
 /**
- * Security
+ * SecurityPlugin
  *
  * This is the security plugin which controls that users only have access to the modules they're assigned to
  */
-class Security extends Plugin
+class SecurityPlugin extends Plugin
 {
 
-	public function __construct($dependencyInjector)
-	{
-		$this->_dependencyInjector = $dependencyInjector;
-	}
-
+	/**
+	 * Returns an existing or new access control list
+	 *
+	 * @returns AclList
+	 */
 	public function getAcl()
 	{
 		if (!isset($this->persistent->acl)) {
 
-			$acl = new Phalcon\Acl\Adapter\Memory();
+			$acl = new AclList();
 
-			$acl->setDefaultAction(Phalcon\Acl::DENY);
+			$acl->setDefaultAction(Acl::DENY);
 
 			//Register roles
 			$roles = array(
-				'users'  => new Phalcon\Acl\Role('Users'),
-				'guests' => new Phalcon\Acl\Role('Guests')
+				'users'  => new Role('Users'),
+				'guests' => new Role('Guests')
 			);
 			foreach ($roles as $role) {
 				$acl->addRole($role);
@@ -43,18 +46,20 @@ class Security extends Plugin
 				'invoices'     => array('index', 'profile')
 			);
 			foreach ($privateResources as $resource => $actions) {
-				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
+				$acl->addResource(new Resource($resource), $actions);
 			}
 
 			//Public area resources
 			$publicResources = array(
-				'index'   => array('index'),
-				'about'   => array('index'),
-				'session' => array('index', 'register', 'start', 'end'),
-				'contact' => array('index', 'send')
+				'index'      => array('index'),
+				'about'      => array('index'),
+				'register'   => array('index'),
+				'errors'     => array('show404', 'show500'),
+				'session'    => array('index', 'register', 'start', 'end'),
+				'contact'    => array('index', 'send')
 			);
 			foreach ($publicResources as $resource => $actions) {
-				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
+				$acl->addResource(new Resource($resource), $actions);
 			}
 
 			//Grant access to public areas to both users and guests
@@ -101,16 +106,11 @@ class Security extends Plugin
 
 		$allowed = $acl->isAllowed($role, $controller, $action);
 		if ($allowed != Acl::ALLOW) {
-			$this->flash->error("You don't have access to this module");
-			$dispatcher->forward(
-				array(
-					'controller' => 'index',
-					'action' => 'index'
-				)
-			);
+			$dispatcher->forward(array(
+				'controller' => 'errors',
+				'action'     => 'show401'
+			));
 			return false;
 		}
-
 	}
-
 }

@@ -1,44 +1,33 @@
+
 {{ content() }}
 
 <div align="right">
     {{ link_to("products/new", "Create Products", "class": "btn btn-primary") }}
 </div>
 
-{{ form("products/search", "autocomplete": "off") }}
+{{ form("products/search") }}
 
-<div class="center scaffold">
+<h2>Search products</h2>
 
-    <h2>Search products</h2>
+<fieldset>
 
-    <div class="clearfix">
-        <label for="id">Id</label>
-        {{ numeric_field("id", "size": 10, "maxlength": 10) }}
+{% for element in form %}
+    {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
+{{ element }}
+    {% else %}
+<div class="control-group">
+    {{ element.label(['class': 'control-label']) }}
+    <div class="controls">
+        {{ element }}
     </div>
-
-    <div class="clearfix">
-        <label for="product_types_id">Product Type</label>
-        {{ select("product_types_id", productTypes, "using": ["id", "name"], "useEmpty": true) }}
-    </div>
-
-    <div class="clearfix">
-        <label for="name">Name</label>
-        {{ text_field("name", "size": 24, "maxlength": 70) }}
-    </div>
-
-    <div class="clearfix">
-        <label for="price">Price</label>
-        {{ text_field("price", "size": 24, "maxlength": 70, "type": "number") }}
-    </div>
-
-    <div class="clearfix">
-        <label for="active">Active</label>
-        {{ select_static("active", ['Y': 'Y', 'N': 'N'], "useEmpty": true) }}
-    </div>
-
-    <div class="clearfix">
-        {{ submit_button("Search", "class": "btn btn-primary") }}</td>
-    </div>
-
 </div>
+    {% endif %}
+{% endfor %}
+
+<div class="control-group">
+    {{ submit_button("Search", "class": "btn btn-primary") }}
+</div>
+
+</fieldset>
 
 </form>

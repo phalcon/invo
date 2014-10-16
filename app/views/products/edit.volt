@@ -1,4 +1,5 @@
-{{ form('products/save') }}
+
+{{ form("products/save", 'role': 'form') }}
 
 <ul class="pager">
     <li class="previous pull-left">
@@ -11,31 +12,23 @@
 
 {{ content() }}
 
-<div class="center scaffold">
-    <h2>Edit products</h2>
+<h2>Edit products</h2>
 
+<fieldset>
 
-    <input type="hidden" name="id" id="id" value="{{ id }}" />
-
-    <div class="clearfix">
-        <label for="product_types_id">Product Type</label>
-        {{ select("product_types_id", productTypes, "using": ["id", "name"], "useEmpty": true) }}
+{% for element in form %}
+    {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
+{{ element }}
+    {% else %}
+<div class="form-group">
+    {{ element.label(['class': 'control-label']) }}
+    <div class="controls">
+        {{ element }}
     </div>
-
-    <div class="clearfix">
-        <label for="name">Name</label>
-        {{ text_field("name", "size": 24, "maxlength": 70) }}
-    </div>
-
-    <div class="clearfix">
-        <label for="price">Price</label>
-        {{ numeric_field("price", "size": 24, "maxlength": 70, "step": "any") }}
-    </div>
-
-    <div class="clearfix">
-        <label for="active">Active</label>
-        {{ select_static("active", ['Y': 'Y','N': 'N'], "useEmpty": true) }}
-    </div>
-
-    </form>
 </div>
+    {% endif %}
+{% endfor %}
+
+</fieldset>
+
+</form>

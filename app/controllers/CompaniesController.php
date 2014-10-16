@@ -1,9 +1,7 @@
 <?php
 
-use Phalcon\Mvc\Model\Criteria,
-	Phalcon\Forms\Form,
-	Phalcon\Forms\Element\Text,
-	Phalcon\Forms\Element\Hidden;
+use Phalcon\Mvc\Model\Criteria;
+use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class CompaniesController extends ControllerBase
 {
@@ -13,49 +11,26 @@ class CompaniesController extends ControllerBase
 		parent::initialize();
 	}
 
-	protected function getForm($entity=null, $edit=false)
-	{
-		$form = new Form($entity);
-
-		if (!$edit) {
-			$element = new Text("id", array("maxlength" => 10));
-			$form->add($element->setLabel("Id"));
-		} else {
-			$form->add(new Hidden("id"));
-		}
-
-		$element = new Text("name", array("maxlength" => 70));
-		$form->add($element->setLabel("Name"));
-
-		$element = new Text("telephone", array("maxlength" => 30));
-		$form->add($element->setLabel("Telephone"));
-
-		$element = new Text("address", array("maxlength" => 40));
-		$form->add($element->setLabel("Address"));
-
-		$element = new Text("city", array("maxlength" => 40));
-		$form->add($element->setLabel("City"));
-
-		return $form;
-	}
-
+	/**
+	 * Shows the index action
+	 */
 	public function indexAction()
 	{
 		$this->session->conditions = null;
-		$this->view->form = $this->getForm();
+		$this->view->form = new CompaniesForm;
 	}
 
+	/**
+	 * Search companies based on current criteria
+	 */
 	public function searchAction()
 	{
 		$numberPage = 1;
 		if ($this->request->isPost()) {
-			$query = Criteria::fromInput($this->di, "Companies", $_POST);
+			$query = Criteria::fromInput($this->di, "Companies", $this->request->getPost());
 			$this->persistent->searchParams = $query->getParams();
 		} else {
 			$numberPage = $this->request->getQuery("page", "int");
-			if ($numberPage <= 0) {
-				$numberPage = 1;
-			}
 		}
 
 		$parameters = array();
@@ -69,26 +44,31 @@ class CompaniesController extends ControllerBase
 			return $this->forward("companies/index");
 		}
 
-		$paginator = new Phalcon\Paginator\Adapter\Model(array(
-			"data" => $companies,
+		$paginator = new Paginator(array(
+			"data"  => $companies,
 			"limit" => 10,
-			"page" => $numberPage
+			"page"  => $numberPage
 		));
-		$page = $paginator->getPaginate();
 
-		$this->view->setVar("page", $page);
-		$this->view->setVar("companies", $companies);
+		$this->view->page = $paginator->getPaginate();
+		$this->view->companies = $companies;
 	}
 
+	/**
+	 * Shows the form to create a new company
+	 */
 	public function newAction()
 	{
-		$this->view->form = $this->getForm(null, TRUE);
+		$this->view->form = new CompaniesForm(null, array('edit' => true));
 	}
 
+	/**
+	 * Edits a company based on its id
+	 */
 	public function editAction($id)
 	{
-		$request = $this->request;
-		if (!$request->isPost()) {
+
+		if (!$this->request->isPost()) {
 
 			$company = Companies::findFirstById($id);
 			if (!$company) {
@@ -96,33 +76,48 @@ class CompaniesController extends ControllerBase
 				return $this->forward("companies/index");
 			}
 
-			$this->view->form = $this->getForm($company, true);
+			$this->view->form = new CompaniesForm($company, array('edit' => true));
 		}
 	}
 
+	/**
+	 * Creates a new company
+	 */
 	public function createAction()
 	{
 		if (!$this->request->isPost()) {
 			return $this->forward("companies/index");
 		}
 
-		$companies = new Companies();
-		$companies->name = $this->request->getPost("name", "striptags");
-		$companies->telephone = $this->request->getPost("telephone", "striptags");
-		$companies->address = $this->request->getPost("address", "striptags");
-		$companies->city = $this->request->getPost("city", "striptags");
+		$form = new CompaniesForm;
+        $company = new Companies();
 
-		if (!$companies->save()) {
-			foreach ($companies->getMessages() as $message) {
-				$this->flash->error((string) $message);
-			}
-			return $this->forward("companies/new");
-		}
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $company)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('companies/new');
+        }
+
+        if ($company->save() == false) {
+            foreach ($company->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('companies/new');
+        }
+
+        $form->clear();
 
 		$this->flash->success("Company was created successfully");
 		return $this->forward("companies/index");
 	}
 
+	/**
+	 * Saves current company in screen
+	 *
+	 * @param string $id
+	 */
 	public function saveAction()
 	{
 		if (!$this->request->isPost()) {
@@ -130,30 +125,40 @@ class CompaniesController extends ControllerBase
 		}
 
 		$id = $this->request->getPost("id", "int");
-
-		$companies = Companies::findFirstById($id);
-		if ($companies == false) {
-			$this->flash->error("Company does not exist ".$id);
+		$company = Companies::findFirstById($id);
+		if (!$company) {
+			$this->flash->error("Company does not exist");
 			return $this->forward("companies/index");
 		}
 
-		$companies->id = $this->request->getPost("id", "int");
-		$companies->name = $this->request->getPost("name", "striptags");
-		$companies->telephone = $this->request->getPost("telephone", "striptags");
-		$companies->address = $this->request->getPost("address", "striptags");
-		$companies->city = $this->request->getPost("city", "striptags");
+		$form = new CompaniesForm;
 
-		if (!$companies->save()) {
-			foreach ($companies->getMessages() as $message) {
-				$this->flash->error((string) $message);
-			}
-			return $this->forward("companies/edit/".$companies->id);
-		}
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $company)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('companies/new');
+        }
+
+        if ($company->save() == false) {
+            foreach ($company->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('companies/new');
+        }
+
+        $form->clear();
 
 		$this->flash->success("Company was updated successfully");
 		return $this->forward("companies/index");
 	}
 
+	/**
+	 * Deletes a company
+	 *
+	 * @param string $id
+	 */
 	public function deleteAction($id)
 	{
 
@@ -165,7 +170,7 @@ class CompaniesController extends ControllerBase
 
 		if (!$companies->delete()) {
 			foreach ($companies->getMessages() as $message) {
-				$this->flash->error((string) $message);
+				$this->flash->error($message);
 			}
 			return $this->forward("companies/search");
 		}

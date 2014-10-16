@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model;
+use Phalcon\Db\RawValue;
 
 class Contact extends Model
 {
@@ -14,5 +15,10 @@ class Contact extends Model
 	public $comments;
 
 	public $created_at;
+
+	public function beforeCreate()
+	{
+		$this->created_at = new RawValue('now()');
+	}
 
 }

@@ -5,7 +5,7 @@
         {{ link_to("products", "&larr; Go Back") }}
     </li>
     <li class="next">
-        {{ link_to("products/new", "Create products", "class": "btn btn-primary") }}
+        {{ link_to("products/new", "Create products") }}
     </li>
 </ul>
 
@@ -29,8 +29,8 @@
             <td>{{ product.name }}</td>
             <td>${{ "%.2f"|format(product.price) }}</td>
             <td>{{ product.active }}</td>
-            <td width="12%">{{ link_to("products/edit/" ~ product.id, '<i class="icon-pencil"></i> Edit', "class": "btn") }}</td>
-            <td width="12%">{{ link_to("products/delete/" ~ product.id, '<i class="icon-remove"></i> Delete', "class": "btn") }}</td>
+            <td width="7%">{{ link_to("products/edit/" ~ product.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-default") }}</td>
+            <td width="7%">{{ link_to("products/delete/" ~ product.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-default") }}</td>
         </tr>
     {% if loop.last %}
     </tbody>
