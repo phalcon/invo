@@ -2,6 +2,9 @@
 
 use Phalcon\Mvc\Model;
 
+/**
+ * Types of Products
+ */
 class ProductTypes extends Model
 {
     /**
@@ -14,11 +17,14 @@ class ProductTypes extends Model
      */
     public $name;
 
+    /**
+     * ProductTypes initializer
+     */
     public function initialize()
     {
         $this->hasMany('id', 'Products', 'product_types_id', array(
         	'foreignKey' => array(
-        		'message' => 'Product Type cannot be deleted because it\'s used on Products'
+        		'message' => 'Product Type cannot be deleted because it\'s used in Products'
         	)
         ));
     }

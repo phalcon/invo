@@ -3,8 +3,10 @@
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\Numericality;
 
 class ProductsForm extends Form
 {
@@ -31,6 +33,26 @@ class ProductsForm extends Form
             ))
         ));
         $this->add($name);
-    }
 
+        $type = new Select('profilesId', ProductTypes::find(), array(
+            'using'      => array('id', 'name'),
+            'useEmpty'   => true,
+            'emptyText'  => '...',
+            'emptyValue' => ''
+        ));
+        $this->add($type);
+
+        $price = new Text("price");
+        $price->setLabel("Price");
+        $price->setFilters(array('float'));
+        $price->addValidators(array(
+            new PresenceOf(array(
+                'message' => 'Price is required'
+            )),
+            new Numericality(array(
+                'message' => 'Price is required'
+            ))
+        ));
+        $this->add($price);
+    }
 }

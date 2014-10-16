@@ -3,6 +3,11 @@
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
+/**
+ * ProductsController
+ *
+ * Manage CRUD operations for products
+ */
 class ProductsController extends ControllerBase
 {
 	public function initialize()
@@ -55,7 +60,7 @@ class ProductsController extends ControllerBase
 	}
 
 	/**
-	 * Shows the form to create a new company
+	 * Shows the form to create a new product
 	 */
 	public function newAction()
 	{
@@ -63,7 +68,7 @@ class ProductsController extends ControllerBase
 	}
 
 	/**
-	 * Edits a company based on its id
+	 * Edits a product based on its id
 	 */
 	public function editAction($id)
 	{
@@ -81,7 +86,7 @@ class ProductsController extends ControllerBase
 	}
 
 	/**
-	 * Creates a new company
+	 * Creates a new product
 	 */
 	public function createAction()
 	{
@@ -100,8 +105,8 @@ class ProductsController extends ControllerBase
             return $this->forward('products/new');
         }
 
-        if ($company->save() == false) {
-            foreach ($company->getMessages() as $message) {
+        if ($product->save() == false) {
+            foreach ($product->getMessages() as $message) {
                 $this->flash->error($message);
             }
             return $this->forward('products/new');
@@ -109,12 +114,12 @@ class ProductsController extends ControllerBase
 
         $form->clear();
 
-		$this->flash->success("Company was created successfully");
+		$this->flash->success("Product was created successfully");
 		return $this->forward("products/index");
 	}
 
 	/**
-	 * Saves current company in screen
+	 * Saves current product in screen
 	 *
 	 * @param string $id
 	 */
@@ -125,24 +130,24 @@ class ProductsController extends ControllerBase
 		}
 
 		$id = $this->request->getPost("id", "int");
-		$company = Companies::findFirstById($id);
-		if (!$company) {
-			$this->flash->error("Company does not exist");
+		$product = Products::findFirstById($id);
+		if (!$product) {
+			$this->flash->error("Product does not exist");
 			return $this->forward("products/index");
 		}
 
-		$form = new CompaniesForm;
+		$form = new ProductsForm;
 
         $data = $this->request->getPost();
-        if (!$form->isValid($data, $company)) {
+        if (!$form->isValid($data, $product)) {
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
             }
             return $this->forward('products/new');
         }
 
-        if ($company->save() == false) {
-            foreach ($company->getMessages() as $message) {
+        if ($product->save() == false) {
+            foreach ($product->getMessages() as $message) {
                 $this->flash->error($message);
             }
             return $this->forward('products/new');
@@ -150,21 +155,21 @@ class ProductsController extends ControllerBase
 
         $form->clear();
 
-		$this->flash->success("Company was updated successfully");
+		$this->flash->success("Product was updated successfully");
 		return $this->forward("products/index");
 	}
 
 	/**
-	 * Deletes a company
+	 * Deletes a product
 	 *
 	 * @param string $id
 	 */
 	public function deleteAction($id)
 	{
 
-		$products = Companies::findFirstById($id);
+		$products = Products::findFirstById($id);
 		if (!$products) {
-			$this->flash->error("Company was not found");
+			$this->flash->error("Product was not found");
 			return $this->forward("products/index");
 		}
 
@@ -175,7 +180,7 @@ class ProductsController extends ControllerBase
 			return $this->forward("products/search");
 		}
 
-		$this->flash->success("Company was deleted");
+		$this->flash->success("Product was deleted");
 		return $this->forward("products/index");
 	}
 }

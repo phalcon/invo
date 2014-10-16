@@ -28,7 +28,7 @@
             <td>{{ product.getProductTypes().name }}</td>
             <td>{{ product.name }}</td>
             <td>${{ "%.2f"|format(product.price) }}</td>
-            <td>{{ product.active }}</td>
+            <td>{{ product.getActiveDetail() }}</td>
             <td width="7%">{{ link_to("products/edit/" ~ product.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-default") }}</td>
             <td width="7%">{{ link_to("products/delete/" ~ product.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-default") }}</td>
         </tr>

@@ -2,6 +2,9 @@
 
 use Phalcon\Mvc\Model;
 
+/**
+ * Products
+ */
 class Products extends Model
 {
 	/**
@@ -29,11 +32,27 @@ class Products extends Model
 	 */
 	public $active;
 
+	/**
+	 * Products initializer
+	 */
 	public function initialize()
 	{
 		$this->belongsTo('product_types_id', 'ProductTypes', 'id', array(
 			'reusable' => true
 		));
+	}
+
+	/**
+	 * Returns a human representation of 'active'
+	 *
+	 * @return string
+	 */
+	public function getActiveDetail()
+	{
+		if ($this->active == 'Y') {
+			return 'Yes';
+		}
+		return 'No';
 	}
 
 }
