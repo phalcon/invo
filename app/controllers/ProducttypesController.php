@@ -1,31 +1,36 @@
 <?php
 
 use Phalcon\Mvc\Model\Criteria;
+use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class ProductTypesController extends ControllerBase
 {
     public function initialize()
     {
-        $this->tag->setTitle('Manage your products');
+        $this->tag->setTitle('Manage your products types');
         parent::initialize();
     }
 
+    /**
+     * Shows the index action
+     */
     public function indexAction()
     {
         $this->session->conditions = null;
+        $this->view->form = new ProductTypesForm;
     }
 
+    /**
+     * Search producttype based on current criteria
+     */
     public function searchAction()
     {
         $numberPage = 1;
         if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "ProductTypes", $_POST);
+            $query = Criteria::fromInput($this->di, "ProductTypes", $this->request->getPost());
             $this->persistent->searchParams = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
-            if ($numberPage <= 0) {
-                $numberPage = 1;
-            }
         }
 
         $parameters = array();
@@ -39,61 +44,79 @@ class ProductTypesController extends ControllerBase
             return $this->forward("producttypes/index");
         }
 
-        $paginator = new Phalcon\Paginator\Adapter\Model(array(
-            "data" => $productTypes,
+        $paginator = new Paginator(array(
+            "data"  => $productTypes,
             "limit" => 10,
-            "page" => $numberPage
+            "page"  => $numberPage
         ));
-        $page = $paginator->getPaginate();
 
-        $this->view->setVar("page", $page);
-        $this->view->setVar("productTypes", $productTypes);
+        $this->view->page = $paginator->getPaginate();
+        $this->view->productTypes = $productTypes;
     }
 
+    /**
+     * Shows the form to create a new producttype
+     */
     public function newAction()
     {
+        $this->view->form = new ProductTypesForm(null, array('edit' => true));
     }
 
+    /**
+     * Edits a producttype based on its id
+     */
     public function editAction($id)
     {
-        $request = $this->request;
-        if (!$request->isPost()) {
+        if (!$this->request->isPost()) {
 
             $producttypes = ProductTypes::findFirstById($id);
             if (!$producttypes) {
                 $this->flash->error("Product type to edit was not found");
                 return $this->forward("producttypes/index");
             }
-            $this->view->setVar("id", $producttypes->id);
 
-            $this->tag->displayTo("id", $producttypes->id);
-            $this->tag->displayTo("name", $producttypes->name);
+            $this->view->form = new ProductTypesForm($producttypes, array('edit' => true));
         }
     }
 
+    /**
+     * Creates a new producttype
+     */
     public function createAction()
     {
         if (!$this->request->isPost()) {
             return $this->forward("producttypes/index");
         }
 
+        $form = new ProductTypesForm;
         $producttypes = new ProductTypes();
-        $producttypes->id = $this->request->getPost("id", "int");
-        $producttypes->name = $this->request->getPost("name");
 
-        $producttypes->name = strip_tags($producttypes->name);
-
-        if (!$producttypes->save()) {
-            foreach ($producttypes->getMessages() as $message) {
-                $this->flash->error((string) $message);
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $producttypes)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
             }
-            return $this->forward("producttypes/new");
-        } else {
-            $this->flash->success("Product type was created successfully");
-            return $this->forward("producttypes/index");
+            return $this->forward('producttypes/new');
         }
+
+        if ($producttypes->save() == false) {
+            foreach ($producttypes->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('producttypes/new');
+        }
+
+        $form->clear();
+
+        $this->flash->success("Product type was created successfully");
+        return $this->forward("producttypes/index");
     }
 
+    /**
+     * Saves current producttypes in screen
+     *
+     * @param string $id
+     */
     public function saveAction()
     {
         if (!$this->request->isPost()) {
@@ -101,45 +124,56 @@ class ProductTypesController extends ControllerBase
         }
 
         $id = $this->request->getPost("id", "int");
-        $producttypes = ProductTypes::findFirst("id='$id'");
-        if ($producttypes == false) {
-            $this->flash->error("product types does not exist " . $id);
-
+        $productTypes = ProductTypes::findFirstById($id);
+        if (!$productTypes) {
+            $this->flash->error("productTypes does not exist");
             return $this->forward("producttypes/index");
         }
-        $producttypes->id = $this->request->getPost("id", "int");
-        $producttypes->name = $this->request->getPost("name", "striptags");
 
-        if (!$producttypes->save()) {
-            foreach ($producttypes->getMessages() as $message) {
-                $this->flash->error((string) $message);
+        $form = new ProductTypesForm;
+
+        $data = $this->request->getPost();
+        if (!$form->isValid($data, $productTypes)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error($message);
             }
-            return $this->forward("producttypes/edit/" . $producttypes->id);
-        } else {
-            $this->flash->success("Product Type was updated successfully");
-            return $this->forward("producttypes/index");
+            return $this->forward('producttypes/new');
         }
+
+        if ($productTypes->save() == false) {
+            foreach ($productTypes->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->forward('producttypes/new');
+        }
+
+        $form->clear();
+
+        $this->flash->success("Product Type was updated successfully");
+        return $this->forward("producttypes/index");
     }
 
+    /**
+     * Deletes a producttypes
+     *
+     * @param string $id
+     */
     public function deleteAction($id)
     {
-        $id = $this->filter->sanitize($id, array("int"));
-
-        $producttypes = ProductTypes::findFirst('id="' . $id . '"');
-        if (!$producttypes) {
-            $this->flash->error("product types was not found");
-
+        $productTypes = ProductTypes::findFirstById($id);
+        if (!$productTypes) {
+            $this->flash->error("Product types was not found");
             return $this->forward("producttypes/index");
         }
 
-        if (!$producttypes->delete()) {
-            foreach ($producttypes->getMessages() as $message) {
-                $this->flash->error((string) $message);
+        if (!$productTypes->delete()) {
+            foreach ($productTypes->getMessages() as $message) {
+                $this->flash->error($message);
             }
             return $this->forward("producttypes/search");
-        } else {
-            $this->flash->success("product types was deleted");
-            return $this->forward("producttypes/index");
         }
+
+        $this->flash->success("product types was deleted");
+        return $this->forward("producttypes/index");
     }
 }

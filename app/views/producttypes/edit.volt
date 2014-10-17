@@ -1,4 +1,4 @@
-{{ form('producttypes/save') }}
+{{ form("producttypes/save", 'role': 'form') }}
 
 <ul class="pager">
     <li class="previous pull-left">
@@ -11,15 +11,24 @@
 
 {{ content() }}
 
-<div class="center scaffold">
-    <h2>Edit product types</h2>
-    
-    <input type="hidden" name="id" id="id" value="{{ id }}" />
+<h2>Edit Product Types</h2>
 
-    <div class="clearfix">
-        <label for="name">Name</label>
-        {{ text_field("name", "size": 24, "maxlength": 70) }}
+<fieldset>
+
+{% for element in form %}
+    {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
+{{ element }}
+    {% else %}
+<div class="form-group">
+    {{ element.label(['class': 'control-label']) }}
+    <div class="controls">
+        {{ element }}
     </div>
-
 </div>
+    {% endif %}
+{% endfor %}
+
+</fieldset>
+
 </form>
+
