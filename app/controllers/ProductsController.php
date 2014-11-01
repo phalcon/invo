@@ -130,6 +130,7 @@ class ProductsController extends ControllerBase
 		}
 
 		$id = $this->request->getPost("id", "int");
+
 		$product = Products::findFirstById($id);
 		if (!$product) {
 			$this->flash->error("Product does not exist");
@@ -137,20 +138,24 @@ class ProductsController extends ControllerBase
 		}
 
 		$form = new ProductsForm;
+		$this->view->form = $form;
 
         $data = $this->request->getPost();
+
+        var_dump($data);
+
         if (!$form->isValid($data, $product)) {
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward('products/new');
+            return $this->forward('products/edit/' . $id);
         }
 
         if ($product->save() == false) {
             foreach ($product->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward('products/new');
+            return $this->forward('products/edit/' . $id);
         }
 
         $form->clear();

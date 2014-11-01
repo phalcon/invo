@@ -34,12 +34,13 @@ class ProductsForm extends Form
         ));
         $this->add($name);
 
-        $type = new Select('profilesId', ProductTypes::find(), array(
+        $type = new Select('product_types_id', ProductTypes::find(), array(
             'using'      => array('id', 'name'),
             'useEmpty'   => true,
             'emptyText'  => '...',
             'emptyValue' => ''
         ));
+        $type->setLabel('Type');
         $this->add($type);
 
         $price = new Text("price");
