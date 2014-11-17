@@ -68,7 +68,9 @@ class SecurityPlugin extends Plugin
 			//Grant access to public areas to both users and guests
 			foreach ($roles as $role) {
 				foreach ($publicResources as $resource => $actions) {
-					$acl->allow($role->getName(), $resource, '*');
+					foreach ($actions as $action){
+						$acl->allow($role->getName(), $resource, $action);
+					}
 				}
 			}
 
