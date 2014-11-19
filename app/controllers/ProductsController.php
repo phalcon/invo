@@ -142,8 +142,6 @@ class ProductsController extends ControllerBase
 
         $data = $this->request->getPost();
 
-        var_dump($data);
-
         if (!$form->isValid($data, $product)) {
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
