@@ -6,7 +6,6 @@ use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
-use Phalcon\Mvc\Model\Validator\Numericality;
 
 class ProductsForm extends Form
 {
@@ -50,9 +49,6 @@ class ProductsForm extends Form
             new PresenceOf(array(
                 'message' => 'Price is required'
             )),
-            new Numericality(array(
-                'message' => 'Price is required'
-            ))
         ));
         $this->add($price);
     }
