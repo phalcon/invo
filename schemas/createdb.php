@@ -185,8 +185,8 @@ try {
 					'notNull' => TRUE,
 				]),
 				new Column("password", [
-					'type' => Column::TYPE_VARCHAR,
-					'size' => 30,
+					'type' => Column::TYPE_CHAR,
+					'size' => 40,
 					'notNull' => TRUE,
 				]),
 				new Column("name", [
