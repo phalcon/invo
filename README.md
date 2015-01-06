@@ -18,7 +18,7 @@ The master branch will always contain the latest stable version. If you wish
 to check older versions or newer ones currently under development, please
 switch to the relevant branch.
 
-Required version: >= 1.0.0
+Required version: >= 2.0.0
 
 Get Started
 -----------
