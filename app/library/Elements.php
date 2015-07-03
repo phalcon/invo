@@ -116,7 +116,7 @@ class Elements extends Component
             } else {
                 echo '<li>';
             }
-            echo $this->tag->linkTo($option['controller'] . '/' . $option['action'], $caption), '<li>';
+            echo $this->tag->linkTo($option['controller'] . '/' . $option['action'], $caption), '</li>';
         }
         echo '</ul>';
     }
