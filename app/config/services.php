@@ -18,7 +18,7 @@ $di = new FactoryDefault();
 /**
  * We register the events manager
  */
-$di->set('dispatcher', function() use ($di) {
+$di->set('dispatcher', function () use ($di) {
 
 	$eventsManager = new EventsManager;
 
@@ -41,14 +41,14 @@ $di->set('dispatcher', function() use ($di) {
 /**
  * The URL component is used to generate all kind of urls in the application
  */
-$di->set('url', function() use ($config){
+$di->set('url', function () use ($config) {
 	$url = new UrlProvider();
 	$url->setBaseUri($config->application->baseUri);
 	return $url;
 });
 
 
-$di->set('view', function() use ($config) {
+$di->set('view', function () use ($config) {
 
 	$view = new View();
 
@@ -64,7 +64,7 @@ $di->set('view', function() use ($config) {
 /**
  * Setting up volt
  */
-$di->set('volt', function($view, $di) {
+$di->set('volt', function ($view, $di) {
 
 	$volt = new VoltEngine($view, $di);
 
@@ -81,7 +81,7 @@ $di->set('volt', function($view, $di) {
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
-$di->set('db', function() use ($config) {
+$di->set('db', function () use ($config) {
 	$dbclass = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
 	return new $dbclass(array(
 		"host"     => $config->database->host,
@@ -94,14 +94,14 @@ $di->set('db', function() use ($config) {
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
  */
-$di->set('modelsMetadata', function() {
+$di->set('modelsMetadata', function () {
 	return new MetaData();
 });
 
 /**
  * Start the session the first time some component request the session service
  */
-$di->set('session', function() {
+$di->set('session', function () {
 	$session = new SessionAdapter();
 	$session->start();
 	return $session;
@@ -110,7 +110,7 @@ $di->set('session', function() {
 /**
  * Register the flash service with custom CSS classes
  */
-$di->set('flash', function(){
+$di->set('flash', function () {
 	return new FlashSession(array(
 		'error'   => 'alert alert-danger',
 		'success' => 'alert alert-success',
@@ -121,6 +121,6 @@ $di->set('flash', function(){
 /**
  * Register a user component
  */
-$di->set('elements', function(){
+$di->set('elements', function () {
 	return new Elements();
 });
