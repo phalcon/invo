@@ -22,10 +22,10 @@ class RegisterController extends ControllerBase
 
         if ($this->request->isPost()) {
 
-            /*$name = $request->getPost('name', array('string', 'striptags'));
-            $username = $request->getPost('username', 'alphanum');
-            $email = $request->getPost('email', 'email');
-            $password = $request->getPost('password');
+            $name = $this->request->getPost('name', array('string', 'striptags'));
+            $username = $this->request->getPost('username', 'alphanum');
+            $email = $this->request->getPost('email', 'email');
+            $password = $this->request->getPost('password');
             $repeatPassword = $this->request->getPost('repeatPassword');
 
             if ($password != $repeatPassword) {
@@ -49,7 +49,7 @@ class RegisterController extends ControllerBase
                 $this->tag->setDefault('password', '');
                 $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
                 return $this->forward('session/index');
-            }*/
+            }
         }
 
         $this->view->form = $form;

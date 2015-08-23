@@ -57,7 +57,7 @@ class SecurityPlugin extends Plugin
 				'index'      => array('index'),
 				'about'      => array('index'),
 				'register'   => array('index'),
-				'errors'     => array('show404', 'show500'),
+				'errors'     => array('show401', 'show404', 'show500'),
 				'session'    => array('index', 'register', 'start', 'end'),
 				'contact'    => array('index', 'send')
 			);
@@ -68,7 +68,9 @@ class SecurityPlugin extends Plugin
 			//Grant access to public areas to both users and guests
 			foreach ($roles as $role) {
 				foreach ($publicResources as $resource => $actions) {
-					$acl->allow($role->getName(), $resource, '*');
+					foreach ($actions as $action){
+						$acl->allow($role->getName(), $resource, $action);
+					}
 				}
 			}
 
@@ -113,6 +115,7 @@ class SecurityPlugin extends Plugin
 				'controller' => 'errors',
 				'action'     => 'show401'
 			));
+                        $this->session->destroy();
 			return false;
 		}
 	}

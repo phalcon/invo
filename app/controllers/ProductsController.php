@@ -56,7 +56,6 @@ class ProductsController extends ControllerBase
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->products = $products;
     }
 
     /**
