@@ -12,6 +12,10 @@ try {
      * Read the configuration
      */
     $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
+    if (is_readable(APP_PATH . 'app/config/config.ini.dev')) {
+        $override = new ConfigIni(APP_PATH . 'app/config/config.ini.dev');
+        $config->merge($override);
+    }
 
     /**
      * Auto-loader configuration

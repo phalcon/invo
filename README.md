@@ -41,6 +41,8 @@ $ echo 'CREATE DATABASE invo CHARSET=utf8 COLLATE=utf8_unicode_ci' | mysql -u ro
 $ cat schemas/invo.sql | mysql -u root invo
 ```
 
+Also you can override application config by creating `app/config/config.ini.dev` (already gitignored).
+
 ## License
 
 Invo is open-sourced software licensed under the [New BSD License][7]. © Phalcon Framework Team and contributors
