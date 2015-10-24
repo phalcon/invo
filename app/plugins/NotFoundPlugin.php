@@ -24,6 +24,8 @@ class NotFoundPlugin extends Plugin
 	 */
 	public function beforeException(Event $event, MvcDispatcher $dispatcher, Exception $exception)
 	{
+		error_log($exception->getMessage() . PHP_EOL . $exception->getTraceAsString());
+
 		if ($exception instanceof DispatcherException) {
 			switch ($exception->getCode()) {
 				case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
