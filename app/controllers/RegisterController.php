@@ -29,7 +29,7 @@ class RegisterController extends ControllerBase
             $repeatPassword = $this->request->getPost('repeatPassword');
 
             if ($password != $repeatPassword) {
-                $this->flash->error('Passwords are diferent');
+                $this->flash->error('Passwords are different');
                 return false;
             }
 
