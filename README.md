@@ -32,7 +32,7 @@ First you need to clone this repository:
 
 ```
 $ git clone git@github.com:phalcon/invo.git
-``
+```
 
 Then you'll need to create the database and initialize schema:
 
@@ -43,9 +43,13 @@ $ cat schemas/invo.sql | mysql -u root invo
 
 Also you can override application config by creating `app/config/config.ini.dev` (already gitignored).
 
+## Contributing
+
+See [CONTRIBUTING.md][7]
+
 ## License
 
-Invo is open-sourced software licensed under the [New BSD License][7]. © Phalcon Framework Team and contributors
+Invo is open-sourced software licensed under the [New BSD License][8]. © Phalcon Framework Team and contributors
 
 [1]: https://phalconphp.com/
 [2]: http://httpd.apache.org/
@@ -53,4 +57,5 @@ Invo is open-sourced software licensed under the [New BSD License][7]. © Phalco
 [4]: http://nginx.org/
 [5]: https://github.com/phalcon/cphalcon/releases
 [6]: https://www.mysql.com/
-[7]: https://github.com/phalcon/invo/blob/master/docs/LICENSE.md
+[7]: https://github.com/phalcon/invo/blob/master/CONTRIBUTING.md
+[8]: https://github.com/phalcon/invo/blob/master/docs/LICENSE.md
