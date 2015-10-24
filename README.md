@@ -1,7 +1,6 @@
-INVO Application
-================
+# INVO Application
 
-Phalcon PHP is a web framework delivered as a C extension providing high
+[Phalcon PHP][1] is a web framework delivered as a C extension providing high
 performance and lower resource consumption.
 
 This is a sample application for the Phalcon PHP Framework. We expect to
@@ -12,26 +11,44 @@ Please write us if you have any feedback.
 
 Thanks.
 
-NOTE
-----
+## NOTE
+
 The master branch will always contain the latest stable version. If you wish
 to check older versions or newer ones currently under development, please
 switch to the relevant branch.
 
-Required version: >= 2.0.0
+## Get Started
 
-Get Started
------------
+### Requirements
 
-#### Requirements
+* PHP >= 5.4
+* [Apache][2] Web Server with [mod_rewrite][3] enabled or [Nginx][4] Web Server
+* Latest stable [Phalcon Framework release][5] extension enabled
+* [MySQL][6] >= 5.1.5
 
-To run this application on your machine, you need at least:
+### Installation
 
-* >= PHP 5.3.9
-* Apache Web Server with mod rewrite enabled
-* Latest Phalcon Framework extension installed/enabled
+First you need to clone this repository:
+
+```
+$ git clone git@github.com:phalcon/invo.git
+``
 
 Then you'll need to create the database and initialize schema:
 
-    echo 'CREATE DATABASE invo' | mysql -u root
-    cat schemas/invo.sql | mysql -u root invo
+```sh
+$ echo 'CREATE DATABASE invo CHARSET=utf8 COLLATE=utf8_unicode_ci' | mysql -u root
+$ cat schemas/invo.sql | mysql -u root invo
+```
+
+## License
+
+Invo is open-sourced software licensed under the [New BSD License][7]. © Phalcon Framework Team and contributors
+
+[1]: https://phalconphp.com/
+[2]: http://httpd.apache.org/
+[3]: http://httpd.apache.org/docs/current/mod/mod_rewrite.html
+[4]: http://nginx.org/
+[5]: https://github.com/phalcon/cphalcon/releases
+[6]: https://www.mysql.com/
+[7]: https://github.com/phalcon/invo/blob/master/docs/LICENSE.md
