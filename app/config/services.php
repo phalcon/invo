@@ -82,13 +82,12 @@ $di->set('volt', function ($view, $di) {
  * Database connection is created based in the parameters defined in the configuration file
  */
 $di->set('db', function () use ($config) {
-	$dbclass = 'Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
-	return new $dbclass(array(
-		"host"     => $config->database->host,
-		"username" => $config->database->username,
-		"password" => $config->database->password,
-		"dbname"   => $config->database->name
-	));
+	$config = $config->get('database')->toArray();
+
+	$dbClass = 'Phalcon\Db\Adapter\Pdo\\' . $config['adapter'];
+	unset($config['adapter']);
+
+	return new $dbClass($config);
 });
 
 /**
@@ -115,6 +114,7 @@ $di->set('flash', function () {
 		'error'   => 'alert alert-danger',
 		'success' => 'alert alert-success',
 		'notice'  => 'alert alert-info',
+		'warning' => 'alert alert-warning'
 	));
 });
 

@@ -15,7 +15,6 @@ use Phalcon\Acl\Adapter\Memory as AclList;
  */
 class SecurityPlugin extends Plugin
 {
-
 	/**
 	 * Returns an existing or new access control list
 	 *
@@ -23,9 +22,6 @@ class SecurityPlugin extends Plugin
 	 */
 	public function getAcl()
 	{
-
-		//throw new \Exception("something");
-
 		if (!isset($this->persistent->acl)) {
 
 			$acl = new AclList();
@@ -74,7 +70,7 @@ class SecurityPlugin extends Plugin
 				}
 			}
 
-			//Grant acess to private area to role Users
+			//Grant access to private area to role Users
 			foreach ($privateResources as $resource => $actions) {
 				foreach ($actions as $action){
 					$acl->allow('Users', $resource, $action);
@@ -93,6 +89,7 @@ class SecurityPlugin extends Plugin
 	 *
 	 * @param Event $event
 	 * @param Dispatcher $dispatcher
+	 * @return bool
 	 */
 	public function beforeDispatch(Event $event, Dispatcher $dispatcher)
 	{

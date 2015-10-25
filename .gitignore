@@ -1,4 +1,4 @@
-app/config/config.ini*
+app/config/config.ini.dev
 cache/volt/*.php
 .DS_Store*
 ehthumbs.db

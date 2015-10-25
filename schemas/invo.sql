@@ -24,12 +24,12 @@ DROP TABLE IF EXISTS `companies`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `companies` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
-  `telephone` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `address` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
-  `city` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `telephone` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,12 +51,12 @@ DROP TABLE IF EXISTS `contact`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contact` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
-  `email` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
-  `comments` text COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` datetime DEFAULT NULL,
+  `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `comments` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,9 +72,9 @@ DROP TABLE IF EXISTS `product_types`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
+  `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,11 +97,11 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `product_types_id` int(10) unsigned NOT NULL,
-  `name` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
+  `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `price` decimal(16,2) NOT NULL,
-  `active` enum('Y','N') COLLATE utf8_spanish_ci DEFAULT NULL,
+  `active` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,14 +123,14 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
-  `password` char(40) COLLATE utf8_spanish_ci NOT NULL,
-  `name` varchar(120) COLLATE utf8_spanish_ci NOT NULL,
-  `email` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `active` char(1) COLLATE utf8_spanish_ci NOT NULL,
+  `username` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `password` char(40) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `active` char(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
