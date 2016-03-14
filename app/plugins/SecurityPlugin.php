@@ -28,11 +28,18 @@ class SecurityPlugin extends Plugin
 
 			$acl->setDefaultAction(Acl::DENY);
 
-			//Register roles
-			$roles = array(
-				'users'  => new Role('Users'),
-				'guests' => new Role('Guests')
-			);
+			// Register roles
+			$roles = [
+				'users'  => new Role(
+					'Users',
+					'Member privileges, granted after sign in.'
+				),
+				'guests' => new Role(
+					'Guests',
+					'Anyone browsing the site who is not signed in is considered to be a "Guest".'
+				)
+			];
+
 			foreach ($roles as $role) {
 				$acl->addRole($role);
 			}
@@ -105,6 +112,15 @@ class SecurityPlugin extends Plugin
 		$action = $dispatcher->getActionName();
 
 		$acl = $this->getAcl();
+
+		if (!$acl->isResource($controller)) {
+			$dispatcher->forward([
+				'controller' => 'errors',
+				'action'     => 'show404'
+			]);
+
+			return false;
+		}
 
 		$allowed = $acl->isAllowed($role, $controller, $action);
 		if ($allowed != Acl::ALLOW) {
