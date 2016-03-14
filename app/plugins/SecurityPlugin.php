@@ -98,7 +98,7 @@ class SecurityPlugin extends Plugin
 	 * @param Dispatcher $dispatcher
 	 * @return bool
 	 */
-	public function beforeDispatch(Event $event, Dispatcher $dispatcher)
+	public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
 	{
 
 		$auth = $this->session->get('auth');
