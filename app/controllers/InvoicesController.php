@@ -27,7 +27,12 @@ class InvoicesController extends ControllerBase
         //Query the active user
         $user = Users::findFirst($auth['id']);
         if ($user == false) {
-            return $this->forward('index/index');
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "index",
+                    "action"     => "index",
+                ]
+            );
         }
 
         if (!$this->request->isPost()) {

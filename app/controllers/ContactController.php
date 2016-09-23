@@ -24,7 +24,12 @@ class ContactController extends ControllerBase
     public function sendAction()
     {
         if ($this->request->isPost() != true) {
-            return $this->forward('contact/index');
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "contact",
+                    "action"     => "index",
+                ]
+            );
         }
 
         $form = new ContactForm;
@@ -36,17 +41,35 @@ class ContactController extends ControllerBase
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward('contact/index');
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "contact",
+                    "action"     => "index",
+                ]
+            );
         }
 
         if ($contact->save() == false) {
             foreach ($contact->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward('contact/index');
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "contact",
+                    "action"     => "index",
+                ]
+            );
         }
 
         $this->flash->success('Thanks, we will contact you in the next few hours');
-        return $this->forward('index/index');
+
+        return $this->dispatcher->forward(
+            [
+                "controller" => "index",
+                "action"     => "index",
+            ]
+        );
     }
 }
