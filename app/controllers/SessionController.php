@@ -52,13 +52,24 @@ class SessionController extends ControllerBase
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
-                return $this->forward('invoices/index');
+
+                return $this->dispatcher->forward(
+                    [
+                        "controller" => "invoices",
+                        "action"     => "index",
+                    ]
+                );
             }
 
             $this->flash->error('Wrong email/password');
         }
 
-        return $this->forward('session/index');
+        return $this->dispatcher->forward(
+            [
+                "controller" => "session",
+                "action"     => "index",
+            ]
+        );
     }
 
     /**
@@ -70,6 +81,12 @@ class SessionController extends ControllerBase
     {
         $this->session->remove('auth');
         $this->flash->success('Goodbye!');
-        return $this->forward('index/index');
+
+        return $this->dispatcher->forward(
+            [
+                "controller" => "index",
+                "action"     => "index",
+            ]
+        );
     }
 }

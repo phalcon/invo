@@ -41,7 +41,13 @@ class CompaniesController extends ControllerBase
         $companies = Companies::find($parameters);
         if (count($companies) == 0) {
             $this->flash->notice("The search did not find any companies");
-            return $this->forward("companies/index");
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "index",
+                ]
+            );
         }
 
         $paginator = new Paginator(array(
@@ -73,7 +79,13 @@ class CompaniesController extends ControllerBase
             $company = Companies::findFirstById($id);
             if (!$company) {
                 $this->flash->error("Company was not found");
-                return $this->forward("companies/index");
+
+                return $this->dispatcher->forward(
+                    [
+                        "controller" => "companies",
+                        "action"     => "index",
+                    ]
+                );
             }
 
             $this->view->form = new CompaniesForm($company, array('edit' => true));
@@ -86,7 +98,12 @@ class CompaniesController extends ControllerBase
     public function createAction()
     {
         if (!$this->request->isPost()) {
-            return $this->forward("companies/index");
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "index",
+                ]
+            );
         }
 
         $form = new CompaniesForm;
@@ -97,20 +114,38 @@ class CompaniesController extends ControllerBase
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward('companies/new');
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "new",
+                ]
+            );
         }
 
         if ($company->save() == false) {
             foreach ($company->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward('companies/new');
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "new",
+                ]
+            );
         }
 
         $form->clear();
 
         $this->flash->success("Company was created successfully");
-        return $this->forward("companies/index");
+
+        return $this->dispatcher->forward(
+            [
+                "controller" => "companies",
+                "action"     => "index",
+            ]
+        );
     }
 
     /**
@@ -121,14 +156,25 @@ class CompaniesController extends ControllerBase
     public function saveAction()
     {
         if (!$this->request->isPost()) {
-            return $this->forward("companies/index");
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "index",
+                ]
+            );
         }
 
         $id = $this->request->getPost("id", "int");
         $company = Companies::findFirstById($id);
         if (!$company) {
             $this->flash->error("Company does not exist");
-            return $this->forward("companies/index");
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "index",
+                ]
+            );
         }
 
         $form = new CompaniesForm;
@@ -138,20 +184,38 @@ class CompaniesController extends ControllerBase
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward('companies/new');
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "new",
+                ]
+            );
         }
 
         if ($company->save() == false) {
             foreach ($company->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward('companies/new');
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "new",
+                ]
+            );
         }
 
         $form->clear();
 
         $this->flash->success("Company was updated successfully");
-        return $this->forward("companies/index");
+
+        return $this->dispatcher->forward(
+            [
+                "controller" => "companies",
+                "action"     => "index",
+            ]
+        );
     }
 
     /**
@@ -165,17 +229,35 @@ class CompaniesController extends ControllerBase
         $companies = Companies::findFirstById($id);
         if (!$companies) {
             $this->flash->error("Company was not found");
-            return $this->forward("companies/index");
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "index",
+                ]
+            );
         }
 
         if (!$companies->delete()) {
             foreach ($companies->getMessages() as $message) {
                 $this->flash->error($message);
             }
-            return $this->forward("companies/search");
+
+            return $this->dispatcher->forward(
+                [
+                    "controller" => "companies",
+                    "action"     => "search",
+                ]
+            );
         }
 
         $this->flash->success("Company was deleted");
-        return $this->forward("companies/index");
+
+        return $this->dispatcher->forward(
+            [
+                "controller" => "companies",
+                "action"     => "index",
+            ]
+        );
     }
 }
