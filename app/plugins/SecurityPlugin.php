@@ -123,7 +123,7 @@ class SecurityPlugin extends Plugin
 		}
 
 		$allowed = $acl->isAllowed($role, $controller, $action);
-		if ($allowed != Acl::ALLOW) {
+		if (!$allowed) {
 			$dispatcher->forward(array(
 				'controller' => 'errors',
 				'action'     => 'show401'
