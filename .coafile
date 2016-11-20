@@ -1,0 +1,53 @@
+[default]
+use_spaces = True
+enforce_newline_at_EOF = True
+max_line_length = 120
+indent_size = 4
+
+[sql]
+bears = InvalidLinkBear
+files = **.sql
+
+[volt]
+bears = InvalidLinkBear, LineLengthBear, SpaceConsistencyBear
+files = **.volt
+max_line_length = 200
+
+[php-PascalStyleFilenameing]
+bears = FilenameBear
+files = app/*.php, app/controllers/**.php, app/forms/**.php, app/library/**.php, app/models/**.php, app/plugins/**.php
+file_naming_convention = pascal
+
+[php-public]
+bears = InvalidLinkBear, PHPLintBear, LineLengthBear, LineCountBear
+files = public/index.php
+max_lines_per_file = 1000
+
+[php]
+bears = InvalidLinkBear, PHPLintBear, LineLengthBear, LineCountBear
+files = **.php
+ignore = cache/**, .phalcon/**, public/**
+max_lines_per_file = 1000
+
+[javascript-public]
+bears = InvalidLinkBear, JSComplexityBear, LineLengthBear, LineCountBear, SpaceConsistencyBear
+files = public/js/utils.js
+max_lines_per_file = 1000
+
+[javascript]
+bears = InvalidLinkBear, JSComplexityBear, LineLengthBear, LineCountBear, SpaceConsistencyBear
+files = **.js
+ignore = **.min.js, cache/**, .phalcon/**, public/**
+max_lines_per_file = 1000
+
+[markdown]
+bears = InvalidLinkBear, MarkdownBear, LineLengthBear, SpaceConsistencyBear
+files = **.md
+ignore = cache/**, .phalcon/**, public/**, docs/LICENSE.md
+markdown_bullets = *
+
+[yaml]
+bears = LineLengthBear, SpaceConsistencyBear
+files = **.yml
+ignore = cache/**, .phalcon/**, public/**
+indent_size = 2
