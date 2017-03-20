@@ -19,10 +19,10 @@ class NotFoundPlugin extends Plugin
 	 *
 	 * @param Event $event
 	 * @param MvcDispatcher $dispatcher
-	 * @param Exception $exception
+	 * @param \Exception $exception
 	 * @return boolean
 	 */
-	public function beforeException(Event $event, MvcDispatcher $dispatcher, Exception $exception)
+	public function beforeException(Event $event, MvcDispatcher $dispatcher, \Exception $exception)
 	{
 		error_log($exception->getMessage() . PHP_EOL . $exception->getTraceAsString());
 
@@ -30,18 +30,23 @@ class NotFoundPlugin extends Plugin
 			switch ($exception->getCode()) {
 				case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
 				case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
-					$dispatcher->forward(array(
-						'controller' => 'errors',
-						'action' => 'show404'
-					));
+					$dispatcher->forward(
+						[
+							'controller' => 'errors',
+							'action'     => 'show404'
+						]
+					);
 					return false;
 			}
 		}
 
-		$dispatcher->forward(array(
-			'controller' => 'errors',
-			'action'     => 'show500'
-		));
+		$dispatcher->forward(
+			[
+				'controller' => 'errors',
+				'action'     => 'show500'
+			]
+		);
+
 		return false;
 	}
 }
