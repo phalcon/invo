@@ -126,7 +126,7 @@ class SecurityPlugin extends Plugin
 		if (!$allowed) {
 			$dispatcher->forward(array(
 				'controller' => 'errors',
-				'action'     => 'show401'
+				'action'     => 'show404'
 			));
                         $this->session->destroy();
 			return false;
