@@ -79,7 +79,7 @@ class Services extends \Base\Services
     /**
      * Database connection is created based in the parameters defined in the configuration file
      */
-    protected function initDb()
+    protected function initSharedDb()
     {
         $config = $this->get('config')->get('database')->toArray();
 
