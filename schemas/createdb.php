@@ -83,7 +83,11 @@ try {
         ]
     );
 
-    $connection->execute("INSERT INTO `companies` VALUES (1,'Acme','31566564','Address','Hello'),(2,'Acme Inc','+44 564612345','Guildhall, PO Box 270, London','London')");
+    $connection->execute(
+        "INSERT INTO `companies` VALUES "
+        ."(1,'Acme','31566564','Address','Hello'),"
+        ."(2,'Acme Inc','+44 564612345','Guildhall, PO Box 270, London','London')"
+    );
 
     $connection->createTable(
         'contact',
@@ -189,7 +193,15 @@ try {
         ]
     );
 
-    $connection->execute("INSERT INTO `products` VALUES (1,5,'Artichoke','10.50','Y'),(2,5,'Bell pepper','10.40','Y'),(3,5,'Cauliflower','20.10','Y'),(4,5,'Chinese cabbage','15.50','Y'),(5,5,'Malabar spinach','7.50','Y'),(6,5,'Onion','3.50','Y'),(7,5,'Peanut','4.50','Y')");
+    $connection->execute("INSERT INTO `products` VALUES "
+        ."(1,5,'Artichoke','10.50','Y'),"
+        ."(2,5,'Bell pepper','10.40','Y'),"
+        ."(3,5,'Cauliflower','20.10','Y'),"
+        ."(4,5,'Chinese cabbage','15.50','Y'),"
+        ."(5,5,'Malabar spinach','7.50','Y'),"
+        ."(6,5,'Onion','3.50','Y'),"
+        ."(7,5,'Peanut','4.50','Y')"
+    );
 
     $connection->createTable(
         'users',
@@ -240,7 +252,11 @@ try {
         ]
     );
 
-    $connection->execute("INSERT INTO users VALUES (1,'demo', 'c0bd96dc7ea4ec56741a4e07f6ce98012814d853','Phalcon Demo','demo@phalconphp.com','2012-04-10 20:53:03','Y')");
+    $connection->execute(
+        "INSERT INTO users VALUES "
+        ."(1,'demo', 'c0bd96dc7ea4ec56741a4e07f6ce98012814d853','Phalcon Demo','demo@phalconphp.com',"
+            ."'2012-04-10 20:53:03','Y')"
+    );
 
     $connection->commit();
 

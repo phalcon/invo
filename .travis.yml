@@ -1,0 +1,6 @@
+language: generic
+services: docker
+script:
+  - >
+      docker run --volume=$(pwd):/app --workdir=/app coala/base:pre /bin/bash
+      -c "coala-ci"
