@@ -23,7 +23,7 @@ class Services extends \Base\Services
         /**
          * Check if the user is allowed to access certain action using the SecurityPlugin
          */
-        $eventsManager->attach('dispatch:beforeDispatch', new SecurityPlugin);
+        $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin);
 
         /**
          * Handle exceptions and not-found exceptions using NotFoundPlugin
