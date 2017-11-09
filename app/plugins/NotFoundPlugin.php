@@ -15,7 +15,7 @@ class NotFoundPlugin extends Plugin
 {
 
 	/**
-	 * This action is executed before execute any action in the application
+	 * This action is executed before perform any action in the application
 	 *
 	 * @param Event $event
 	 * @param MvcDispatcher $dispatcher

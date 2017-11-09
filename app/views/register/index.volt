@@ -56,7 +56,7 @@
         <div class="control-group">
             <label class="control-label" for="repeatPassword">Repeat Password</label>
             <div class="controls">
-                {{ password_field('repeatPassword', 'class': 'input-xlarge') }}
+                {{ password_field('repeatPassword', 'class': 'form-control') }}
                 <div class="alert" id="repeatPassword_alert">
                     <strong>Warning!</strong> The password does not match
                 </div>

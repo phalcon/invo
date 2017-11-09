@@ -45,25 +45,25 @@ class SecurityPlugin extends Plugin
 			}
 
 			//Private area resources
-			$privateResources = array(
-				'companies'    => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'products'     => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'producttypes' => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
-				'invoices'     => array('index', 'profile')
-			);
+			$privateResources = [
+				'companies'    => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
+				'products'     => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
+				'producttypes' => ['index', 'search', 'new', 'edit', 'save', 'create', 'delete'],
+				'invoices'     => ['index', 'profile']
+			];
 			foreach ($privateResources as $resource => $actions) {
 				$acl->addResource(new Resource($resource), $actions);
 			}
 
 			//Public area resources
-			$publicResources = array(
-				'index'      => array('index'),
-				'about'      => array('index'),
-				'register'   => array('index'),
-				'errors'     => array('show401', 'show404', 'show500'),
-				'session'    => array('index', 'register', 'start', 'end'),
-				'contact'    => array('index', 'send')
-			);
+			$publicResources = [
+				'index'      => ['index'],
+				'about'      => ['index'],
+				'register'   => ['index'],
+				'errors'     => ['show401', 'show404', 'show500'],
+				'session'    => ['index', 'register', 'start', 'end'],
+				'contact'    => ['index', 'send']
+			];
 			foreach ($publicResources as $resource => $actions) {
 				$acl->addResource(new Resource($resource), $actions);
 			}
@@ -123,10 +123,10 @@ class SecurityPlugin extends Plugin
 
 		$allowed = $acl->isAllowed($role, $controller, $action);
 		if (!$allowed) {
-			$dispatcher->forward(array(
+			$dispatcher->forward([
 				'controller' => 'errors',
 				'action'     => 'show401'
-			));
+			]);
                         $this->session->destroy();
 			return false;
 		}
