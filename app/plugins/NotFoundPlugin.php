@@ -13,7 +13,6 @@ use Phalcon\Mvc\Dispatcher as MvcDispatcher;
  */
 class NotFoundPlugin extends Plugin
 {
-
 	/**
 	 * This action is executed before perform any action in the application
 	 *

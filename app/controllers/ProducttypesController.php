@@ -3,6 +3,11 @@
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
+/**
+ * ProductTypesController
+ *
+ * Manage operations for product of types
+ */
 class ProductTypesController extends ControllerBase
 {
     public function initialize()
@@ -33,7 +38,7 @@ class ProductTypesController extends ControllerBase
             $numberPage = $this->request->getQuery("page", "int");
         }
 
-        $parameters = array();
+        $parameters = [];
         if ($this->persistent->searchParams) {
             $parameters = $this->persistent->searchParams;
         }
@@ -50,11 +55,11 @@ class ProductTypesController extends ControllerBase
             );
         }
 
-        $paginator = new Paginator(array(
+        $paginator = new Paginator([
             "data"  => $productTypes,
             "limit" => 10,
             "page"  => $numberPage
-        ));
+        ]);
 
         $this->view->page = $paginator->getPaginate();
         $this->view->productTypes = $productTypes;
@@ -65,7 +70,7 @@ class ProductTypesController extends ControllerBase
      */
     public function newAction()
     {
-        $this->view->form = new ProductTypesForm(null, array('edit' => true));
+        $this->view->form = new ProductTypesForm(null, ['edit' => true]);
     }
 
     /**
@@ -87,7 +92,7 @@ class ProductTypesController extends ControllerBase
                 );
             }
 
-            $this->view->form = new ProductTypesForm($producttypes, array('edit' => true));
+            $this->view->form = new ProductTypesForm($producttypes, ['edit' => true]);
         }
     }
 

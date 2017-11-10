@@ -37,9 +37,9 @@ class Products extends Model
 	 */
 	public function initialize()
 	{
-		$this->belongsTo('product_types_id', 'ProductTypes', 'id', array(
+		$this->belongsTo('product_types_id', 'ProductTypes', 'id', [
 			'reusable' => true
-		));
+		]);
 	}
 
 	/**
@@ -54,5 +54,4 @@ class Products extends Model
 		}
 		return 'No';
 	}
-
 }

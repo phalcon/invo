@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * ErrorsController
+ *
+ * Manage errors
+ */
 class ErrorsController extends ControllerBase
 {
     public function initialize()
