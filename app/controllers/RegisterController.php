@@ -22,7 +22,7 @@ class RegisterController extends ControllerBase
 
         if ($this->request->isPost()) {
 
-            $name = $this->request->getPost('name', array('string', 'striptags'));
+            $name = $this->request->getPost('name', ['string', 'striptags']);
             $username = $this->request->getPost('username', 'alphanum');
             $email = $this->request->getPost('email', 'email');
             $password = $this->request->getPost('password');

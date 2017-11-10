@@ -28,10 +28,10 @@ class SessionController extends ControllerBase
      */
     private function _registerSession(Users $user)
     {
-        $this->session->set('auth', array(
+        $this->session->set('auth', [
             'id' => $user->id,
             'name' => $user->name
-        ));
+        ]);
     }
 
     /**
@@ -45,10 +45,10 @@ class SessionController extends ControllerBase
             $email = $this->request->getPost('email');
             $password = $this->request->getPost('password');
 
-            $user = Users::findFirst(array(
+            $user = Users::findFirst([
                 "(email = :email: OR username = :email:) AND password = :password: AND active = 'Y'",
-                'bind' => array('email' => $email, 'password' => sha1($password))
-            ));
+                'bind' => ['email' => $email, 'password' => sha1($password)]
+            ]);
             if ($user != false) {
                 $this->_registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);

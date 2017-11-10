@@ -7,13 +7,11 @@ use Phalcon\Validation\Validator\PresenceOf;
 
 class ProductTypesForm extends Form
 {
-
     /**
      * Initialize the products form
      */
     public function initialize($entity = null, $options = array())
     {
-
         if (!isset($options['edit'])) {
             $element = new Text("id");
             $this->add($element->setLabel("Id"));
@@ -23,12 +21,12 @@ class ProductTypesForm extends Form
 
         $name = new Text("name");
         $name->setLabel("Name");
-        $name->setFilters(array('striptags', 'string'));
-        $name->addValidators(array(
-            new PresenceOf(array(
+        $name->setFilters(['striptags', 'string']);
+        $name->addValidators([
+            new PresenceOf([
                 'message' => 'Name is required'
-            ))
-        ));
+            ])
+        ]);
         $this->add($name);
     }
 }

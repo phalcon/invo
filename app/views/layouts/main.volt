@@ -18,6 +18,6 @@
     {{ content() }}
     <hr>
     <footer>
-        <p>&copy; Company 2015</p>
+        <p>&copy; Company 2017</p>
     </footer>
 </div>

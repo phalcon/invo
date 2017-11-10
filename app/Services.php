@@ -12,7 +12,6 @@ use Phalcon\Events\Manager as EventsManager;
 
 class Services extends \Base\Services
 {
-
     /**
      * We register the events manager
      */
@@ -52,9 +51,9 @@ class Services extends \Base\Services
 
         $view->setViewsDir(APP_PATH . $this->get('config')->application->viewsDir);
 
-        $view->registerEngines(array(
+        $view->registerEngines([
             ".volt" => 'volt'
-        ));
+        ]);
 
         return $view;
     }
@@ -66,9 +65,9 @@ class Services extends \Base\Services
     {
         $volt = new VoltEngine($view, $di);
 
-        $volt->setOptions(array(
+        $volt->setOptions([
             "compiledPath" => APP_PATH . "cache/volt/"
-        ));
+        ]);
 
         $compiler = $volt->getCompiler();
         $compiler->addFunction('is_a', 'is_a');
@@ -112,12 +111,12 @@ class Services extends \Base\Services
      */
     protected function initFlash()
     {
-        return new FlashSession(array(
+        return new FlashSession([
             'error' => 'alert alert-danger',
             'success' => 'alert alert-success',
             'notice' => 'alert alert-info',
             'warning' => 'alert alert-warning'
-        ));
+        ]);
     }
 
     /**
@@ -127,5 +126,4 @@ class Services extends \Base\Services
     {
         return new Elements();
     }
-
 }

@@ -10,13 +10,11 @@ use Phalcon\Validation\Validator\Numericality;
 
 class ProductsForm extends Form
 {
-
     /**
      * Initialize the products form
      */
     public function initialize($entity = null, $options = array())
     {
-
         if (!isset($options['edit'])) {
             $element = new Text("id");
             $this->add($element->setLabel("Id"));
@@ -26,34 +24,34 @@ class ProductsForm extends Form
 
         $name = new Text("name");
         $name->setLabel("Name");
-        $name->setFilters(array('striptags', 'string'));
-        $name->addValidators(array(
-            new PresenceOf(array(
+        $name->setFilters(['striptags', 'string']);
+        $name->addValidators([
+            new PresenceOf([
                 'message' => 'Name is required'
-            ))
-        ));
+            ])
+        ]);
         $this->add($name);
 
-        $type = new Select('product_types_id', ProductTypes::find(), array(
-            'using'      => array('id', 'name'),
+        $type = new Select('product_types_id', ProductTypes::find(), [
+            'using'      => ['id', 'name'],
             'useEmpty'   => true,
             'emptyText'  => '...',
             'emptyValue' => ''
-        ));
+        ]);
         $type->setLabel('Type');
         $this->add($type);
 
         $price = new Text("price");
         $price->setLabel("Price");
-        $price->setFilters(array('float'));
-        $price->addValidators(array(
-            new PresenceOf(array(
+        $price->setFilters(['float']);
+        $price->addValidators([
+            new PresenceOf([
                 'message' => 'Price is required'
-            )),
-            new Numericality(array(
+            ]),
+            new Numericality([
                 'message' => 'Price is required'
-            ))
-        ));
+            ])
+        ]);
         $this->add($price);
     }
 }

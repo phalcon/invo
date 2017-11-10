@@ -22,10 +22,10 @@ class ProductTypes extends Model
      */
     public function initialize()
     {
-        $this->hasMany('id', 'Products', 'product_types_id', array(
-        	'foreignKey' => array(
+        $this->hasMany('id', 'Products', 'product_types_id', [
+        	'foreignKey' => [
         		'message' => 'Product Type cannot be deleted because it\'s used in Products'
-        	)
-        ));
+        	]
+        ]);
     }
 }
