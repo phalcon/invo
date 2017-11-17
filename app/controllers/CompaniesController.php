@@ -33,7 +33,7 @@ class CompaniesController extends ControllerBase
             $numberPage = $this->request->getQuery("page", "int");
         }
 
-        $parameters = array();
+        $parameters = [];
         if ($this->persistent->searchParams) {
             $parameters = $this->persistent->searchParams;
         }
@@ -50,11 +50,11 @@ class CompaniesController extends ControllerBase
             );
         }
 
-        $paginator = new Paginator(array(
+        $paginator = new Paginator([
             "data"  => $companies,
             "limit" => 10,
             "page"  => $numberPage
-        ));
+        ]);
 
         $this->view->page = $paginator->getPaginate();
         $this->view->companies = $companies;
@@ -65,7 +65,7 @@ class CompaniesController extends ControllerBase
      */
     public function newAction()
     {
-        $this->view->form = new CompaniesForm(null, array('edit' => true));
+        $this->view->form = new CompaniesForm(null, ['edit' => true]);
     }
 
     /**
@@ -88,7 +88,7 @@ class CompaniesController extends ControllerBase
                 );
             }
 
-            $this->view->form = new CompaniesForm($company, array('edit' => true));
+            $this->view->form = new CompaniesForm($company, ['edit' => true]);
         }
     }
 

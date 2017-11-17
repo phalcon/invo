@@ -9,61 +9,60 @@ use Phalcon\Mvc\User\Component;
  */
 class Elements extends Component
 {
-
-    private $_headerMenu = array(
-        'navbar-left' => array(
-            'index' => array(
+    private $_headerMenu = [
+        'navbar-left' => [
+            'index' => [
                 'caption' => 'Home',
                 'action' => 'index'
-            ),
-            'invoices' => array(
+            ],
+            'invoices' => [
                 'caption' => 'Invoices',
                 'action' => 'index'
-            ),
-            'about' => array(
+            ],
+            'about' => [
                 'caption' => 'About',
                 'action' => 'index'
-            ),
-            'contact' => array(
+            ],
+            'contact' => [
                 'caption' => 'Contact',
                 'action' => 'index'
-            ),
-        ),
-        'navbar-right' => array(
-            'session' => array(
+            ],
+        ],
+        'navbar-right' => [
+            'session' => [
                 'caption' => 'Log In/Sign Up',
                 'action' => 'index'
-            ),
-        )
-    );
+            ],
+        ]
+    ];
 
-    private $_tabs = array(
-        'Invoices' => array(
+    private $_tabs = [
+        'Invoices' => [
             'controller' => 'invoices',
             'action' => 'index',
             'any' => false
-        ),
-        'Companies' => array(
+        ],
+        'Companies' => [
             'controller' => 'companies',
             'action' => 'index',
             'any' => true
-        ),
-        'Products' => array(
+        ],
+        'Products' => [
             'controller' => 'products',
             'action' => 'index',
             'any' => true
-        ),
-        'Product Types' => array(
+        ],
+        'Product Types' => [
             'controller' => 'producttypes',
             'action' => 'index',
             'any' => true
-        ),
-        'Your Profile' => array(
+        ],
+        'Your Profile' => [
             'controller' => 'invoices',
             'action' => 'profile',
             'any' => false
-        )
-    );
+        ]
+    ];
 
     /**
      * Builds header menu with left and right items
@@ -75,10 +74,10 @@ class Elements extends Component
 
         $auth = $this->session->get('auth');
         if ($auth) {
-            $this->_headerMenu['navbar-right']['session'] = array(
+            $this->_headerMenu['navbar-right']['session'] = [
                 'caption' => 'Log Out',
                 'action' => 'end'
-            );
+            ];
         } else {
             unset($this->_headerMenu['navbar-left']['invoices']);
         }

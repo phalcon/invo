@@ -3,6 +3,11 @@
 use Phalcon\Flash;
 use Phalcon\Session;
 
+/**
+ * InvoicesController
+ *
+ * Manage operations for invoises
+ */
 class InvoicesController extends ControllerBase
 {
     public function initialize()
@@ -40,7 +45,7 @@ class InvoicesController extends ControllerBase
             $this->tag->setDefault('email', $user->email);
         } else {
 
-            $name = $this->request->getPost('name', array('string', 'striptags'));
+            $name = $this->request->getPost('name', ['string', 'striptags']);
             $email = $this->request->getPost('email', 'email');
 
             $user->name = $name;

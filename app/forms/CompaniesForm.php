@@ -8,13 +8,11 @@ use Phalcon\Validation\Validator\Email;
 
 class CompaniesForm extends Form
 {
-
     /**
      * Initialize the companies form
      */
-    public function initialize($entity = null, $options = array())
+    public function initialize($entity = null, $options = [])
     {
-
         if (!isset($options['edit'])) {
             $element = new Text("id");
             $this->add($element->setLabel("Id"));
@@ -24,43 +22,42 @@ class CompaniesForm extends Form
 
         $name = new Text("name");
         $name->setLabel("Name");
-        $name->setFilters(array('striptags', 'string'));
-        $name->addValidators(array(
-            new PresenceOf(array(
+        $name->setFilters(['striptags', 'string']);
+        $name->addValidators([
+            new PresenceOf([
                 'message' => 'Name is required'
-            ))
-        ));
+            ])
+        ]);
         $this->add($name);
 
         $telephone = new Text("telephone");
         $telephone->setLabel("Telephone");
-        $telephone->setFilters(array('striptags', 'string'));
-        $telephone->addValidators(array(
-            new PresenceOf(array(
+        $telephone->setFilters(['striptags', 'string']);
+        $telephone->addValidators([
+            new PresenceOf([
                 'message' => 'Telephone is required'
-            ))
-        ));
+            ])
+        ]);
         $this->add($telephone);
 
         $address = new Text("address");
         $address->setLabel("address");
-        $address->setFilters(array('striptags', 'string'));
-        $address->addValidators(array(
-            new PresenceOf(array(
+        $address->setFilters(['striptags', 'string']);
+        $address->addValidators([
+            new PresenceOf([
                 'message' => 'Address is required'
-            ))
-        ));
+            ])
+        ]);
         $this->add($address);
 
         $city = new Text("city");
         $city->setLabel("city");
-        $city->setFilters(array('striptags', 'string'));
-        $city->addValidators(array(
-            new PresenceOf(array(
+        $city->setFilters(['striptags', 'string']);
+        $city->addValidators([
+            new PresenceOf([
                 'message' => 'City is required'
-            ))
-        ));
+            ])
+        ]);
         $this->add($city);
     }
-
 }

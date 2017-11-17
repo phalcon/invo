@@ -5,7 +5,6 @@ use Phalcon\Db\RawValue;
 
 class Contact extends Model
 {
-
 	public $id;
 
 	public $name;
@@ -20,5 +19,4 @@ class Contact extends Model
 	{
 		$this->created_at = new RawValue('now()');
 	}
-
 }
