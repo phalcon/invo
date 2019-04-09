@@ -13,19 +13,28 @@ class Users extends Model
         
         $validator->add(
             'email',
-            new EmailValidator([
-            'message' => 'Invalid email given'
-        ]));
+            new EmailValidator(
+                [
+                    'message' => 'Invalid email given',
+                ]
+            )
+        );
         $validator->add(
             'email',
-            new UniquenessValidator([
-            'message' => 'Sorry, The email was registered by another user'
-        ]));
+            new UniquenessValidator(
+                [
+                    'message' => 'Sorry, The email was registered by another user',
+                ]
+            )
+        );
         $validator->add(
             'username',
-            new UniquenessValidator([
-            'message' => 'Sorry, That username is already taken'
-        ]));
+            new UniquenessValidator(
+                [
+                    'message' => 'Sorry, That username is already taken',
+                ]
+            )
+        );
         
         return $this->validate($validator);
     }

@@ -5,18 +5,18 @@ use Phalcon\Db\RawValue;
 
 class Contact extends Model
 {
-	public $id;
+    public $id;
 
-	public $name;
+    public $name;
 
-	public $email;
+    public $email;
 
-	public $comments;
+    public $comments;
 
-	public $created_at;
+    public $created_at;
 
-	public function beforeCreate()
-	{
-		$this->created_at = new RawValue('now()');
-	}
+    public function beforeCreate()
+    {
+        $this->created_at = new RawValue('now()');
+    }
 }

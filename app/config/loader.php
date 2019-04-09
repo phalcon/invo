@@ -10,10 +10,11 @@ $loader->registerDirs([
     APP_PATH . $config->application->pluginsDir,
     APP_PATH . $config->application->libraryDir,
     APP_PATH . $config->application->modelsDir,
-    APP_PATH . $config->application->formsDir
+    APP_PATH . $config->application->formsDir,
 ])->register();
 
-$loader->registerClasses([
-    'Services' => APP_PATH . 'app/Services.php'
-]);
-
+$loader->registerClasses(
+    [
+        'Services' => APP_PATH . 'app/Services.php',
+    ]
+);
