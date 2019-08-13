@@ -13,6 +13,7 @@ class InvoicesController extends ControllerBase
     public function initialize()
     {
         $this->tag->setTitle('Manage your Invoices');
+
         parent::initialize();
     }
 
@@ -22,7 +23,6 @@ class InvoicesController extends ControllerBase
 
     /**
      * Edit the active user profile
-     *
      */
     public function profileAction()
     {
@@ -44,18 +44,22 @@ class InvoicesController extends ControllerBase
             $this->tag->setDefault('name', $user->name);
             $this->tag->setDefault('email', $user->email);
         } else {
-
             $name = $this->request->getPost('name', ['string', 'striptags']);
             $email = $this->request->getPost('email', 'email');
 
             $user->name = $name;
             $user->email = $email;
+
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
-                    $this->flash->error((string) $message);
+                    $this->flash->error(
+                        (string) $message
+                    );
                 }
             } else {
-                $this->flash->success('Your profile information was updated successfully');
+                $this->flash->success(
+                    'Your profile information was updated successfully'
+                );
             }
         }
     }
