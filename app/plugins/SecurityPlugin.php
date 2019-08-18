@@ -35,7 +35,7 @@ class SecurityPlugin extends Plugin
                 ),
                 'guests' => new Role(
                     'Guests',
-                    'Anyone browsing the site who is not signed in is considered to be a "Guest".',
+                    'Anyone browsing the site who is not signed in is considered to be a "Guest".'
                 )
             ];
 
