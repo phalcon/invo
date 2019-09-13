@@ -11,7 +11,7 @@ class CompaniesForm extends Form
     /**
      * Initialize the companies form
      */
-    public function initialize($entity = null, array $options = [])
+    public function initialize($entity = null, $options = null)
     {
         if (!isset($options['edit'])) {
             $element = new Text("id");
