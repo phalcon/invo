@@ -10,7 +10,7 @@ class ProductTypesForm extends Form
     /**
      * Initialize the products form
      */
-    public function initialize($entity = null, array $options = [])
+    public function initialize($entity = null, $options = null)
     {
         if (!isset($options['edit'])) {
             $element = new Text("id");

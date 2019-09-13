@@ -31,7 +31,7 @@ class SecurityPlugin extends Plugin
             $roles = [
                 'users'  => new Role(
                     'Users',
-                    'Member privileges, granted after sign in.',
+                    'Member privileges, granted after sign in.'
                 ),
                 'guests' => new Role(
                     'Guests',
