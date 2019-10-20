@@ -1,6 +1,6 @@
 # INVO Application
 
-[Phalcon PHP][1] is a web framework delivered as a C extension providing high
+[Phalcon][1] is a web framework delivered as a C extension providing high
 performance and lower resource consumption.
 
 This is a sample application for the Phalcon PHP Framework. We expect to
@@ -67,7 +67,7 @@ Support us with a monthly donation and help us continue our activities. [[Become
 
 Invo is open-sourced software licensed under the [New BSD License][8]. © Phalcon Framework Team and contributors
 
-[1]: https://phalconphp.com/
+[1]: https://phalcon.io/
 [2]: http://httpd.apache.org/
 [3]: http://httpd.apache.org/docs/current/mod/mod_rewrite.html
 [4]: http://nginx.org/
