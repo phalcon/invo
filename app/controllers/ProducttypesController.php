@@ -70,7 +70,7 @@ class ProductTypesController extends ControllerBase
             'page'  => $numberPage,
         ]);
 
-        $this->view->page = $paginator->getPaginate();
+        $this->view->page = $paginator->paginate();
         $this->view->productTypes = $productTypes;
     }
 
