@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 use Phalcon\Di\FactoryDefault;
-use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\Mvc\Application;
 
 try {
@@ -10,17 +9,12 @@ try {
 
     $di = new FactoryDefault();
 
-    $providersConfig = APP_PATH . '/app/config/providers.php';
-    if (!file_exists($providersConfig) || !is_readable($providersConfig)) {
+    $providers = APP_PATH . '/app/config/providers.php';
+    if (!file_exists($providers) || !is_readable($providers)) {
         throw new Exception('File providers.php does not exist or is not readable.');
     }
 
-    $providers = include_once $providersConfig;
-    foreach ($providers as $providerClass) {
-        /** @var ServiceProviderInterface $provider */
-        $provider = new $providerClass;
-        $provider->register($di);
-    }
+    $di->loadFromPhp($providers);
 
     (new Application($di))
         ->handle($_SERVER['REQUEST_URI'])
