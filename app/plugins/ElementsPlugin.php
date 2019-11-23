@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Library;
+namespace Invo\Plugins;
 
 use Phalcon\Di\Injectable;
 
@@ -10,7 +10,7 @@ use Phalcon\Di\Injectable;
  *
  * Helps to build UI elements for the application
  */
-class Elements extends Injectable
+class ElementsPlugin extends Injectable
 {
     private $headerMenu = [
         'navbar-left' => [
