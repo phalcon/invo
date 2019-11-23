@@ -35,13 +35,13 @@ class CompaniesController extends ControllerBase
         if ($this->request->isPost()) {
             $query = Criteria::fromInput(
                 $this->di,
-                "Companies",
+                'Companies',
                 $this->request->getPost()
             );
 
             $this->persistent->searchParams = $query->getParams();
         } else {
-            $numberPage = $this->request->getQuery("page", "int");
+            $numberPage = $this->request->getQuery('page', 'int');
         }
 
         $parameters = [];
@@ -51,23 +51,19 @@ class CompaniesController extends ControllerBase
 
         $companies = Companies::find($parameters);
         if (count($companies) == 0) {
-            $this->flash->notice("The search did not find any companies");
+            $this->flash->notice('The search did not find any companies');
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'index',
+            ]);
         }
 
-        $paginator = new Paginator(
-            [
-                "data"  => $companies,
-                "limit" => 10,
-                "page"  => $numberPage,
-            ]
-        );
+        $paginator = new Paginator([
+            'data'  => $companies,
+            'limit' => 10,
+            'page'  => $numberPage,
+        ]);
 
         $this->view->page = $paginator->getPaginate();
         $this->view->companies = $companies;
@@ -92,12 +88,10 @@ class CompaniesController extends ControllerBase
         if (!$company) {
             $this->flash->error('Company was not found');
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'index',
+            ]);
         }
 
         $this->view->form = new CompaniesForm($company, ['edit' => true]);
@@ -109,12 +103,10 @@ class CompaniesController extends ControllerBase
     public function createAction()
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'index',
+            ]);
         }
 
         $form = new CompaniesForm;
@@ -126,109 +118,88 @@ class CompaniesController extends ControllerBase
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "new",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'new',
+            ]);
         }
 
-        if ($company->save() == false) {
+        if (!$company->save()) {
             foreach ($company->getMessages() as $message) {
                 $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "new",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'new',
+            ]);
         }
 
         $form->clear();
 
-        $this->flash->success("Company was created successfully");
+        $this->flash->success('Company was created successfully');
 
-        return $this->dispatcher->forward(
-            [
-                "controller" => "companies",
-                "action"     => "index",
-            ]
-        );
+        return $this->dispatcher->forward([
+            'controller' => 'companies',
+            'action'     => 'index',
+        ]);
     }
 
     /**
      * Saves current company in screen
-     *
-     * @param string $id
      */
     public function saveAction()
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'index',
+            ]);
         }
 
-        $id = $this->request->getPost("id", "int");
-
+        $id = $this->request->getPost('id', 'int');
         $company = Companies::findFirstById($id);
-
         if (!$company) {
-            $this->flash->error("Company does not exist");
+            $this->flash->error('Company does not exist');
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'index',
+            ]);
         }
-
-        $form = new CompaniesForm;
 
         $data = $this->request->getPost();
+        $form = new CompaniesForm;
         if (!$form->isValid($data, $company)) {
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "new",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'new',
+            ]);
         }
 
-        if ($company->save() == false) {
+        if (!$company->save()) {
             foreach ($company->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "new",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'new',
+            ]);
         }
 
         $form->clear();
 
-        $this->flash->success("Company was updated successfully");
+        $this->flash->success('Company was updated successfully');
 
-        return $this->dispatcher->forward(
-            [
-                "controller" => "companies",
-                "action"     => "index",
-            ]
-        );
+        return $this->dispatcher->forward([
+            'controller' => 'companies',
+            'action'     => 'index',
+        ]);
     }
 
     /**
@@ -239,16 +210,13 @@ class CompaniesController extends ControllerBase
     public function deleteAction($id)
     {
         $companies = Companies::findFirstById($id);
-
         if (!$companies) {
-            $this->flash->error("Company was not found");
+            $this->flash->error('Company was not found');
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'index',
+            ]);
         }
 
         if (!$companies->delete()) {
@@ -256,21 +224,17 @@ class CompaniesController extends ControllerBase
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "companies",
-                    "action"     => "search",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'search',
+            ]);
         }
 
-        $this->flash->success("Company was deleted");
+        $this->flash->success('Company was deleted');
 
-        return $this->dispatcher->forward(
-            [
-                "controller" => "companies",
-                "action"     => "index",
-            ]
-        );
+        return $this->dispatcher->forward([
+            'controller' => 'companies',
+            'action'     => 'index',
+        ]);
     }
 }

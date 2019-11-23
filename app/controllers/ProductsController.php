@@ -39,13 +39,13 @@ class ProductsController extends ControllerBase
         if ($this->request->isPost()) {
             $query = Criteria::fromInput(
                 $this->di,
-                "Products",
+                'Products',
                 $this->request->getPost()
             );
 
             $this->persistent->searchParams = $query->getParams();
         } else {
-            $numberPage = $this->request->getQuery("page", "int");
+            $numberPage = $this->request->getQuery('page', 'int');
         }
 
         $parameters = [];
@@ -55,7 +55,7 @@ class ProductsController extends ControllerBase
 
         $products = Products::find($parameters);
         if (count($products) == 0) {
-            $this->flash->notice("The search did not find any products");
+            $this->flash->notice('The search did not find any products');
 
             return $this->dispatcher->forward([
                 'controller' => 'products',
@@ -106,12 +106,10 @@ class ProductsController extends ControllerBase
     public function createAction()
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "products",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'products',
+                'action'     => 'index',
+            ]);
         }
 
         $form = new ProductsForm;
