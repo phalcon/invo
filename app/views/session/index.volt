@@ -1,8 +1,6 @@
-
 {{ content() }}
 
 <div class="row">
-
     <div class="col-md-6">
         <div class="page-header">
             <h2>Log In</h2>
@@ -29,7 +27,6 @@
     </div>
 
     <div class="col-md-6">
-
         <div class="page-header">
             <h2>Don't have an account yet?</h2>
         </div>
@@ -45,5 +42,4 @@
             {{ link_to('register', 'Sign Up', 'class': 'btn btn-primary btn-large btn-success') }}
         </div>
     </div>
-
 </div>

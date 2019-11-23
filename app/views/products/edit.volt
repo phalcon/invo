@@ -1,4 +1,3 @@
-
 {{ form("products/save", 'role': 'form') }}
 
     <ul class="pager">

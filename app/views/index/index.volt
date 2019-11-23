@@ -1,4 +1,3 @@
-
 {{ content() }}
 
 <div class="jumbotron">

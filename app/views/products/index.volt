@@ -1,4 +1,3 @@
-
 {{ content() }}
 
 <div align="right">

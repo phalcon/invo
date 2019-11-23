@@ -10,9 +10,9 @@
 </ul>
 
 {% for company in page.items %}
-{% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
-    <thead>
+    {% if loop.first %}
+        <table class="table table-bordered table-striped" align="center">
+        <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
@@ -20,21 +20,21 @@
             <th>Address</th>
             <th>City</th>
         </tr>
-    </thead>
-{% endif %}
+        </thead>
+    {% endif %}
     <tbody>
-        <tr>
-            <td>{{ company.id }}</td>
-            <td>{{ company.name }}</td>
-            <td>{{ company.telephone }}</td>
-            <td>{{ company.address }}</td>
-            <td>{{ company.city }}</td>
-            <td width="7%">{{ link_to("companies/edit/" ~ company.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-default") }}</td>
-            <td width="7%">{{ link_to("companies/delete/" ~ company.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-default") }}</td>
-        </tr>
+    <tr>
+        <td>{{ company.id }}</td>
+        <td>{{ company.name }}</td>
+        <td>{{ company.telephone }}</td>
+        <td>{{ company.address }}</td>
+        <td>{{ company.city }}</td>
+        <td width="7%">{{ link_to("companies/edit/" ~ company.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-default") }}</td>
+        <td width="7%">{{ link_to("companies/delete/" ~ company.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-default") }}</td>
+    </tr>
     </tbody>
-{% if loop.last %}
-    <tbody>
+    {% if loop.last %}
+        <tbody>
         <tr>
             <td colspan="7" align="right">
                 <div class="btn-group">
@@ -46,9 +46,9 @@
                 </div>
             </td>
         </tr>
-    <tbody>
-</table>
-{% endif %}
+        <tbody>
+        </table>
+    {% endif %}
 {% else %}
     No companies are recorded
 {% endfor %}

@@ -1,4 +1,3 @@
-
 {{ elements.getTabs() }}
 
 <div align="center">

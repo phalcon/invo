@@ -11,24 +11,24 @@
 
 {% for producttype in page.items %}
     {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
-    <thead>
+        <table class="table table-bordered table-striped" align="center">
+        <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
     {% endif %}
-        <tr>
-            <td>{{ producttype.id }}</td>
-            <td>{{ producttype.name }}</td>
-            <td width="7%">{{ link_to("producttypes/edit/" ~ producttype.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-default") }}</td>
-            <td width="7%">{{ link_to("producttypes/delete/" ~ producttype.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-default") }}</td>
-        </tr>
+    <tr>
+        <td>{{ producttype.id }}</td>
+        <td>{{ producttype.name }}</td>
+        <td width="7%">{{ link_to("producttypes/edit/" ~ producttype.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-default") }}</td>
+        <td width="7%">{{ link_to("producttypes/delete/" ~ producttype.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-default") }}</td>
+    </tr>
     {% if loop.last %}
-    </tbody>
-    <tbody>
+        </tbody>
+        <tbody>
         <tr>
             <td colspan="4" align="right">
                 <div class="btn-group">
@@ -40,8 +40,8 @@
                 </div>
             </td>
         </tr>
-    <tbody>
-</table>
+        <tbody>
+        </table>
     {% endif %}
 {% else %}
     No product types are recorded

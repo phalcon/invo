@@ -11,8 +11,8 @@
 
 {% for product in page.items %}
     {% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
-    <thead>
+        <table class="table table-bordered table-striped" align="center">
+        <thead>
         <tr>
             <th>Id</th>
             <th>Product Type</th>
@@ -20,21 +20,21 @@
             <th>Price</th>
             <th>Active</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
     {% endif %}
-        <tr>
-            <td>{{ product.id }}</td>
-            <td>{{ product.getProductTypes().name }}</td>
-            <td>{{ product.name }}</td>
-            <td>${{ "%.2f"|format(product.price) }}</td>
-            <td>{{ product.getActiveDetail() }}</td>
-            <td width="7%">{{ link_to("products/edit/" ~ product.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-default") }}</td>
-            <td width="7%">{{ link_to("products/delete/" ~ product.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-default") }}</td>
-        </tr>
+    <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.getProductTypes().name }}</td>
+        <td>{{ product.name }}</td>
+        <td>${{ "%.2f"|format(product.price) }}</td>
+        <td>{{ product.getActiveDetail() }}</td>
+        <td width="7%">{{ link_to("products/edit/" ~ product.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-default") }}</td>
+        <td width="7%">{{ link_to("products/delete/" ~ product.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-default") }}</td>
+    </tr>
     {% if loop.last %}
-    </tbody>
-    <tbody>
+        </tbody>
+        <tbody>
         <tr>
             <td colspan="7" align="right">
                 <div class="btn-group">
@@ -46,8 +46,8 @@
                 </div>
             </td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+        </table>
     {% endif %}
 {% else %}
     No products are recorded

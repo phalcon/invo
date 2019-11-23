@@ -1,4 +1,3 @@
-
 {{ content() }}
 
 {{ form("products/create") }}
