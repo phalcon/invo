@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Forms\ContactForm;
+use Invo\Models\Contact;
+
 /**
  * ContactController
  *
@@ -12,12 +15,12 @@ class ContactController extends ControllerBase
 {
     public function initialize()
     {
-        $this->tag->setTitle('Contact us');
-
         parent::initialize();
+
+        $this->tag->setTitle('Contact us');
     }
 
-    public function indexAction()
+    public function indexAction(): void
     {
         $this->view->form = new ContactForm;
     }
@@ -27,13 +30,11 @@ class ContactController extends ControllerBase
      */
     public function sendAction()
     {
-        if ($this->request->isPost() != true) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "contact",
-                    "action"     => "index",
-                ]
-            );
+        if (!$this->request->isPost()) {
+            return $this->dispatcher->forward([
+                'controller' => 'contact',
+                'action'     => 'index',
+            ]);
         }
 
         $form = new ContactForm;
@@ -47,36 +48,28 @@ class ContactController extends ControllerBase
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "contact",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'contact',
+                'action'     => 'index',
+            ]);
         }
 
-        if ($contact->save() == false) {
+        if (!$contact->save()) {
             foreach ($contact->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "contact",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'contact',
+                'action'     => 'index',
+            ]);
         }
 
-        $this->flash->success(
-            'Thanks, we will contact you in the next few hours'
-        );
+        $this->flash->success('Thanks, we will contact you in the next few hours');
 
-        return $this->dispatcher->forward(
-            [
-                "controller" => "index",
-                "action"     => "index",
-            ]
-        );
+        return $this->dispatcher->forward([
+            'controller' => 'index',
+            'action'     => 'index',
+        ]);
     }
 }

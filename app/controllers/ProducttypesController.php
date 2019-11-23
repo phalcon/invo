@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Forms\ProductTypesForm;
+use Invo\Models\ProductTypes;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -23,10 +25,9 @@ class ProductTypesController extends ControllerBase
     /**
      * Shows the index action
      */
-    public function indexAction()
+    public function indexAction(): void
     {
         $this->session->conditions = null;
-
         $this->view->form = new ProductTypesForm;
     }
 
@@ -39,13 +40,13 @@ class ProductTypesController extends ControllerBase
         if ($this->request->isPost()) {
             $query = Criteria::fromInput(
                 $this->di,
-                "ProductTypes",
+                'ProductTypes',
                 $this->request->getPost()
             );
 
             $this->persistent->searchParams = $query->getParams();
         } else {
-            $numberPage = $this->request->getQuery("page", "int");
+            $numberPage = $this->request->getQuery('page', 'int');
         }
 
         $parameters = [];
@@ -54,25 +55,20 @@ class ProductTypesController extends ControllerBase
         }
 
         $productTypes = ProductTypes::find($parameters);
+        if (count($productTypes) === 0) {
+            $this->flash->notice('The search did not find any product types');
 
-        if (count($productTypes) == 0) {
-            $this->flash->notice("The search did not find any product types");
-
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'index',
+            ]);
         }
 
-        $paginator = new Paginator(
-            [
-                "data"  => $productTypes,
-                "limit" => 10,
-                "page"  => $numberPage,
-            ]
-        );
+        $paginator = new Paginator([
+            'data'  => $productTypes,
+            'limit' => 10,
+            'page'  => $numberPage,
+        ]);
 
         $this->view->page = $paginator->getPaginate();
         $this->view->productTypes = $productTypes;
@@ -81,42 +77,29 @@ class ProductTypesController extends ControllerBase
     /**
      * Shows the form to create a new producttype
      */
-    public function newAction()
+    public function newAction(): void
     {
-        $this->view->form = new ProductTypesForm(
-            null,
-            [
-                'edit' => true,
-            ]
-        );
+        $this->view->form = new ProductTypesForm(null, ['edit' => true]);
     }
 
     /**
      * Edits a producttype based on its id
+     *
+     * @param int $id
      */
     public function editAction($id)
     {
-        if (!$this->request->isPost()) {
-            $producttypes = ProductTypes::findFirstById($id);
+        $productTypes = ProductTypes::findFirstById($id);
+        if (!$productTypes) {
+            $this->flash->error('Product type to edit was not found');
 
-            if (!$producttypes) {
-                $this->flash->error("Product type to edit was not found");
-
-                return $this->dispatcher->forward(
-                    [
-                        "controller" => "producttypes",
-                        "action"     => "index",
-                    ]
-                );
-            }
-
-            $this->view->form = new ProductTypesForm(
-                $producttypes,
-                [
-                    'edit' => true,
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'index',
+            ]);
         }
+
+        $this->view->form = new ProductTypesForm($productTypes, ['edit' => true]);
     }
 
     /**
@@ -125,165 +108,136 @@ class ProductTypesController extends ControllerBase
     public function createAction()
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'index',
+            ]);
         }
 
         $form = new ProductTypesForm;
-        $producttypes = new ProductTypes();
+        $productTypes = new ProductTypes();
 
         $data = $this->request->getPost();
-        if (!$form->isValid($data, $producttypes)) {
+        if (!$form->isValid($data, $productTypes)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "new",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'new',
+            ]);
         }
 
-        if ($producttypes->save() == false) {
-            foreach ($producttypes->getMessages() as $message) {
-                $this->flash->error($message);
+        if (!$productTypes->save()) {
+            foreach ($productTypes->getMessages() as $message) {
+                $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "new",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'new',
+            ]);
         }
 
         $form->clear();
+        $this->flash->success('Product type was created successfully');
 
-        $this->flash->success("Product type was created successfully");
-
-        return $this->dispatcher->forward(
-            [
-                "controller" => "producttypes",
-                "action"     => "index",
-            ]
-        );
+        return $this->dispatcher->forward([
+            'controller' => 'producttypes',
+            'action'     => 'index',
+        ]);
     }
 
     /**
      * Saves current producttypes in screen
-     *
-     * @param string $id
      */
     public function saveAction()
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'index',
+            ]);
         }
 
-        $id = $this->request->getPost("id", "int");
+        $id = $this->request->getPost('id', 'int');
         $productTypes = ProductTypes::findFirstById($id);
         if (!$productTypes) {
-            $this->flash->error("productTypes does not exist");
+            $this->flash->error('productTypes does not exist');
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'index',
+            ]);
         }
 
         $form = new ProductTypesForm;
-
         $data = $this->request->getPost();
         if (!$form->isValid($data, $productTypes)) {
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "new",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'new',
+            ]);
         }
 
-        if ($productTypes->save() == false) {
+        if (!$productTypes->save()) {
             foreach ($productTypes->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "new",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'new',
+            ]);
         }
 
         $form->clear();
+        $this->flash->success('Product Type was updated successfully');
 
-        $this->flash->success("Product Type was updated successfully");
-
-        return $this->dispatcher->forward(
-            [
-                "controller" => "producttypes",
-                "action"     => "index",
-            ]
-        );
+        return $this->dispatcher->forward([
+            'controller' => 'producttypes',
+            'action'     => 'index',
+        ]);
     }
 
     /**
      * Deletes a producttypes
      *
-     * @param string $id
+     * @param int $id
      */
     public function deleteAction($id)
     {
         $productTypes = ProductTypes::findFirstById($id);
         if (!$productTypes) {
-            $this->flash->error("Product types was not found");
+            $this->flash->error('Product types was not found');
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "index",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'index',
+            ]);
         }
 
         if (!$productTypes->delete()) {
             foreach ($productTypes->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "producttypes",
-                    "action"     => "search",
-                ]
-            );
+            return $this->dispatcher->forward([
+                'controller' => 'producttypes',
+                'action'     => 'search',
+            ]);
         }
 
-        $this->flash->success("product types was deleted");
+        $this->flash->success('product types was deleted');
 
-        return $this->dispatcher->forward(
-            [
-                "controller" => "producttypes",
-                "action"     => "index",
-            ]
-        );
+        return $this->dispatcher->forward([
+            'controller' => 'producttypes',
+            'action'     => 'index',
+        ]);
     }
 }

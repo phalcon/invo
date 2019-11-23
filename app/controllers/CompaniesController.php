@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Forms\CompaniesForm;
+use Invo\Models\Companies;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
 
@@ -10,9 +12,9 @@ class CompaniesController extends ControllerBase
 {
     public function initialize()
     {
-        $this->tag->setTitle('Manage your companies');
-
         parent::initialize();
+
+        $this->tag->setTitle('Manage your companies');
     }
 
     /**
@@ -21,7 +23,6 @@ class CompaniesController extends ControllerBase
     public function indexAction()
     {
         $this->session->conditions = null;
-
         $this->view->form = new CompaniesForm;
     }
 
@@ -77,40 +78,29 @@ class CompaniesController extends ControllerBase
      */
     public function newAction()
     {
-        $this->view->form = new CompaniesForm(
-            null,
-            [
-                'edit' => true,
-            ]
-        );
+        $this->view->form = new CompaniesForm(null, ['edit' => true]);
     }
 
     /**
      * Edits a company based on its id
+     *
+     * @param int $id
      */
     public function editAction($id)
     {
-        if (!$this->request->isPost()) {
-            $company = Companies::findFirstById($id);
+        $company = Companies::findFirstById($id);
+        if (!$company) {
+            $this->flash->error('Company was not found');
 
-            if (!$company) {
-                $this->flash->error("Company was not found");
-
-                return $this->dispatcher->forward(
-                    [
-                        "controller" => "companies",
-                        "action"     => "index",
-                    ]
-                );
-            }
-
-            $this->view->form = new CompaniesForm(
-                $company,
+            return $this->dispatcher->forward(
                 [
-                    'edit' => true,
+                    "controller" => "companies",
+                    "action"     => "index",
                 ]
             );
         }
+
+        $this->view->form = new CompaniesForm($company, ['edit' => true]);
     }
 
     /**
@@ -146,7 +136,7 @@ class CompaniesController extends ControllerBase
 
         if ($company->save() == false) {
             foreach ($company->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
             return $this->dispatcher->forward(

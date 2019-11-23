@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
-use Phalcon\Flash;
-use Phalcon\Session;
+use Invo\Models\Users;
 
 /**
  * InvoicesController
  *
- * Manage operations for invoises
+ * Manage operations for invoices
  */
 class InvoicesController extends ControllerBase
 {
@@ -20,7 +19,7 @@ class InvoicesController extends ControllerBase
         parent::initialize();
     }
 
-    public function indexAction()
+    public function indexAction(): void
     {
     }
 
@@ -34,35 +33,26 @@ class InvoicesController extends ControllerBase
 
         //Query the active user
         $user = Users::findFirst($auth['id']);
-        if ($user == false) {
-            return $this->dispatcher->forward(
-                [
-                    "controller" => "index",
-                    "action"     => "index",
-                ]
-            );
+        if (!$user) {
+            return $this->dispatcher->forward([
+                'controller' => 'index',
+                'action'     => 'index',
+            ]);
         }
 
         if (!$this->request->isPost()) {
             $this->tag->setDefault('name', $user->name);
             $this->tag->setDefault('email', $user->email);
         } else {
-            $name = $this->request->getPost('name', ['string', 'striptags']);
-            $email = $this->request->getPost('email', 'email');
+            $user->name = $this->request->getPost('name', ['string', 'striptags']);
+            $user->email = $this->request->getPost('email', 'email');
 
-            $user->name = $name;
-            $user->email = $email;
-
-            if ($user->save() == false) {
+            if (!$user->save()) {
                 foreach ($user->getMessages() as $message) {
-                    $this->flash->error(
-                        (string) $message
-                    );
+                    $this->flash->error((string) $message);
                 }
             } else {
-                $this->flash->success(
-                    'Your profile information was updated successfully'
-                );
+                $this->flash->success('Your profile information was updated successfully');
             }
         }
     }

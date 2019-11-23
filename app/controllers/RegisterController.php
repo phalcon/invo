@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Forms\RegisterForm;
+use Invo\Models\Users;
+use Phalcon\Db\RawValue;
+
 /**
  * SessionController
  *
@@ -25,47 +29,37 @@ class RegisterController extends ControllerBase
         $form = new RegisterForm;
 
         if ($this->request->isPost()) {
-            $name = $this->request->getPost('name', ['string', 'striptags']);
-            $username = $this->request->getPost('username', 'alphanum');
-            $email = $this->request->getPost('email', 'email');
             $password = $this->request->getPost('password');
             $repeatPassword = $this->request->getPost('repeatPassword');
 
-            if ($password != $repeatPassword) {
+            if ($password !== $repeatPassword) {
                 $this->flash->error('Passwords are different');
 
                 return false;
             }
 
             $user = new Users();
-
-            $user->username = $username;
+            $user->username = $this->request->getPost('username', 'alphanum');
             $user->password = sha1($password);
-            $user->name = $name;
-            $user->email = $email;
-            $user->created_at = new Phalcon\Db\RawValue('now()');
+            $user->name = $this->request->getPost('name', ['string', 'striptags']);
+            $user->email = $this->request->getPost('email', 'email');
+            $user->created_at = new RawValue('now()');
             $user->active = 'Y';
 
-            if ($user->save() == false) {
+            if (!$user->save()) {
                 foreach ($user->getMessages() as $message) {
-                    $this->flash->error(
-                        (string) $message
-                    );
+                    $this->flash->error((string) $message);
                 }
             } else {
                 $this->tag->setDefault('email', '');
                 $this->tag->setDefault('password', '');
 
-                $this->flash->success(
-                    'Thanks for sign-up, please log-in to start generating invoices'
-                );
+                $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
 
-                return $this->dispatcher->forward(
-                    [
-                        "controller" => "session",
-                        "action"     => "index",
-                    ]
-                );
+                return $this->dispatcher->forward([
+                    'controller' => 'session',
+                    'action'     => 'index',
+                ]);
             }
         }
 
