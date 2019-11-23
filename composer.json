@@ -1,0 +1,37 @@
+{
+    "name": "phalcon/invo",
+    "type": "library",
+    "description": "This is a sample application for the Phalcon PHP Framework",
+    "keywords": [
+        "phalcon",
+        "framework",
+        "sample app",
+        "invo"
+    ],
+    "homepage": "https://phalcon.io",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/phalcon/vokuro/graphs/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "ext-phalcon": "~4.0.0-rc.3"
+    },
+    "require-dev": {
+        "codeception/codeception": "^3.1",
+        "phalcon/ide-stubs": "4.0.0-rc.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Invo\\": "app/"
+        }
+    },
+    "archive": {
+        "exclude": [
+            "CONTRIBUTING.md"
+        ]
+    }
+}
