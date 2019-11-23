@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Models\ProductTypes;
 use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
@@ -14,35 +15,33 @@ class ProductsForm extends Form
 {
     /**
      * Initialize the products form
+     *
+     * @param null $entity
+     * @param array $options
      */
     public function initialize($entity = null, array $options = [])
     {
         if (!isset($options['edit'])) {
-            $element = new Text("id");
-
-            $this->add(
-                $element->setLabel("Id")
-            );
+            $this->add((new Text('id'))->setLabel('Id'));
         } else {
-            $this->add(
-                new Hidden("id")
-            );
+            $this->add(new Hidden('id'));
         }
 
-        $name = new Text("name");
-        $name->setLabel("Name");
+        /**
+         * Name text field
+         */
+        $name = new Text('name');
+        $name->setLabel('Name');
         $name->setFilters(['striptags', 'string']);
-        $name->addValidators(
-            [
-                new PresenceOf(
-                    [
-                        'message' => 'Name is required',
-                    ]
-                ),
-            ]
-        );
+        $name->addValidators([
+            new PresenceOf(['message' => 'Name is required']),
+        ]);
+
         $this->add($name);
 
+        /**
+         * Product Type Id Select
+         */
         $type = new Select(
             'product_types_id',
             ProductTypes::find(),
@@ -54,25 +53,20 @@ class ProductsForm extends Form
             ]
         );
         $type->setLabel('Type');
+
         $this->add($type);
 
-        $price = new Text("price");
-        $price->setLabel("Price");
+        /**
+         * Price text field
+         */
+        $price = new Text('price');
+        $price->setLabel('Price');
         $price->setFilters(['float']);
-        $price->addValidators(
-            [
-                new PresenceOf(
-                    [
-                        'message' => 'Price is required',
-                    ]
-                ),
-                new Numericality(
-                    [
-                        'message' => 'Price is required',
-                    ]
-                ),
-            ]
-        );
+        $price->addValidators([
+            new PresenceOf(['message' => 'Price is required']),
+            new Numericality(['message' => 'Price is required']),
+        ]);
+
         $this->add($price);
     }
 }

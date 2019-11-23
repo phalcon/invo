@@ -11,84 +11,69 @@ use Phalcon\Validation\Validator\PresenceOf;
 
 class RegisterForm extends Form
 {
+    /**
+     * @param null $entity
+     * @param null $options
+     */
     public function initialize($entity = null, $options = null)
     {
-        // Name
+        /**
+         * Name text field
+         */
         $name = new Text('name');
         $name->setLabel('Your Full Name');
         $name->setFilters(['striptags', 'string']);
-        $name->addValidators(
-            [
-                new PresenceOf(
-                    [
-                        'message' => 'Name is required',
-                    ]
-                ),
-            ]
-        );
+        $name->addValidators([
+            new PresenceOf(['message' => 'Name is required']),
+        ]);
+
         $this->add($name);
 
-        // Name
+        /**
+         * Username text field
+         */
         $name = new Text('username');
         $name->setLabel('Username');
         $name->setFilters(['alpha']);
-        $name->addValidators(
-            [
-                new PresenceOf(
-                    [
-                        'message' => 'Please enter your desired user name',
-                    ]
-                ),
-            ]
-        );
+        $name->addValidators([
+            new PresenceOf(['message' => 'Please enter your desired user name']),
+        ]);
+
         $this->add($name);
 
-        // Email
+        /**
+         * Email text field
+         */
         $email = new Text('email');
         $email->setLabel('E-Mail');
         $email->setFilters('email');
-        $email->addValidators(
-            [
-                new PresenceOf(
-                    [
-                        'message' => 'E-mail is required',
-                    ]
-                ),
-                new Email(
-                    [
-                        'message' => 'E-mail is not valid',
-                    ]
-                ),
-            ]
-        );
+        $email->addValidators([
+            new PresenceOf(['message' => 'E-mail is required']),
+            new Email(['message' => 'E-mail is not valid']),
+        ]);
+
         $this->add($email);
 
-        // Password
+        /**
+         * Password field
+         */
         $password = new Password('password');
         $password->setLabel('Password');
-        $password->addValidators(
-            [
-                new PresenceOf(
-                    [
-                        'message' => 'Password is required',
-                    ]
-                ),
-            ]
-        );
+        $password->addValidators([
+            new PresenceOf(['message' => 'Password is required']),
+        ]);
+
         $this->add($password);
 
-        // Confirm Password
+        /**
+         * Confirm Password field
+         */
         $repeatPassword = new Password('repeatPassword');
         $repeatPassword->setLabel('Repeat Password');
-        $repeatPassword->addValidators(
-            [
-                new PresenceOf(
-                    [
-                        'message' => 'Confirmation password is required',
-                    ]
-                ),
-            ]
-        );
+        $repeatPassword->addValidators([
+            new PresenceOf(['message' => 'Confirmation password is required']),
+        ]);
+
         $this->add($repeatPassword);
     }
 }

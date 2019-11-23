@@ -12,32 +12,25 @@ class ProductTypesForm extends Form
 {
     /**
      * Initialize the products form
+     *
+     * @param null $entity
+     * @param array $options
      */
     public function initialize($entity = null, array $options = [])
     {
         if (!isset($options['edit'])) {
-            $element = new Text("id");
-            $this->add(
-                $element->setLabel("Id")
-            );
+            $this->add((new Text('id'))->setLabel('Id'));
         } else {
-            $this->add(
-                new Hidden("id")
-            );
+            $this->add(new Hidden('id'));
         }
 
-        $name = new Text("name");
-        $name->setLabel("Name");
+        $name = new Text('name');
+        $name->setLabel('Name');
         $name->setFilters(['striptags', 'string']);
-        $name->addValidators(
-            [
-                new PresenceOf(
-                    [
-                        'message' => 'Name is required',
-                    ]
-                ),
-            ]
-        );
+        $name->addValidators([
+            new PresenceOf(['message' => 'Name is required']),
+        ]);
+
         $this->add($name);
     }
 }
