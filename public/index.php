@@ -1,17 +1,12 @@
 <?php
+declare(strict_types=1);
 
-error_reporting(E_ALL);
-
+use Invo\Services;
 use Phalcon\Mvc\Application;
 use Phalcon\Config\Adapter\Ini as ConfigIni;
 
 try {
-    define(
-        'APP_PATH',
-        realpath('..') . '/'
-    );
-
-
+    define('APP_PATH', realpath('..') . '/');
 
     /**
      * Read the configuration
@@ -26,24 +21,14 @@ try {
         $config->merge($override);
     }
 
-
-
     /**
      * Auto-loader configuration
      */
     require APP_PATH . 'app/config/loader.php';
 
-    $application = new Application(
-        new Services($config)
-    );
-
-    // NGINX - PHP-FPM already set PATH_INFO variable to handle route
-    $response = $application->handle(
-        !empty($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : null
-    );
-
-    $response->send();
-} catch (Exception $e){
+    $application = new Application(new Services($config));
+    $application->handle($_SERVER['REQUEST_URI'])->send();
+} catch (Exception $e) {
     echo $e->getMessage() . '<br>';
     echo '<pre>' . $e->getTraceAsString() . '</pre>';
 }

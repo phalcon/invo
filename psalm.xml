@@ -8,6 +8,7 @@
 >
     <projectFiles>
         <directory name="app" />
+        <file name="public/index.php" />
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>

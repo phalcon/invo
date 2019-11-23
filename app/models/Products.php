@@ -55,12 +55,8 @@ class Products extends Model
      *
      * @return string
      */
-    public function getActiveDetail()
+    public function getActiveDetail(): string
     {
-        if ($this->active == 'Y') {
-            return 'Yes';
-        }
-
-        return 'No';
+        return $this->active == 'Y' ? 'Yes' : 'No';
     }
 }

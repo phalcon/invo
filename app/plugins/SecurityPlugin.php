@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace Invo\Plugins;
 
 use Phalcon\Acl\Adapter\Memory as AclList;
-use Phalcon\Acl\Resource;
+use Phalcon\Acl\Component;
 use Phalcon\Acl\Role;
+use Phalcon\Acl\Enum;
 use Phalcon\Di\Injectable;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Dispatcher;
@@ -26,8 +27,7 @@ class SecurityPlugin extends Injectable
     {
         if (!isset($this->persistent->acl)) {
             $acl = new AclList();
-
-            $acl->setDefaultAction(Acl::DENY);
+            $acl->setDefaultAction(Enum::DENY);
 
             // Register roles
             $roles = [
@@ -53,10 +53,7 @@ class SecurityPlugin extends Injectable
                 'invoices'     => ['index', 'profile'],
             ];
             foreach ($privateResources as $resource => $actions) {
-                $acl->addResource(
-                    new Resource($resource),
-                    $actions
-                );
+                $acl->addComponent(new Component($resource), $actions);
             }
 
             //Public area resources
@@ -69,21 +66,14 @@ class SecurityPlugin extends Injectable
                 'contact'    => ['index', 'send'],
             ];
             foreach ($publicResources as $resource => $actions) {
-                $acl->addResource(
-                    new Resource($resource),
-                    $actions
-                );
+                $acl->addComponent(new Component($resource), $actions);
             }
 
             //Grant access to public areas to both users and guests
             foreach ($roles as $role) {
                 foreach ($publicResources as $resource => $actions) {
                     foreach ($actions as $action) {
-                        $acl->allow(
-                            $role->getName(),
-                            $resource,
-                            $action
-                        );
+                        $acl->allow($role->getName(), $resource, $action);
                     }
                 }
             }
@@ -124,28 +114,26 @@ class SecurityPlugin extends Injectable
         $acl = $this->getAcl();
 
         if (!$acl->isResource($controller)) {
-            $dispatcher->forward(
-                [
-                    'controller' => 'errors',
-                    'action'     => 'show404',
-                ]
-            );
+            $dispatcher->forward([
+                'controller' => 'errors',
+                'action'     => 'show404',
+            ]);
 
             return false;
         }
 
         $allowed = $acl->isAllowed($role, $controller, $action);
         if (!$allowed) {
-            $dispatcher->forward(
-                [
-                    'controller' => 'errors',
-                    'action'     => 'show401',
-                ]
-            );
+            $dispatcher->forward([
+                'controller' => 'errors',
+                'action'     => 'show401',
+            ]);
 
             $this->session->destroy();
 
             return false;
         }
+
+        return true;
     }
 }

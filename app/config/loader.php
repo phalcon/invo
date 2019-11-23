@@ -13,8 +13,6 @@ $loader->registerDirs([
     APP_PATH . $config->application->formsDir,
 ])->register();
 
-$loader->registerClasses(
-    [
-        'Services' => APP_PATH . 'app/Services.php',
-    ]
-);
+$loader->registerClasses([
+    'Services' => APP_PATH . 'app/Services.php',
+]);
