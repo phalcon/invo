@@ -12,6 +12,9 @@ use Phalcon\Di\Injectable;
  */
 class ElementsPlugin extends Injectable
 {
+    /**
+     * @var array
+     */
     private $headerMenu = [
         'navbar-left' => [
             'index' => [
@@ -39,6 +42,9 @@ class ElementsPlugin extends Injectable
         ]
     ];
 
+    /**
+     * @var array
+     */
     private $tabs = [
         'Invoices' => [
             'controller' => 'invoices',
@@ -69,10 +75,8 @@ class ElementsPlugin extends Injectable
 
     /**
      * Builds header menu with left and right items
-     *
-     * @return string
      */
-    public function getMenu()
+    public function getMenu(): void
     {
         $auth = $this->session->get('auth');
         if ($auth) {
@@ -111,7 +115,7 @@ class ElementsPlugin extends Injectable
     /**
      * Returns menu tabs
      */
-    public function getTabs()
+    public function getTabs(): void
     {
         $controllerName = $this->view->getControllerName();
         $actionName = $this->view->getActionName();

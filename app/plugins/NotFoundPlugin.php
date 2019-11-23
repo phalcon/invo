@@ -26,30 +26,25 @@ class NotFoundPlugin extends Injectable
      */
     public function beforeException(Event $event, MvcDispatcher $dispatcher, Exception $exception)
     {
-        error_log(
-            $exception->getMessage() . PHP_EOL . $exception->getTraceAsString()
-        );
+        error_log($exception->getMessage() . PHP_EOL . $exception->getTraceAsString());
 
         if ($exception instanceof DispatcherException) {
             switch ($exception->getCode()) {
-                case MvcDispatcher::EXCEPTION_HANDLER_NOT_FOUND:
-                case MvcDispatcher::EXCEPTION_ACTION_NOT_FOUND:
-                    $dispatcher->forward(
-                        [
-                            'controller' => 'errors',
-                            'action'     => 'show404',
-                        ]
-                    );
+                case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:
+                case DispatcherException::EXCEPTION_ACTION_NOT_FOUND:
+                    $dispatcher->forward([
+                        'controller' => 'errors',
+                        'action'     => 'show404',
+                    ]);
+
                     return false;
             }
         }
 
-        $dispatcher->forward(
-            [
-                'controller' => 'errors',
-                'action'     => 'show500',
-            ]
-        );
+        $dispatcher->forward([
+            'controller' => 'errors',
+            'action'     => 'show500',
+        ]);
 
         return false;
     }
