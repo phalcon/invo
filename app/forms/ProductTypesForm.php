@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+namespace Invo\Forms;
 
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;

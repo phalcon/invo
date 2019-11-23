@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Forms\Form;
-use Phalcon\Forms\Element\Text;
+namespace Invo\Forms;
+
 use Phalcon\Forms\Element\Hidden;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\PresenceOf;
-use Phalcon\Validation\Validator\Email;
 
 class CompaniesForm extends Form
 {

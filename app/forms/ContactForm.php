@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Forms\Form;
+namespace Invo\Forms;
+
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\TextArea;
-use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\PresenceOf;
 
 class ContactForm extends Form
 {

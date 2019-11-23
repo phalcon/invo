@@ -1,10 +1,13 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Forms\Form;
-use Phalcon\Forms\Element\Text;
+namespace Invo\Forms;
+
 use Phalcon\Forms\Element\Password;
-use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Forms\Element\Text;
+use Phalcon\Forms\Form;
 use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\PresenceOf;
 
 class RegisterForm extends Form
 {

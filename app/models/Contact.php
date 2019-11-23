@@ -1,7 +1,10 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Mvc\Model;
+namespace Invo\Models;
+
 use Phalcon\Db\RawValue;
+use Phalcon\Mvc\Model;
 
 class Contact extends Model
 {

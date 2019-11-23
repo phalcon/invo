@@ -1,14 +1,18 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Mvc\View;
-use Phalcon\DI\FactoryDefault;
-use Phalcon\Mvc\Dispatcher;
-use Phalcon\Mvc\Url as UrlProvider;
-use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
-use Phalcon\Mvc\Model\Metadata\Memory as MetaData;
-use Phalcon\Session\Adapter\Files as SessionAdapter;
-use Phalcon\Flash\Session as FlashSession;
+namespace Invo;
+
+use Invo\Plugins\NotFoundPlugin;
+use Invo\Plugins\SecurityPlugin;
 use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Flash\Session as FlashSession;
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Mvc\Model\Metadata\Memory as MetaData;
+use Phalcon\Url as UrlProvider;
+use Phalcon\Mvc\View;
+use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
+use Phalcon\Session\Adapter\Files as SessionAdapter;
 
 class Services extends \Base\Services
 {

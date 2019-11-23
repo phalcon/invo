@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+namespace Invo\Controllers;
 
 use Phalcon\Flash;
 use Phalcon\Session;

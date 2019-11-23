@@ -1,19 +1,21 @@
 <?php
+declare(strict_types=1);
 
-use Phalcon\Acl;
-use Phalcon\Acl\Role;
-use Phalcon\Acl\Resource;
-use Phalcon\Events\Event;
-use Phalcon\Mvc\User\Plugin;
-use Phalcon\Mvc\Dispatcher;
+namespace Invo\Plugins;
+
 use Phalcon\Acl\Adapter\Memory as AclList;
+use Phalcon\Acl\Resource;
+use Phalcon\Acl\Role;
+use Phalcon\Di\Injectable;
+use Phalcon\Events\Event;
+use Phalcon\Mvc\Dispatcher;
 
 /**
  * SecurityPlugin
  *
  * This is the security plugin which controls that users only have access to the modules they're assigned to
  */
-class SecurityPlugin extends Plugin
+class SecurityPlugin extends Injectable
 {
     /**
      * Returns an existing or new access control list
