@@ -1,33 +1,30 @@
 <?php
 declare(strict_types=1);
 
-use Invo\Services;
+use Phalcon\Di\FactoryDefault;
+use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\Mvc\Application;
-use Phalcon\Config\Adapter\Ini as ConfigIni;
 
 try {
     define('APP_PATH', realpath('..') . '/');
 
-    /**
-     * Read the configuration
-     */
-    $config = new ConfigIni(APP_PATH . 'app/config/config.ini');
+    $di = new FactoryDefault();
 
-    if (is_readable(APP_PATH . 'app/config/config.ini.dev')) {
-        $override = new ConfigIni(
-            APP_PATH . 'app/config/config.ini.dev'
-        );
-
-        $config->merge($override);
+    $providersConfig = APP_PATH . '/app/config/providers.php';
+    if (!file_exists($providersConfig) || !is_readable($providersConfig)) {
+        throw new Exception('File providers.php does not exist or is not readable.');
     }
 
-    /**
-     * Auto-loader configuration
-     */
-    require APP_PATH . 'app/config/loader.php';
+    $providers = include_once $providersConfig;
+    foreach ($providers as $providerClass) {
+        /** @var ServiceProviderInterface $provider */
+        $provider = new $providerClass;
+        $provider->register($di);
+    }
 
-    $application = new Application(new Services($config));
-    $application->handle($_SERVER['REQUEST_URI'])->send();
+    (new Application($di))
+        ->handle($_SERVER['REQUEST_URI'])
+        ->send();
 } catch (Exception $e) {
     echo $e->getMessage() . '<br>';
     echo '<pre>' . $e->getTraceAsString() . '</pre>';
