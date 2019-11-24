@@ -11,7 +11,7 @@ final class ViewProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di)
     {
-        $viewsDir = APP_PATH . $di->getShared('config')->application->viewsDir;
+        $viewsDir = $di->offsetGet('rootPath') . $di->getShared('config')->application->viewsDir;
 
         $di->setShared('view', function () use ($viewsDir) {
             $view = new View();

@@ -5,11 +5,12 @@ use Phalcon\Di\FactoryDefault;
 use Phalcon\Mvc\Application;
 
 try {
-    define('APP_PATH', realpath('..') . '/');
+    $rootPath = realpath('..');
 
     $di = new FactoryDefault();
+    $di->offsetSet('rootPath', $rootPath);
 
-    $providers = APP_PATH . '/app/config/providers.php';
+    $providers = $rootPath . '/app/config/providers.php';
     if (!file_exists($providers) || !is_readable($providers)) {
         throw new Exception('File providers.php does not exist or is not readable.');
     }
