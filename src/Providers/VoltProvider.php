@@ -9,7 +9,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 
 final class VoltProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $view = $di->getShared('view');
 

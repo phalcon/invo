@@ -12,7 +12,7 @@ use Phalcon\Di\ServiceProviderInterface;
  */
 final class ElementsProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $di->setShared('elements', function () {
             return new ElementsPlugin();

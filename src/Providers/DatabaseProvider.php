@@ -11,7 +11,7 @@ use Phalcon\Di\ServiceProviderInterface;
  */
 final class DatabaseProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $dbConfig = $di->getShared('config')->get('database')->toArray();
         $di->setShared('db', function () use ($dbConfig) {

@@ -12,7 +12,7 @@ use Phalcon\Di\ServiceProviderInterface;
  */
 final class ConfigProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $rootPath = $di->offsetGet('rootPath');
         $di->setShared('config', function () use ($rootPath) {

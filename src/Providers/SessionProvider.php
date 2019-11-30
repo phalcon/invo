@@ -13,7 +13,7 @@ use Phalcon\Session\Manager as SessionManager;
  */
 final class SessionProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $di->setShared('session', function () {
             $session = new SessionManager();

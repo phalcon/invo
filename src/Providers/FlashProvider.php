@@ -12,7 +12,7 @@ use Phalcon\Flash\Session as FlashSession;
  */
 final class FlashProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $di->setShared('flash', function () {
             $flash = new FlashSession();

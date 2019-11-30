@@ -9,7 +9,7 @@ use Phalcon\Mvc\View;
 
 final class ViewProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $viewsDir = $di->offsetGet('rootPath') . $di->getShared('config')->application->viewsDir;
 

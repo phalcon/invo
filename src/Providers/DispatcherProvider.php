@@ -15,7 +15,7 @@ use Phalcon\Mvc\Dispatcher;
  */
 final class DispatcherProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $di->setShared('dispatcher', function () {
             $eventsManager = new EventsManager;

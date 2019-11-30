@@ -12,7 +12,7 @@ use Phalcon\Url;
  */
 final class UrlProvider implements ServiceProviderInterface
 {
-    public function register(DiInterface $di)
+    public function register(DiInterface $di): void
     {
         $baseUri = $di->getShared('config')->application->baseUri;
         $di->setShared('db', function () use ($baseUri) {
