@@ -6,6 +6,7 @@ use Phalcon\Mvc\Application;
 
 try {
     $rootPath = realpath('..');
+    require_once $rootPath . '/vendor/autoload.php';
 
     $di = new FactoryDefault();
     $di->offsetSet('rootPath', $rootPath);
