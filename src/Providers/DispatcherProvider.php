@@ -18,7 +18,7 @@ final class DispatcherProvider implements ServiceProviderInterface
     public function register(DiInterface $di): void
     {
         $di->setShared('dispatcher', function () {
-            $eventsManager = new EventsManager;
+            $eventsManager = new EventsManager();
 
             /**
              * Check if the user is allowed to access certain action using the SecurityPlugin
@@ -30,7 +30,8 @@ final class DispatcherProvider implements ServiceProviderInterface
              */
             $eventsManager->attach('dispatch:beforeException', new NotFoundPlugin);
 
-            $dispatcher = new Dispatcher;
+            $dispatcher = new Dispatcher();
+            $dispatcher->setDefaultNamespace('Invo\Controllers');
             $dispatcher->setEventsManager($eventsManager);
 
             return $dispatcher;
