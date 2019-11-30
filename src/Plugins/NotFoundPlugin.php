@@ -22,7 +22,7 @@ class NotFoundPlugin extends Injectable
      * @param Event $event
      * @param MvcDispatcher $dispatcher
      * @param Exception $exception
-     * @return boolean
+     * @return bool
      */
     public function beforeException(Event $event, MvcDispatcher $dispatcher, Exception $exception)
     {
@@ -41,11 +41,13 @@ class NotFoundPlugin extends Injectable
             }
         }
 
-        $dispatcher->forward([
-            'controller' => 'errors',
-            'action'     => 'show500',
-        ]);
+        if ($dispatcher->getControllerName() !== 'errors') {
+            $dispatcher->forward([
+                'controller' => 'errors',
+                'action'     => 'show500',
+            ]);
+        }
 
-        return false;
+        return !$event->isStopped();
     }
 }
