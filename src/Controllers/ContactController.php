@@ -45,7 +45,7 @@ class ContactController extends ControllerBase
         // Validate the form
         if (!$form->isValid($data, $contact)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
             return $this->dispatcher->forward([
