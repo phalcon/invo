@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 use Phalcon\Di\FactoryDefault;
-use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\Mvc\Application;
 
 try {
@@ -10,7 +9,7 @@ try {
     require_once $rootPath . '/vendor/autoload.php';
 
     $di = new FactoryDefault();
-    $di->offsetSet('rootPath', function() use ($rootPath) {
+    $di->offsetSet('rootPath', function () use ($rootPath) {
         return $rootPath;
     });
 
@@ -21,7 +20,6 @@ try {
 
     /** @var array $providers */
     $providers = include_once $providers;
-    /** @var ServiceProviderInterface $provider */
     foreach ($providers as $provider) {
         $di->register(new $provider());
     }
