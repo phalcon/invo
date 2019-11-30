@@ -1,6 +1,6 @@
 # INVO Application
 
-[Phalcon PHP][1] is a web framework delivered as a C extension providing high
+[Phalcon][1] is a web framework delivered as a C extension providing high
 performance and lower resource consumption.
 
 This is a sample application for the Phalcon PHP Framework. We expect to
@@ -47,11 +47,27 @@ Also you can override application config by creating `app/config/config.ini.dev`
 
 See [CONTRIBUTING.md][7]
 
+## Sponsors
+
+Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/phalcon#sponsor)]
+
+<a href="https://opencollective.com/phalcon/#contributors">
+<img src="https://opencollective.com/phalcon/tiers/sponsors.svg?avatarHeight=48&width=800">
+</a>
+
+## Backers
+
+Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/phalcon#backer)]
+
+<a href="https://opencollective.com/phalcon/#contributors">
+<img src="https://opencollective.com/phalcon/tiers/backers.svg?avatarHeight=48&width=800&height=200">
+</a>
+
 ## License
 
 Invo is open-sourced software licensed under the [New BSD License][8]. © Phalcon Framework Team and contributors
 
-[1]: https://phalconphp.com/
+[1]: https://phalcon.io/
 [2]: http://httpd.apache.org/
 [3]: http://httpd.apache.org/docs/current/mod/mod_rewrite.html
 [4]: http://nginx.org/
