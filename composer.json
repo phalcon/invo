@@ -18,7 +18,8 @@
     ],
     "require": {
         "php": ">=7.2",
-        "ext-phalcon": "~4.0.0-rc.3"
+        "ext-phalcon": "~4.0.0-rc.3",
+        "phalcon/migrations": "dev-master"
     },
     "require-dev": {
         "codeception/codeception": "^3.1",
@@ -28,12 +29,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Invo\\": "app/"
+            "Invo\\": "src/"
         }
     },
     "archive": {
         "exclude": [
-            "CONTRIBUTING.md"
+            "CONTRIBUTING.md",
+            "phpcs.xml.dist",
+            "psalm.xml"
         ]
     }
 }

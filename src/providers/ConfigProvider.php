@@ -16,10 +16,10 @@ final class ConfigProvider implements ServiceProviderInterface
     {
         $rootPath = $di->offsetGet('rootPath');
         $di->setShared('config', function () use ($rootPath) {
-            $config = new ConfigIni($rootPath . '/app/config/config.ini');
+            $config = new ConfigIni($rootPath . '/src/config/config.ini');
 
-            if (is_readable($rootPath . '/app/config/config.ini.dev')) {
-                $override = new ConfigIni($rootPath . 'app/config/config.ini.dev');
+            if (is_readable($rootPath . '/src/config/config.ini.dev')) {
+                $override = new ConfigIni($rootPath . '/src/config/config.ini.dev');
                 $config->merge($override);
             }
 

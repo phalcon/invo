@@ -10,7 +10,7 @@ try {
     $di = new FactoryDefault();
     $di->offsetSet('rootPath', $rootPath);
 
-    $providers = $rootPath . '/app/config/providers.php';
+    $providers = $rootPath . '/src/config/providers.php';
     if (!file_exists($providers) || !is_readable($providers)) {
         throw new Exception('File providers.php does not exist or is not readable.');
     }

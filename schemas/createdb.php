@@ -13,7 +13,7 @@ use Phalcon\Config\Adapter\Ini as IniConfig;
 use Phalcon\Config;
 
 try {
-    $configFile = __DIR__ . '/../app/config/config.ini';
+    $configFile = __DIR__ . '/../src/config/config.ini';
     if (!is_file($configFile)) {
         throw new Exception(
             sprintf('Unable to read config file located at %s.', $configFile)
