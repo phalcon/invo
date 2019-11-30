@@ -19,7 +19,7 @@
     "require": {
         "php": ">=7.2",
         "ext-phalcon": "~4.0.0-rc.3",
-        "phalcon/migrations": "dev-master"
+        "phalcon/migrations": "1.0.4"
     },
     "require-dev": {
         "codeception/codeception": "^3.1",
