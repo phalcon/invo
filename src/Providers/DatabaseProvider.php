@@ -16,9 +16,9 @@ final class DatabaseProvider implements ServiceProviderInterface
         $dbConfig = $di->getShared('config')->get('database')->toArray();
         $di->setShared('db', function () use ($dbConfig) {
             $dbClass = 'Phalcon\Db\Adapter\Pdo\\' . $dbConfig['adapter'];
-            unset($dbClass['adapter']);
+            unset($dbConfig['adapter']);
 
-            return new $dbClass($dbClass);
+            return new $dbClass($dbConfig);
         });
     }
 }
