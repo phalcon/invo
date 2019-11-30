@@ -23,7 +23,7 @@
     },
     "require-dev": {
         "codeception/codeception": "^3.1",
-        "phalcon/ide-stubs": "4.0.0-rc.2",
+        "phalcon/ide-stubs": "4.0.0-rc.3",
         "squizlabs/php_codesniffer": "3.5",
         "vimeo/psalm": "^3.6"
     },
