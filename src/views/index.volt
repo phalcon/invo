@@ -3,7 +3,7 @@
 <head>
     <title>Phalcon Invo</title>
     <meta charset="utf-8">
-    {{ get_title() }}
+    <title>{{ get_title() }}</title>
     {{ stylesheet_link('css/bootstrap.min.css') }}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Your invoices">
