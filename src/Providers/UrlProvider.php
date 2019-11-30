@@ -15,7 +15,7 @@ final class UrlProvider implements ServiceProviderInterface
     public function register(DiInterface $di): void
     {
         $baseUri = $di->getShared('config')->application->baseUri;
-        $di->setShared('db', function () use ($baseUri) {
+        $di->setShared('url', function () use ($baseUri) {
             $url = new Url();
             $url->setBaseUri($baseUri);
 
