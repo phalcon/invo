@@ -16,7 +16,7 @@ final class VoltProvider implements ServiceProviderInterface
         $di->setShared('volt', function () use ($view, $di) {
             $volt = new VoltEngine($view, $di);
             $volt->setOptions([
-                'compiledPath' => $di->offsetGet('rootPath') . '/cache/volt/',
+                'path' => $di->offsetGet('rootPath') . '/cache/volt/',
             ]);
 
             $compiler = $volt->getCompiler();
