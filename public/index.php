@@ -13,7 +13,7 @@ try {
         return $rootPath;
     });
 
-    $providers = $rootPath . '/src/config/providers.php';
+    $providers = $rootPath . '/config/providers.php';
     if (!file_exists($providers) || !is_readable($providers)) {
         throw new Exception('File providers.php does not exist or is not readable.');
     }
