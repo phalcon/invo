@@ -19,7 +19,8 @@
     "require": {
         "php": ">=7.2",
         "ext-phalcon": "~4.0.0-rc.3",
-        "phalcon/migrations": "1.0.4"
+        "phalcon/migrations": "1.0.4",
+        "vlucas/phpdotenv": "^4.0"
     },
     "require-dev": {
         "codeception/codeception": "^3.1",
