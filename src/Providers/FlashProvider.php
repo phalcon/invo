@@ -25,6 +25,7 @@ final class FlashProvider implements ServiceProviderInterface
     {
         $di->setShared('flash', function () {
             $flash = new FlashDirect();
+            $flash->setImplicitFlush(false);
             $flash->setCssClasses([
                 'error' => 'alert alert-danger',
                 'success' => 'alert alert-success',
