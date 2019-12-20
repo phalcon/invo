@@ -94,7 +94,7 @@ class ProductsController extends ControllerBase
      *
      * @param $id
      */
-    public function editAction($id): void
+    public function editAction($id)
     {
         $product = Products::findFirstById($id);
         if (!$product) {
