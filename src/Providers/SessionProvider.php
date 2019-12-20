@@ -30,6 +30,7 @@ final class SessionProvider implements ServiceProviderInterface
                 'savePath' => sys_get_temp_dir(),
             ]);
             $session->setAdapter($files);
+            $session->start();
 
             return $session;
         });
