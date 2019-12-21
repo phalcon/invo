@@ -21,10 +21,10 @@ switch to the relevant branch.
 
 ### Requirements
 
-* PHP >= 5.4
+* PHP >= 7.2
 * [Apache][2] Web Server with [mod_rewrite][3] enabled or [Nginx][4] Web Server
 * Latest stable [Phalcon Framework release][5] extension enabled
-* [MySQL][6] >= 5.1.5
+* [MySQL][6] >= 5.5
 
 ### Installation
 
@@ -37,11 +37,8 @@ $ git clone git@github.com:phalcon/invo.git
 Then you'll need to create the database and initialize schema:
 
 ```sh
-$ echo 'CREATE DATABASE invo CHARSET=utf8 COLLATE=utf8_unicode_ci' | mysql -u root
-$ cat schemas/invo.sql | mysql -u root invo
+vendor/bin/phalcon-migrations --log-in-db --config=migrations.php
 ```
-
-Also you can override application config by creating `app/config/config.ini.dev` (already gitignored).
 
 ## Contributing
 
