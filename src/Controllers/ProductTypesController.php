@@ -36,16 +36,14 @@ class ProductTypesController extends ControllerBase
      */
     public function indexAction(): void
     {
-        $this->session->conditions = null;
         $this->view->form = new ProductTypesForm;
     }
 
     /**
      * Search producttype based on current criteria
      */
-    public function searchAction()
+    public function searchAction(): void
     {
-        $numberPage = 1;
         if ($this->request->isPost()) {
             $query = Criteria::fromInput(
                 $this->di,
@@ -54,8 +52,6 @@ class ProductTypesController extends ControllerBase
             );
 
             $this->persistent->searchParams = $query->getParams();
-        } else {
-            $numberPage = $this->request->getQuery('page', 'int');
         }
 
         $parameters = [];
@@ -67,16 +63,18 @@ class ProductTypesController extends ControllerBase
         if (count($productTypes) === 0) {
             $this->flash->notice('The search did not find any product types');
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         $paginator = new Paginator([
             'data'  => $productTypes,
             'limit' => 10,
-            'page'  => $numberPage,
+            'page'  => $this->request->getQuery('page', 'int', 1),
         ]);
 
         $this->view->page = $paginator->paginate();
@@ -96,16 +94,18 @@ class ProductTypesController extends ControllerBase
      *
      * @param int $id
      */
-    public function editAction($id)
+    public function editAction($id): void
     {
         $productTypes = ProductTypes::findFirstById($id);
         if (!$productTypes) {
             $this->flash->error('Product type to edit was not found');
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         $this->view->form = new ProductTypesForm($productTypes, ['edit' => true]);
@@ -114,16 +114,18 @@ class ProductTypesController extends ControllerBase
     /**
      * Creates a new producttype
      */
-    public function createAction()
+    public function createAction(): void
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
-        $form = new ProductTypesForm;
+        $form = new ProductTypesForm();
         $productTypes = new ProductTypes();
 
         $data = $this->request->getPost();
@@ -132,10 +134,12 @@ class ProductTypesController extends ControllerBase
                 $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'new',
             ]);
+
+            return;
         }
 
         if (!$productTypes->save()) {
@@ -143,16 +147,18 @@ class ProductTypesController extends ControllerBase
                 $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'new',
             ]);
+
+            return;
         }
 
         $form->clear();
         $this->flash->success('Product type was created successfully');
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'producttypes',
             'action'     => 'index',
         ]);
@@ -161,13 +167,15 @@ class ProductTypesController extends ControllerBase
     /**
      * Saves current producttypes in screen
      */
-    public function saveAction()
+    public function saveAction(): void
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         $id = $this->request->getPost('id', 'int');
@@ -175,23 +183,26 @@ class ProductTypesController extends ControllerBase
         if (!$productTypes) {
             $this->flash->error('productTypes does not exist');
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
-        $form = new ProductTypesForm;
-        $data = $this->request->getPost();
-        if (!$form->isValid($data, $productTypes)) {
+        $form = new ProductTypesForm();
+        if (!$form->isValid($this->request->getPost(), $productTypes)) {
             foreach ($form->getMessages() as $message) {
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'new',
             ]);
+
+            return;
         }
 
         if (!$productTypes->save()) {
@@ -199,16 +210,18 @@ class ProductTypesController extends ControllerBase
                 $this->flash->error($message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'new',
             ]);
+
+            return;
         }
 
         $form->clear();
         $this->flash->success('Product Type was updated successfully');
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'producttypes',
             'action'     => 'index',
         ]);
@@ -219,16 +232,18 @@ class ProductTypesController extends ControllerBase
      *
      * @param int $id
      */
-    public function deleteAction($id)
+    public function deleteAction($id): void
     {
         $productTypes = ProductTypes::findFirstById($id);
         if (!$productTypes) {
             $this->flash->error('Product types was not found');
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         if (!$productTypes->delete()) {
@@ -236,15 +251,17 @@ class ProductTypesController extends ControllerBase
                 $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'producttypes',
                 'action'     => 'search',
             ]);
+
+            return;
         }
 
         $this->flash->success('product types was deleted');
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'producttypes',
             'action'     => 'index',
         ]);

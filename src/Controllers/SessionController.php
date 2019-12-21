@@ -37,7 +37,7 @@ class SessionController extends ControllerBase
     /**
      * This action authenticate and logs an user into the application
      */
-    public function startAction()
+    public function startAction(): void
     {
         if ($this->request->isPost()) {
             $email = $this->request->getPost('email');
@@ -56,16 +56,18 @@ class SessionController extends ControllerBase
                 $this->registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
 
-                return $this->dispatcher->forward([
+                $this->dispatcher->forward([
                     'controller' => 'invoices',
                     'action'     => 'index',
                 ]);
+
+                return;
             }
 
             $this->flash->error('Wrong email/password');
         }
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'session',
             'action'     => 'index',
         ]);
@@ -74,12 +76,12 @@ class SessionController extends ControllerBase
     /**
      * Finishes the active session redirecting to the index
      */
-    public function endAction()
+    public function endAction(): void
     {
         $this->session->remove('auth');
         $this->flash->success('Goodbye!');
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'index',
             'action'     => 'index',
         ]);
@@ -90,7 +92,7 @@ class SessionController extends ControllerBase
      *
      * @param Users $user
      */
-    private function registerSession(Users $user)
+    private function registerSession(Users $user): void
     {
         $this->session->set('auth', [
             'id'   => $user->id,

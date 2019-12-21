@@ -33,9 +33,9 @@ class RegisterController extends ControllerBase
     /**
      * Action to register a new user
      */
-    public function indexAction()
+    public function indexAction(): void
     {
-        $form = new RegisterForm;
+        $form = new RegisterForm();
 
         if ($this->request->isPost()) {
             $password = $this->request->getPost('password');
@@ -44,7 +44,7 @@ class RegisterController extends ControllerBase
             if ($password !== $repeatPassword) {
                 $this->flash->error('Passwords are different');
 
-                return false;
+                return;
             }
 
             $user = new Users();
@@ -65,10 +65,12 @@ class RegisterController extends ControllerBase
 
                 $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
 
-                return $this->dispatcher->forward([
+                $this->dispatcher->forward([
                     'controller' => 'session',
                     'action'     => 'index',
                 ]);
+
+                return;
             }
         }
 

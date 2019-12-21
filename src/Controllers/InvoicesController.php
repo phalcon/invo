@@ -35,7 +35,7 @@ class InvoicesController extends ControllerBase
     /**
      * Edit the active user profile
      */
-    public function profileAction()
+    public function profileAction(): void
     {
         //Get session info
         $auth = $this->session->get('auth');
@@ -43,10 +43,12 @@ class InvoicesController extends ControllerBase
         //Query the active user
         $user = Users::findFirst($auth['id']);
         if (!$user) {
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'index',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         if (!$this->request->isPost()) {
