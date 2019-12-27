@@ -1,4 +1,4 @@
-{{ form("producttypes/create", "autocomplete": "off") }}
+<form action="/producttypes/create" role="form" method="post">
     <ul class="pager">
         <li class="previous pull-left">
             {{ link_to("producttypes", "&larr; Go Back") }}
@@ -7,8 +7,6 @@
             {{ submit_button("Save", "class": "btn btn-success") }}
         </li>
     </ul>
-
-    {{ content() }}
 
     <div class="center scaffold">
         <h2>Create product types</h2>

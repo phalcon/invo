@@ -1,6 +1,4 @@
-{{ content() }}
-
-{{ form("companies/create") }}
+<form action="/companies/create" role="form" method="post">
     <ul class="pager">
         <li class="previous pull-left">
             {{ link_to("products", "&larr; Go Back") }}
@@ -11,7 +9,6 @@
     </ul>
 
     <fieldset>
-
         {% for element in form %}
             {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
                 {{ element }}
@@ -22,6 +19,5 @@
                 </div>
             {% endif %}
         {% endfor %}
-
     </fieldset>
 </form>

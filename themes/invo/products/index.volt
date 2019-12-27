@@ -1,5 +1,3 @@
-{{ content() }}
-
 <div align="right">
     {{ link_to("products/new", "Create Products", "class": "btn btn-primary") }}
 </div>

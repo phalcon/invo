@@ -1,7 +1,5 @@
-{{ content() }}
-
 <div class="profile left">
-    {{ form('invoices/profile', 'id': 'profileForm', 'onbeforesubmit': 'return false') }}
+    <form action="/invoices/profile" role="form" method="post" id="profileForm">
         <div class="clearfix">
             <label for="name">Your Full Name:</label>
             <div class="input">
@@ -22,7 +20,6 @@
         </div>
         <div class="clearfix">
             <input type="button" value="Update" class="btn btn-primary btn-large btn-info" onclick="Profile.validate()">
-            &nbsp;
             {{ link_to('invoices/index', 'Cancel') }}
         </div>
     </form>

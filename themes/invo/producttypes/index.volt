@@ -1,10 +1,8 @@
-{{ content() }}
-
 <div align="right">
     {{ link_to("producttypes/new", "Create product types", "class": "btn btn-primary") }}
 </div>
 
-{{ form("producttypes/search", "autocomplete": "off") }}
+<form action="/producttypes/search" role="form" method="get">
     <div class="center scaffold">
         <h2>Search product types</h2>
 

@@ -1,5 +1,3 @@
-{{ content() }}
-
 <ul class="pager">
     <li class="previous">
         {{ link_to("products", "&larr; Go Back") }}

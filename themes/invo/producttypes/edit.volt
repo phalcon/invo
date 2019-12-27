@@ -1,4 +1,4 @@
-{{ form("producttypes/save", 'role': 'form') }}
+<form action="/producttypes/save" role="form" method="post">
     <ul class="pager">
         <li class="previous pull-left">
             {{ link_to("producttypes", "&larr; Go Back") }}
@@ -7,8 +7,6 @@
             {{ submit_button("Save", "class": "btn btn-success") }}
         </li>
     </ul>
-
-    {{ content() }}
 
     <h2>Edit Product Types</h2>
 

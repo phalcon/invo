@@ -1,10 +1,8 @@
-{{ content() }}
-
 <div class="page-header">
     <h2>Register for INVO</h2>
 </div>
 
-{{ form('register', 'id': 'registerForm', 'onbeforesubmit': 'return false') }}
+<form action="/register" role="form" method="post">
     <fieldset>
         <div class="control-group">
             {{ form.label('name', ['class': 'control-label']) }}

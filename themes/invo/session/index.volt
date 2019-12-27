@@ -1,11 +1,10 @@
-{{ content() }}
-
 <div class="row">
     <div class="col-md-6">
         <div class="page-header">
             <h2>Log In</h2>
         </div>
-        {{ form('session/start', 'role': 'form') }}
+
+        <form action="/session/start" role="form" method="post">
             <fieldset>
                 <div class="form-group">
                     <label for="email">Username/Email</label>

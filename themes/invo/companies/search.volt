@@ -1,5 +1,3 @@
-{{ content() }}
-
 <ul class="pager">
     <li class="previous pull-left">
         {{ link_to("companies/index", "&larr; Go Back") }}

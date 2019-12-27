@@ -1,5 +1,3 @@
-{{ content() }}
-
 <div class="jumbotron">
     <h1>Welcome to INVO</h1>
     <p>INVO is a revolutionary application to create invoices online for free.

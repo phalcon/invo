@@ -1,10 +1,8 @@
-{{ content() }}
-
 <div align="right">
     {{ link_to("companies/new", "Create Companies", "class": "btn btn-primary") }}
 </div>
 
-{{ form("companies/search") }}
+<form action="/companies/search" role="form" method="get">
     <h2>Search companies</h2>
 
     <fieldset>
