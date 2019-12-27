@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Forms\ProductsForm;
 use Invo\Models\Products;
 use Phalcon\Mvc\Model\Criteria;
 use Phalcon\Paginator\Adapter\Model as Paginator;
@@ -46,7 +47,7 @@ class ProductsController extends ControllerBase
         if ($this->request->isPost()) {
             $query = Criteria::fromInput(
                 $this->di,
-                'Products',
+                Products::class,
                 $this->request->getPost()
             );
 

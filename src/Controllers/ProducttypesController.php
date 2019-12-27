@@ -22,7 +22,7 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
  *
  * Manage operations for product of types
  */
-class ProductTypesController extends ControllerBase
+class ProducttypesController extends ControllerBase
 {
     public function initialize()
     {
@@ -47,7 +47,7 @@ class ProductTypesController extends ControllerBase
         if ($this->request->isPost()) {
             $query = Criteria::fromInput(
                 $this->di,
-                'ProductTypes',
+                ProductTypes::class,
                 $this->request->getPost()
             );
 
@@ -259,7 +259,7 @@ class ProductTypesController extends ControllerBase
             return;
         }
 
-        $this->flash->success('product types was deleted');
+        $this->flash->success('Product types was deleted');
 
         $this->dispatcher->forward([
             'controller' => 'producttypes',

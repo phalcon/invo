@@ -42,7 +42,7 @@ class CompaniesController extends ControllerBase
         if ($this->request->isPost()) {
             $query = Criteria::fromInput(
                 $this->di,
-                'Companies',
+                Companies::class,
                 $this->request->getPost()
             );
 
@@ -126,7 +126,7 @@ class CompaniesController extends ControllerBase
         $data = $this->request->getPost();
         if (!$form->isValid($data, $company)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
             $this->dispatcher->forward([
@@ -190,7 +190,7 @@ class CompaniesController extends ControllerBase
         $form = new CompaniesForm();
         if (!$form->isValid($data, $company)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
             $this->dispatcher->forward([
@@ -203,7 +203,7 @@ class CompaniesController extends ControllerBase
 
         if (!$company->save()) {
             foreach ($company->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
             $this->dispatcher->forward([
@@ -244,7 +244,7 @@ class CompaniesController extends ControllerBase
 
         if (!$companies->delete()) {
             foreach ($companies->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
             $this->dispatcher->forward([

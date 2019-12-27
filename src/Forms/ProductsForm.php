@@ -10,7 +10,7 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
-namespace Invo\Controllers;
+namespace Invo\Forms;
 
 use Invo\Models\ProductTypes;
 use Phalcon\Forms\Element\Hidden;
