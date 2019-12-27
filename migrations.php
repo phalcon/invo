@@ -16,4 +16,5 @@ return new Config([
         'dbname' => getenv('DB_DBNAME'),
         'charset' => getenv('DB_CHARSET'),
     ],
+    'migrationsDir' => 'db/migrations',
 ]);
