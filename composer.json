@@ -35,9 +35,7 @@
     },
     "archive": {
         "exclude": [
-            "CONTRIBUTING.md",
-            "phpcs.xml.dist",
-            "psalm.xml"
+            "CONTRIBUTING.md"
         ]
     }
 }
