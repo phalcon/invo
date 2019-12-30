@@ -4,8 +4,7 @@ declare(strict_types=1);
 use Dotenv\Dotenv;
 use Phalcon\Config;
 
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+Dotenv::createImmutable(__DIR__)->load();
 
 return new Config([
     'database' => [
@@ -16,5 +15,14 @@ return new Config([
         'dbname' => getenv('DB_DBNAME'),
         'charset' => getenv('DB_CHARSET'),
     ],
-    'migrationsDir' => 'db/migrations',
+    'application' => [
+        'logInDb' => true,
+        'migrationsDir' => 'db/migrations',
+        'exportDataFromTables' => [
+            'companies',
+            'product_types',
+            'products',
+            'users',
+        ],
+    ],
 ]);
