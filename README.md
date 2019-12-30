@@ -28,17 +28,10 @@ switch to the relevant branch.
 
 ### Installation
 
-First you need to clone this repository:
-
-```
-$ git clone git@github.com:phalcon/invo.git
-```
-
-Then you'll need to create the database and initialize schema:
-
-```sh
-vendor/bin/phalcon-migrations --log-in-db --config=migrations.php
-```
+1. Copy project to local environment - `git clone git@github.com:phalcon/invo.git`
+2. Copy file `cp .env.example .env`
+3. Edit .env file with your DB connection information
+4. Run DB migrations `vendor/bin/phalcon-migrations migration run --config=migrations.php`
 
 ## Contributing
 
