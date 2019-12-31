@@ -1,6 +1,15 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * This file is part of the Invo.
+ *
+ * (c) Phalcon Team <team@phalcon.io>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Invo\Controllers;
 
 use Invo\Models\Users;
@@ -26,7 +35,7 @@ class InvoicesController extends ControllerBase
     /**
      * Edit the active user profile
      */
-    public function profileAction()
+    public function profileAction(): void
     {
         //Get session info
         $auth = $this->session->get('auth');
@@ -34,10 +43,12 @@ class InvoicesController extends ControllerBase
         //Query the active user
         $user = Users::findFirst($auth['id']);
         if (!$user) {
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'index',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         if (!$this->request->isPost()) {

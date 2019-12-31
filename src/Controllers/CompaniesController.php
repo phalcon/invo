@@ -1,6 +1,15 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * This file is part of the Invo.
+ *
+ * (c) Phalcon Team <team@phalcon.io>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Invo\Controllers;
 
 use Invo\Forms\CompaniesForm;
@@ -20,28 +29,24 @@ class CompaniesController extends ControllerBase
     /**
      * Shows the index action
      */
-    public function indexAction()
+    public function indexAction(): void
     {
-        $this->session->conditions = null;
-        $this->view->form = new CompaniesForm;
+        $this->view->form = new CompaniesForm();
     }
 
     /**
      * Search companies based on current criteria
      */
-    public function searchAction()
+    public function searchAction(): void
     {
-        $numberPage = 1;
         if ($this->request->isPost()) {
             $query = Criteria::fromInput(
                 $this->di,
-                'Companies',
+                Companies::class,
                 $this->request->getPost()
             );
 
             $this->persistent->searchParams = $query->getParams();
-        } else {
-            $numberPage = $this->request->getQuery('page', 'int');
         }
 
         $parameters = [];
@@ -53,16 +58,18 @@ class CompaniesController extends ControllerBase
         if (count($companies) == 0) {
             $this->flash->notice('The search did not find any companies');
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         $paginator = new Paginator([
             'data'  => $companies,
             'limit' => 10,
-            'page'  => $numberPage,
+            'page'  => $this->request->getQuery('page', 'int', 1),
         ]);
 
         $this->view->page = $paginator->paginate();
@@ -72,7 +79,7 @@ class CompaniesController extends ControllerBase
     /**
      * Shows the form to create a new company
      */
-    public function newAction()
+    public function newAction(): void
     {
         $this->view->form = new CompaniesForm(null, ['edit' => true]);
     }
@@ -82,16 +89,18 @@ class CompaniesController extends ControllerBase
      *
      * @param int $id
      */
-    public function editAction($id)
+    public function editAction($id): void
     {
         $company = Companies::findFirstById($id);
         if (!$company) {
             $this->flash->error('Company was not found');
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         $this->view->form = new CompaniesForm($company, ['edit' => true]);
@@ -100,28 +109,32 @@ class CompaniesController extends ControllerBase
     /**
      * Creates a new company
      */
-    public function createAction()
+    public function createAction(): void
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
-        $form = new CompaniesForm;
+        $form = new CompaniesForm();
         $company = new Companies();
 
         $data = $this->request->getPost();
         if (!$form->isValid($data, $company)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'new',
             ]);
+
+            return;
         }
 
         if (!$company->save()) {
@@ -129,17 +142,18 @@ class CompaniesController extends ControllerBase
                 $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'new',
             ]);
+
+            return;
         }
 
         $form->clear();
-
         $this->flash->success('Company was created successfully');
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'companies',
             'action'     => 'index',
         ]);
@@ -148,13 +162,15 @@ class CompaniesController extends ControllerBase
     /**
      * Saves current company in screen
      */
-    public function saveAction()
+    public function saveAction(): void
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         $id = $this->request->getPost('id', 'int');
@@ -162,41 +178,46 @@ class CompaniesController extends ControllerBase
         if (!$company) {
             $this->flash->error('Company does not exist');
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         $data = $this->request->getPost();
-        $form = new CompaniesForm;
+        $form = new CompaniesForm();
         if (!$form->isValid($data, $company)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'new',
             ]);
+
+            return;
         }
 
         if (!$company->save()) {
             foreach ($company->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'new',
             ]);
+
+            return;
         }
 
         $form->clear();
-
         $this->flash->success('Company was updated successfully');
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'companies',
             'action'     => 'index',
         ]);
@@ -213,26 +234,30 @@ class CompaniesController extends ControllerBase
         if (!$companies) {
             $this->flash->error('Company was not found');
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         if (!$companies->delete()) {
             foreach ($companies->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'companies',
                 'action'     => 'search',
             ]);
+
+            return;
         }
 
         $this->flash->success('Company was deleted');
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'companies',
             'action'     => 'index',
         ]);

@@ -1,6 +1,15 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * This file is part of the Invo.
+ *
+ * (c) Phalcon Team <team@phalcon.io>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Invo\Providers;
 
 use Phalcon\Di\DiInterface;
@@ -16,6 +25,7 @@ final class FlashProvider implements ServiceProviderInterface
     {
         $di->setShared('flash', function () {
             $flash = new FlashDirect();
+            $flash->setImplicitFlush(false);
             $flash->setCssClasses([
                 'error' => 'alert alert-danger',
                 'success' => 'alert alert-success',

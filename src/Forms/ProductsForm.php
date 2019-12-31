@@ -1,7 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Invo\Controllers;
+/**
+ * This file is part of the Invo.
+ *
+ * (c) Phalcon Team <team@phalcon.io>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
+namespace Invo\Forms;
 
 use Invo\Models\ProductTypes;
 use Phalcon\Forms\Element\Hidden;

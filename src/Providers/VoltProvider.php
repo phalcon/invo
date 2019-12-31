@@ -1,6 +1,15 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * This file is part of the Invo.
+ *
+ * (c) Phalcon Team <team@phalcon.io>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Invo\Providers;
 
 use Phalcon\Di\DiInterface;
@@ -16,7 +25,7 @@ final class VoltProvider implements ServiceProviderInterface
         $di->setShared('volt', function () use ($view, $di) {
             $volt = new VoltEngine($view, $di);
             $volt->setOptions([
-                'path' => $di->offsetGet('rootPath') . '/cache/volt/',
+                'path' => $di->offsetGet('rootPath') . '/var/cache/volt/',
             ]);
 
             $compiler = $volt->getCompiler();

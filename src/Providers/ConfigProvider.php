@@ -1,11 +1,20 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * This file is part of the Invo.
+ *
+ * (c) Phalcon Team <team@phalcon.io>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Invo\Providers;
 
-use Phalcon\Config\Adapter\Ini as ConfigIni;
 use Phalcon\Di\DiInterface;
 use Phalcon\Di\ServiceProviderInterface;
+use Phalcon\Exception;
 
 /**
  * Read the configuration
@@ -14,16 +23,13 @@ final class ConfigProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {
-        $rootPath = $di->offsetGet('rootPath');
-        $di->setShared('config', function () use ($rootPath) {
-            $config = new ConfigIni($rootPath . '/src/config/config.ini');
+        $configPath = $di->offsetGet('rootPath') . '/config/config.php';
+        if (!file_exists($configPath) || !is_readable($configPath)) {
+            throw new Exception('Config file does not exist: ' . $configPath);
+        }
 
-            if (is_readable($rootPath . '/src/config/config.ini.dev')) {
-                $override = new ConfigIni($rootPath . '/src/config/config.ini.dev');
-                $config->merge($override);
-            }
-
-            return $config;
+        $di->setShared('config', function () use ($configPath) {
+            return require_once $configPath;
         });
     }
 }

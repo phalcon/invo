@@ -1,6 +1,15 @@
 <?php
 declare(strict_types=1);
 
+/**
+ * This file is part of the Invo.
+ *
+ * (c) Phalcon Team <team@phalcon.io>
+ *
+ * For the full copyright and license information, please view
+ * the LICENSE file that was distributed with this source code.
+ */
+
 namespace Invo\Controllers;
 
 use Invo\Forms\ContactForm;
@@ -28,30 +37,32 @@ class ContactController extends ControllerBase
     /**
      * Saves the contact information in the database
      */
-    public function sendAction()
+    public function sendAction(): void
     {
         if (!$this->request->isPost()) {
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'contact',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
-        $form = new ContactForm;
+        $form = new ContactForm();
         $contact = new Contact();
 
-        $data = $this->request->getPost();
-
         // Validate the form
-        if (!$form->isValid($data, $contact)) {
+        if (!$form->isValid($this->request->getPost(), $contact)) {
             foreach ($form->getMessages() as $message) {
                 $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'contact',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         if (!$contact->save()) {
@@ -59,15 +70,17 @@ class ContactController extends ControllerBase
                 $this->flash->error((string)$message);
             }
 
-            return $this->dispatcher->forward([
+            $this->dispatcher->forward([
                 'controller' => 'contact',
                 'action'     => 'index',
             ]);
+
+            return;
         }
 
         $this->flash->success('Thanks, we will contact you in the next few hours');
 
-        return $this->dispatcher->forward([
+        $this->dispatcher->forward([
             'controller' => 'index',
             'action'     => 'index',
         ]);
