@@ -48,5 +48,5 @@
         </table>
     {% endif %}
 {% else %}
-    No companies are recorded
+    No companies were found...
 {% endfor %}
