@@ -1,21 +1,31 @@
 {% set tabs = [
-    'invoices': [
+    [
+        'controller': 'invoices',
+        'action': 'index',
         'title': 'Invoices',
         'uri': '/invoices/index'
     ],
-    'companies': [
+    [
+        'controller': 'companies',
+        'action': 'index',
         'title': 'Companies',
         'uri': '/companies/index'
     ],
-    'products': [
+    [
+        'controller': 'products',
+        'action': 'index',
         'title': 'Products',
         'uri': '/products/index'
     ],
-    'producttypes': [
+    [
+        'controller': 'producttypes',
+        'action': 'index',
         'title': 'Product Types',
         'uri': '/producttypes/index'
     ],
-    'invoices': [
+    [
+        'controller': 'invoices',
+        'action': 'profile',
         'title': 'Your Profile',
         'uri': '/invoices/profile'
     ]
@@ -24,7 +34,7 @@
 <ul class="nav nav-tabs mb-3">
     {% for controller, tab in tabs %}
         <li class="nav-item">
-            <a class="nav-link {% if controller == dispatcher.getControllerName()|lower %}active{% endif %}" href="{{ tab['uri'] }}">
+            <a class="nav-link {% if tab['controller'] == dispatcher.getControllerName()|lower and tab['action'] == dispatcher.getActionName() %}active{% endif %}" href="{{ tab['uri'] }}">
                 {{ tab['title'] }}
             </a>
         </li>
