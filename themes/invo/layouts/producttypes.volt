@@ -1,6 +1,4 @@
-{{ elements.getTabs() }}
+{{ partial('layouts/patial_tabs') }}
 
-<div align="center">
-    <!-- Content is picked from producttypes/ views folder -->
-    {{ content() }}
-</div>
+<!-- Content is picked from producttypes/ views folder -->
+{{ content() }}
