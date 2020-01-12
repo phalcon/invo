@@ -1,26 +1,25 @@
-<div align="right">
-    {{ link_to("companies/new", "Create Companies", "class": "btn btn-primary") }}
+<div class="row mb-3">
+    <div class="col-xs-12 col-md-6">
+        <h2>Search companies</h2>
+    </div>
+    <div class="col-xs-12 col-md-6 text-right">
+        {{ link_to("companies/new", "Create Companies", "class": "btn btn-primary") }}
+    </div>
 </div>
 
 <form action="/companies/search" role="form" method="get">
-    <h2>Search companies</h2>
-
-    <fieldset>
-        {% for element in form %}
-            {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
-                {{ element }}
-            {% else %}
-                <div class="control-group">
-                    {{ element.label(['class': 'control-label']) }}
-                    <div class="controls">
-                        {{ element }}
-                    </div>
+    {% for element in form %}
+        {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
+            {{ element }}
+        {% else %}
+            <div class="form-group">
+                {{ element.label() }}
+                <div class="controls">
+                    {{ element.setAttribute("class", "form-control") }}
                 </div>
-            {% endif %}
-        {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
 
-        <div class="control-group">
-            {{ submit_button("Search", "class": "btn btn-primary") }}
-        </div>
-    </fieldset>
+    {{ submit_button("Search", "class": "btn btn-primary") }}
 </form>
