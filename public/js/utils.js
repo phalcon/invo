@@ -1,20 +1,19 @@
-
-var Profile = {
+let Profile = {
     check: function (id) {
-        if ($.trim($("#" + id)[0].value) == '') {
+        if ($.trim($("#" + id)[0].value) === '') {
             $("#" + id)[0].focus();
             $("#" + id + "_alert").show();
 
             return false;
-        };
+        }
 
         return true;
     },
     validate: function () {
-        if (SignUp.check("name") == false) {
+        if (SignUp.check("name") === false) {
             return false;
         }
-        if (SignUp.check("email") == false) {
+        if (SignUp.check("email") === false) {
             return false;
         }
         $("#profileForm")[0].submit();
@@ -23,29 +22,29 @@ var Profile = {
 
 var SignUp = {
     check: function (id) {
-        if ($.trim($("#" + id)[0].value) == '') {
+        if ($.trim($("#" + id)[0].value) === '') {
             $("#" + id)[0].focus();
             $("#" + id + "_alert").show();
 
             return false;
-        };
+        }
 
         return true;
     },
     validate: function () {
-        if (SignUp.check("name") == false) {
+        if (SignUp.check("name") === false) {
             return false;
         }
-        if (SignUp.check("username") == false) {
+        if (SignUp.check("username") === false) {
             return false;
         }
-        if (SignUp.check("email") == false) {
+        if (SignUp.check("email") === false) {
             return false;
         }
-        if (SignUp.check("password") == false) {
+        if (SignUp.check("password") === false) {
             return false;
         }
-        if ($("#password")[0].value != $("#repeatPassword")[0].value) {
+        if ($("#password")[0].value !== $("#repeatPassword")[0].value) {
             $("#repeatPassword")[0].focus();
             $("#repeatPassword_alert").show();
 
@@ -53,7 +52,7 @@ var SignUp = {
         }
         $("#registerForm")[0].submit();
     }
-}
+};
 
 $(document).ready(function () {
     $("#registerForm .alert").hide();
