@@ -36,7 +36,7 @@ class ProductTypes extends Model
     {
         $this->hasMany(
             'id',
-            'Products',
+            Products::class,
             'product_types_id',
             [
                 'foreignKey' => [

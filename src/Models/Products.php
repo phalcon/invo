@@ -51,7 +51,7 @@ class Products extends Model
     {
         $this->belongsTo(
             'product_types_id',
-            'ProductTypes',
+            ProductTypes::class,
             'id',
             [
                 'reusable' => true,
