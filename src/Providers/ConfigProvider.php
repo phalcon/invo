@@ -19,7 +19,7 @@ use Phalcon\Exception;
 /**
  * Read the configuration
  */
-final class ConfigProvider implements ServiceProviderInterface
+class ConfigProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {

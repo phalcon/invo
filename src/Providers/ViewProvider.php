@@ -16,7 +16,7 @@ use Phalcon\Di\DiInterface;
 use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\Mvc\View;
 
-final class ViewProvider implements ServiceProviderInterface
+class ViewProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {

@@ -18,7 +18,7 @@ use Phalcon\Di\ServiceProviderInterface;
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
-final class DatabaseProvider implements ServiceProviderInterface
+class DatabaseProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {

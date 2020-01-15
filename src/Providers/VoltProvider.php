@@ -16,7 +16,7 @@ use Phalcon\Di\DiInterface;
 use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 
-final class VoltProvider implements ServiceProviderInterface
+class VoltProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {

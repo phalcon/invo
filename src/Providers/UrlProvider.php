@@ -19,7 +19,7 @@ use Phalcon\Url;
 /**
  * The URL component is used to generate all kind of urls in the application
  */
-final class UrlProvider implements ServiceProviderInterface
+class UrlProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {
