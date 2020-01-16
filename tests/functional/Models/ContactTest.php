@@ -13,6 +13,8 @@ final class ContactTest extends Unit
 {
     public function testBeforeCreate(): void
     {
+        Di::reset();
+
         $di = new Di();
         $di['modelsManager'] = function () {
             return new Manager();

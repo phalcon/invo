@@ -30,6 +30,8 @@ final class ProductTypesFormTest extends Unit
      */
     public function testValidation(array $data, bool $expected): void
     {
+        Di::reset();
+
         $di = new Di();
         $di['filter'] = function () {
             return new Filter();
