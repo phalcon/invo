@@ -11,10 +11,13 @@ use Phalcon\Mvc\Model\Manager;
 
 final class ContactTest extends Unit
 {
-    public function testBeforeCreate(): void
+    public function setUp(): void
     {
         Di::reset();
+    }
 
+    public function testBeforeCreate(): void
+    {
         $di = new Di();
         $di['modelsManager'] = function () {
             return new Manager();

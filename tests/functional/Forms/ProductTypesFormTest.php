@@ -10,6 +10,11 @@ use Phalcon\Filter;
 
 final class ProductTypesFormTest extends Unit
 {
+    public function setUp(): void
+    {
+        Di::reset();
+    }
+
     public function inputDataProvider(): array
     {
         $key = 'name';
@@ -30,8 +35,6 @@ final class ProductTypesFormTest extends Unit
      */
     public function testValidation(array $data, bool $expected): void
     {
-        Di::reset();
-
         $di = new Di();
         $di['filter'] = function () {
             return new Filter();
