@@ -31,7 +31,7 @@ final class ProductTypesFormTest extends Unit
     public function testValidation(array $data, bool $expected): void
     {
         $di = new Di();
-        $di['filter'] = function() {
+        $di['filter'] = function () {
             return new Filter();
         };
 
