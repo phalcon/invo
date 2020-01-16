@@ -22,7 +22,7 @@ use Phalcon\Mvc\Dispatcher;
 /**
  * We register the events manager
  */
-final class DispatcherProvider implements ServiceProviderInterface
+class DispatcherProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {

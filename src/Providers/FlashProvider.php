@@ -19,7 +19,7 @@ use Phalcon\Flash\Direct as FlashDirect;
 /**
  * Register the flash service with custom CSS classes
  */
-final class FlashProvider implements ServiceProviderInterface
+class FlashProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {

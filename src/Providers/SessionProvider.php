@@ -20,7 +20,7 @@ use Phalcon\Session\Manager as SessionManager;
 /**
  * Start the session the first time some component request the session service
  */
-final class SessionProvider implements ServiceProviderInterface
+class SessionProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {

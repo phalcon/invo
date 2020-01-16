@@ -16,7 +16,7 @@ use Phalcon\Di\DiInterface;
 use Phalcon\Di\ServiceProviderInterface;
 use Phalcon\Session\Bag;
 
-final class SessionBagProvider implements ServiceProviderInterface
+class SessionBagProvider implements ServiceProviderInterface
 {
     public function register(DiInterface $di): void
     {
