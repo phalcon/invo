@@ -14,7 +14,7 @@ final class ContactTest extends Unit
     public function testBeforeCreate(): void
     {
         $di = new Di();
-        $di['modelsManager'] = function() {
+        $di['modelsManager'] = function () {
             return new Manager();
         };
 
