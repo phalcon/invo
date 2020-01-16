@@ -24,11 +24,11 @@ jobs:
         run: cp .env.example .env
 
       - name: Setup PHP
-          uses: shivammathur/setup-php@v1
-          with:
-            php-version: '7.2'
-            tools: pecl
-            extensions: mbstring, intl, json, phalcon
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: '7.2'
+          tools: pecl
+          extensions: mbstring, intl, json, phalcon
 
       - name: Validate composer.json and composer.lock
         run: composer validate
