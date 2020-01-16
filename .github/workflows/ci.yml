@@ -36,14 +36,14 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Install PHPStan
-        run: composer require --prefer-dist --no-progress --no-suggest --dev phpstan/phpstan
+      #- name: Install PHPStan
+      #  run: composer require --prefer-dist --no-progress --no-suggest --dev phpstan/phpstan
 
       - name: Run Psalm
         run: vendor/bin/psalm --show-info=false
 
-      - name: Run PHPStan
-        run: vendor/bin/phpstan analyse -l 5 src
+      #- name: Run PHPStan
+      #  run: vendor/bin/phpstan analyse -l 5 src
 
       - name: Run tests
         run: |
