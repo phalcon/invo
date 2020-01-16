@@ -23,17 +23,12 @@ jobs:
       - name: Copy .env file
         run: cp .env.example .env
 
-      - name: Add Phalcon package repository
-        run: curl -s https://packagecloud.io/install/repositories/phalcon/mainline/script.deb.sh | sudo bash
-
-      - name: Install PSR and Xdebug PECL Packages
-        run: sudo apt-get install php-pear php-xdebug && sudo pecl install --force psr
-
-      - name: Install Phalcon
-        run: sudo apt-get install php7.3-phalcon
-
-      - name: Enable PHP PSR Extension
-        run: echo 'extension=psr.so' | sudo tee -a /etc/php/7.3/mods-available/phalcon.ini && cat /etc/php/7.3/mods-available/phalcon.ini
+      - name: Setup PHP
+          uses: shivammathur/setup-php@v1
+          with:
+            php-version: '7.2'
+            tools: pecl
+            extensions: mbstring, intl, json, phalcon
 
       - name: Validate composer.json and composer.lock
         run: composer validate
