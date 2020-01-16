@@ -1,0 +1,62 @@
+name: Main CI
+
+on: [push, pull_request]
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+    steps:
+      env:
+        DB_HOST: 127.0.0.1
+
+      - uses: actions/checkout@v1
+
+      - name: Init Database
+        run: |
+          mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS `invo`;'
+
+      - name: Copy .env file
+        run: cp .env.example .env
+
+      - name: Add Phalcon package repository
+        run: curl -s https://packagecloud.io/install/repositories/phalcon/mainline/script.deb.sh | sudo bash
+
+      - name: Install PSR and Xdebug PECL Packages
+        run: sudo apt-get install php-pear php-xdebug && sudo pecl install --force psr
+
+      - name: Install Phalcon
+        run: sudo apt-get install php7.3-phalcon
+
+      - name: Enable PHP PSR Extension
+        run: echo 'extension=psr.so' | sudo tee -a /etc/php/7.3/mods-available/phalcon.ini && cat /etc/php/7.3/mods-available/phalcon.ini
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Install PHPStan
+        run: composer require --prefer-dist --no-progress --no-suggest --dev phpstan/phpstan
+
+      - name: Run Psalm
+        run: vendor/bin/psalm --show-info=false
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse -l 5 src
+
+      - name: Run tests
+        run: |
+          php -S 0.0.0.0:90 -t public/
+          vendor/bin/codecept run
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1.0.3
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
+          file: ./coverage.xml
