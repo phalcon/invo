@@ -56,3 +56,12 @@ Support us with a monthly donation and help us continue our activities. [[Become
 ## License
 
 Invo is open-sourced software licensed under the [New BSD License][8]. © Phalcon Framework Team and contributors
+
+[1]: https://phalcon.io/
+[2]: http://httpd.apache.org/
+[3]: http://httpd.apache.org/docs/current/mod/mod_rewrite.html
+[4]: http://nginx.org/
+[5]: https://github.com/phalcon/cphalcon/releases
+[6]: https://www.mysql.com/
+[7]: https://github.com/phalcon/invo/blob/master/CONTRIBUTING.md
+[8]: https://github.com/phalcon/invo/blob/master/docs/LICENSE.md
