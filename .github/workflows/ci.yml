@@ -47,7 +47,7 @@ jobs:
 
       - name: Run tests
         run: |
-          php -S 0.0.0.0:90 -t public/
+          sudo php -S 0.0.0.0:90 -t public/ &
           vendor/bin/codecept run
 
       - name: Upload coverage to Codecov
