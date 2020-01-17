@@ -46,6 +46,7 @@ jobs:
         run: vendor/bin/phpstan analyse -l 5 src
 
       - name: Run tests
+        if: always()
         run: |
           sudo php -S 0.0.0.0:90 -t public/ &
           vendor/bin/codecept run
