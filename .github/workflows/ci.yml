@@ -52,6 +52,7 @@ jobs:
           vendor/bin/codecept run
 
       - name: Upload coverage to Codecov
+        if: success()
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
