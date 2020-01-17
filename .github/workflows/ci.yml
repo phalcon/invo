@@ -29,6 +29,7 @@ jobs:
           php-version: '7.2'
           tools: pecl
           extensions: mbstring, intl, json, phalcon4
+          coverage: xdebug
 
       - name: Validate composer.json and composer.lock
         run: composer validate
