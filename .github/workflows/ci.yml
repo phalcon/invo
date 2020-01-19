@@ -45,7 +45,7 @@ jobs:
         if: always()
         run: |
           sudo php -S 0.0.0.0:90 -t public/ &
-          vendor/bin/codecept run
+          vendor/bin/codecept run --coverage-xml
 
       - name: Upload coverage to Codecov
         if: always()
