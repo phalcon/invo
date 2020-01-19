@@ -46,11 +46,13 @@ jobs:
         run: |
           sudo php -S 0.0.0.0:90 -t public/ &
           vendor/bin/codecept build
-          vendor/bin/codecept run --coverage-xml
+          vendor/bin/codecept run acceptance
+          vendor/bin/codecept run unit --coverage-xml=unit-coverage.xml
+          vendor/bin/codecept run functional --coverage-xml=functional-coverage.xml
 
       - name: Upload coverage to Codecov
         if: always()
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-          file: ./tests/_output/coverage.xml
+          file: ./tests/_output/*-coverage.xml
