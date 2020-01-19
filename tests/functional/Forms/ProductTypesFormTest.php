@@ -10,6 +10,11 @@ use Phalcon\Filter;
 
 final class ProductTypesFormTest extends Unit
 {
+    public function setUp(): void
+    {
+        Di::reset();
+    }
+
     public function inputDataProvider(): array
     {
         $key = 'name';

@@ -12,6 +12,5 @@ Thumbs.db
 *.sublime-workspace
 .idea/
 vendor/
-composer.lock
 composer.phar
 /.env

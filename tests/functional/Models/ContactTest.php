@@ -11,6 +11,11 @@ use Phalcon\Mvc\Model\Manager;
 
 final class ContactTest extends Unit
 {
+    public function setUp(): void
+    {
+        Di::reset();
+    }
+
     public function testBeforeCreate(): void
     {
         $di = new Di();
