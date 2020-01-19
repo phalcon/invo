@@ -29,6 +29,7 @@ jobs:
           php-version: '7.2'
           tools: pecl
           extensions: mbstring, intl, json, phalcon4
+          coverage: xdebug
 
       - name: Validate composer.json and composer.lock
         run: composer validate
@@ -37,14 +38,17 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run Psalm
+        if: always()
         run: vendor/bin/psalm --show-info=false
 
       - name: Run tests
+        if: always()
         run: |
           sudo php -S 0.0.0.0:90 -t public/ &
           vendor/bin/codecept run
 
       - name: Upload coverage to Codecov
+        if: always()
         uses: codecov/codecov-action@v1.0.3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
