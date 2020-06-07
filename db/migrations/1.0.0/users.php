@@ -79,7 +79,7 @@ class UsersMigration_100 extends Migration
                     new Column(
                         'active',
                         [
-                            'type' => Column::TYPE_BOOLEAN,
+                            'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
                             'size' => 1,
                             'after' => 'created_at'
