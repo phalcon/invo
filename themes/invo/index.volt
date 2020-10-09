@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Phalcon Invo</title>
     <meta charset="utf-8">
     <title>{{ get_title() }}</title>
 
