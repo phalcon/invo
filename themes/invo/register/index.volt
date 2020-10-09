@@ -2,7 +2,7 @@
     <h2>Register for INVO</h2>
 </div>
 
-<form action="/register" role="form" method="post">
+<form action="/register" id="registerForm" role="form" method="post">
     <fieldset>
         <div class="control-group">
             {{ form.label('name', ['class': 'control-label']) }}

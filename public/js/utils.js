@@ -10,10 +10,10 @@ let Profile = {
         return true;
     },
     validate: function () {
-        if (SignUp.check("name") === false) {
+        if (Profile.check("name") === false) {
             return false;
         }
-        if (SignUp.check("email") === false) {
+        if (Profile.check("email") === false) {
             return false;
         }
         $("#profileForm")[0].submit();
@@ -56,5 +56,5 @@ var SignUp = {
 
 $(document).ready(function () {
     $("#registerForm .alert").hide();
-    $("div.profile .alert").hide();
+    $("#profileForm .alert").hide();
 });
