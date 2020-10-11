@@ -126,6 +126,7 @@ class ProductsController extends ControllerBase
 
         $form = new ProductsForm();
         $product = new Products();
+        $product->active = '1';
 
         if (!$form->isValid($this->request->getPost(), $product)) {
             foreach ($form->getMessages() as $message) {
