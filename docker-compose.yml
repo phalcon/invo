@@ -1,0 +1,37 @@
+# For local development only.
+
+version: '3'
+
+services:
+  invo-7.4:
+    container_name: invo-7.4
+    hostname: invo-74
+    build: docker/7.4
+    working_dir: /srv
+    volumes:
+      - .:/srv
+
+  invo-8.0:
+    container_name: invo-8.0
+    hostname: invo-80
+    build: docker/8.0
+    working_dir: /srv
+    volumes:
+      - .:/srv
+
+  invo-8.1:
+    container_name: invo-8.1
+    hostname: invo-81
+    build: docker/8.1
+    working_dir: /srv
+    volumes:
+      - .:/srv
+
+  mysql:
+    container_name: invo-mysql
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=phalcon
+      - MYSQL_DATABASE=phalcon
+      - MYSQL_PASSWORD=secret
