@@ -11,10 +11,13 @@ jobs:
     services:
       mysql:
         image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: root
         ports:
           - "3306:3306"
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_USER: phalcon
+          MYSQL_DATABASE: invo
+          MYSQL_PASSWORD: secret
 
     strategy:
       fail-fast: false
@@ -23,10 +26,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Init Database
-        run: |
-          mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS `invo`;'
 
       - name: Copy .env file
         run: cp .env.example .env
