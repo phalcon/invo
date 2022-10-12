@@ -13,6 +13,7 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
+
     strategy:
       fail-fast: false
       matrix:
@@ -33,7 +34,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: pecl
-          extensions: mbstring, intl, json, phalcon-5.0.2
+          extensions: mbstring, intl, json, phalcon-5.0.3
           coverage: xdebug
 
       - name: Validate composer.json and composer.lock
@@ -49,7 +50,6 @@ jobs:
       - name: Run tests
         if: always()
         run: |
-          cp -v .env.example .env
           sudo php -S 0.0.0.0 -t public/ &
           vendor/bin/codecept build
           vendor/bin/codecept run acceptance
