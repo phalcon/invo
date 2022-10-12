@@ -26,9 +26,9 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v1
         with:
-          php-version: '7.2'
+          php-version: '7.4'
           tools: pecl
-          extensions: mbstring, intl, json, phalcon4
+          extensions: mbstring, intl, json, phalcon-5.0.0RC4
           coverage: xdebug
 
       - name: Validate composer.json and composer.lock
