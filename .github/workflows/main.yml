@@ -20,7 +20,7 @@ jobs:
         php: ['8.0', '8.1' ]
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
       - name: Init Database
         run: |
@@ -30,7 +30,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           tools: pecl
