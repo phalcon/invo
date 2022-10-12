@@ -13,6 +13,11 @@ jobs:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.0', '8.1' ]
+
     steps:
       - uses: actions/checkout@v1
 
@@ -26,9 +31,9 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v1
         with:
-          php-version: '7.4'
+          php-version: ${{ matrix.php }}
           tools: pecl
-          extensions: mbstring, intl, json, phalcon-5.0.0RC4
+          extensions: mbstring, intl, json, phalcon-5.0.2
           coverage: xdebug
 
       - name: Validate composer.json and composer.lock
@@ -44,15 +49,17 @@ jobs:
       - name: Run tests
         if: always()
         run: |
-          sudo php -S 0.0.0.0:90 -t public/ &
+          cp -v .env.example .env
+          sudo php -S 0.0.0.0 -t public/ &
           vendor/bin/codecept build
           vendor/bin/codecept run acceptance
           vendor/bin/codecept run unit --coverage-xml=unit-coverage.xml
           vendor/bin/codecept run functional --coverage-xml=functional-coverage.xml
 
       - name: Upload coverage to Codecov
-        if: always()
-        uses: codecov/codecov-action@v1.0.3
+        if: success()
+        uses: codecov/codecov-action@v3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-          file: ./tests/_output/*-coverage.xml
+          directory: ./tests/_output/
+          files: unit-coverage.xml,functional-coverage.xml

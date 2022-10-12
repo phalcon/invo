@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-use Phalcon\Config;
+use Phalcon\Config\Config;
 
 return new Config([
     'database' => [
-        'adapter' => getenv('DB_ADAPTER'),
-        'host' => getenv('DB_HOST'),
-        'username' => getenv('DB_USERNAME'),
-        'password' => getenv('DB_PASSWORD'),
-        'dbname' => getenv('DB_DBNAME'),
-        'charset' => getenv('DB_CHARSET'),
+        'adapter'  => $_ENV['DB_ADAPTER'] ?? 'Mysql',
+        'host'     => $_ENV['DB_HOST'] ?? 'locahost',
+        'username' => $_ENV['DB_USERNAME'] ?? 'phalcon',
+        'password' => $_ENV['DB_PASSWORD'] ?? 'secret',
+        'dbname'   => $_ENV['DB_DBNAME'] ?? 'phalcon_invo',
+        'charset'  => $_ENV['DB_CHARSET'] ?? 'utf8',
     ],
     'application' => [
-        'viewsDir' => getenv('VIEWS_DIR'),
-        'baseUri' => getenv('BASE_URI'),
+        'viewsDir' => $_ENV['VIEWS_DIR'] ?? 'themes/invo',
+        'baseUri'  => $_ENV['BASE_URI'] ?? '/',
     ],
 ]);
