@@ -5,8 +5,8 @@ LABEL vendor="Phalcon" \
       maintainer="Phalcon Team <team@phalcon.io>" \
       description="The PHP image to test Invo example concepts"
 
-ENV PHALCON_VERSION="5.0.0RC4" \
-    PHP_VERSION="7.4"
+ENV PHALCON_VERSION="5.0.3" \
+    PHP_VERSION="8.0"
 
 ADD ./extra.ini /usr/local/etc/php/conf.d/
 ADD . /code

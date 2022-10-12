@@ -3,14 +3,6 @@
 version: '3'
 
 services:
-  invo-7.4:
-    container_name: invo-7.4
-    hostname: invo-74
-    build: docker/7.4
-    working_dir: /srv
-    volumes:
-      - .:/srv
-
   invo-8.0:
     container_name: invo-8.0
     hostname: invo-80
