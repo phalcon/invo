@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -10,11 +9,13 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Invo\Providers;
 
+use Exception;
 use Phalcon\Di\DiInterface;
 use Phalcon\Di\ServiceProviderInterface;
-use Phalcon\Exception;
 
 /**
  * Read the configuration

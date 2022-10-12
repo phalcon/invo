@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -10,6 +9,8 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Invo\Controllers;
 
 class IndexController extends ControllerBase
@@ -18,7 +19,9 @@ class IndexController extends ControllerBase
     {
         parent::initialize();
 
-        $this->tag->setTitle('Welcome');
+        $this->tag->title()
+                  ->set('Welcome')
+        ;
     }
 
     public function indexAction(): void

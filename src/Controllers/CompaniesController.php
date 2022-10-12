@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Controllers;
 
@@ -23,7 +24,9 @@ class CompaniesController extends ControllerBase
     {
         parent::initialize();
 
-        $this->tag->setTitle('Manage your companies');
+        $this->tag->title()
+                  ->set('Manage your companies')
+        ;
     }
 
     /**
@@ -72,7 +75,7 @@ class CompaniesController extends ControllerBase
             'page'  => $this->request->getQuery('page', 'int', 1),
         ]);
 
-        $this->view->page = $paginator->paginate();
+        $this->view->page      = $paginator->paginate();
         $this->view->companies = $companies;
     }
 
@@ -120,13 +123,13 @@ class CompaniesController extends ControllerBase
             return;
         }
 
-        $form = new CompaniesForm();
+        $form    = new CompaniesForm();
         $company = new Companies();
 
         $data = $this->request->getPost();
         if (!$form->isValid($data, $company)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -139,7 +142,7 @@ class CompaniesController extends ControllerBase
 
         if (!$company->save()) {
             foreach ($company->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -173,7 +176,7 @@ class CompaniesController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost('id', 'int');
+        $id      = $this->request->getPost('id', 'int');
         $company = Companies::findFirstById($id);
         if (!$company) {
             $this->flash->error('Company does not exist');
@@ -190,7 +193,7 @@ class CompaniesController extends ControllerBase
         $form = new CompaniesForm();
         if (!$form->isValid($data, $company)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -203,7 +206,7 @@ class CompaniesController extends ControllerBase
 
         if (!$company->save()) {
             foreach ($company->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -244,7 +247,7 @@ class CompaniesController extends ControllerBase
 
         if (!$companies->delete()) {
             foreach ($companies->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([

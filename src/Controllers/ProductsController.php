@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Controllers;
 
@@ -28,7 +29,9 @@ class ProductsController extends ControllerBase
     {
         parent::initialize();
 
-        $this->tag->setTitle('Manage your products');
+        $this->tag->title()
+                  ->set('Manage your products')
+        ;
     }
 
     /**
@@ -36,7 +39,7 @@ class ProductsController extends ControllerBase
      */
     public function indexAction(): void
     {
-        $this->view->form = new ProductsForm;
+        $this->view->form = new ProductsForm();
     }
 
     /**
@@ -124,7 +127,7 @@ class ProductsController extends ControllerBase
             return;
         }
 
-        $form = new ProductsForm();
+        $form    = new ProductsForm();
         $product = new Products();
 
         if (!$form->isValid($this->request->getPost(), $product)) {
@@ -142,7 +145,7 @@ class ProductsController extends ControllerBase
 
         if (!$product->save()) {
             foreach ($product->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -176,7 +179,7 @@ class ProductsController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost('id', 'int');
+        $id      = $this->request->getPost('id', 'int');
         $product = Products::findFirstById($id);
         if (!$product) {
             $this->flash->error('Product does not exist');
@@ -189,9 +192,9 @@ class ProductsController extends ControllerBase
             return;
         }
 
-        $form = new ProductsForm();
+        $form             = new ProductsForm();
         $this->view->form = $form;
-        $data = $this->request->getPost();
+        $data             = $this->request->getPost();
 
         if (!$form->isValid($data, $product)) {
             foreach ($form->getMessages() as $message) {
