@@ -44,9 +44,10 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Run Psalm
-        if: always()
-        run: vendor/bin/psalm --show-info=false
+#      Disabling temporarily
+#      - name: Run Psalm
+#        if: always()
+#        run: vendor/bin/psalm --show-info=false
 
       - name: Run tests
         if: always()
