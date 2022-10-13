@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use Dotenv\Dotenv;
@@ -12,7 +13,9 @@ try {
     /**
      * Load ENV variables
      */
-    Dotenv::createImmutable($rootPath)->load();
+    Dotenv::createImmutable($rootPath)
+          ->load()
+    ;
 
     /**
      * Init Phalcon Dependency Injection
@@ -41,7 +44,8 @@ try {
      */
     (new Application($di))
         ->handle($_SERVER['REQUEST_URI'])
-        ->send();
+        ->send()
+    ;
 } catch (Exception $e) {
     echo $e->getMessage() . '<br>';
     echo '<pre>' . $e->getTraceAsString() . '</pre>';

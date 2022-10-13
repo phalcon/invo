@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Providers;
 
@@ -26,7 +27,7 @@ class SessionProvider implements ServiceProviderInterface
     {
         $di->setShared('session', function () {
             $session = new SessionManager();
-            $files = new SessionAdapter([
+            $files   = new SessionAdapter([
                 'savePath' => sys_get_temp_dir(),
             ]);
             $session->setAdapter($files);

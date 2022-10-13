@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Controllers;
 
@@ -26,12 +27,14 @@ class ContactController extends ControllerBase
     {
         parent::initialize();
 
-        $this->tag->setTitle('Contact us');
+        $this->tag->title()
+                  ->set('Contact us')
+        ;
     }
 
     public function indexAction(): void
     {
-        $this->view->form = new ContactForm;
+        $this->view->form = new ContactForm();
     }
 
     /**
@@ -48,13 +51,13 @@ class ContactController extends ControllerBase
             return;
         }
 
-        $form = new ContactForm();
+        $form    = new ContactForm();
         $contact = new Contact();
 
         // Validate the form
         if (!$form->isValid($this->request->getPost(), $contact)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -67,7 +70,7 @@ class ContactController extends ControllerBase
 
         if (!$contact->save()) {
             foreach ($contact->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([

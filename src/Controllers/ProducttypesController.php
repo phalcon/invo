@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Controllers;
 
@@ -26,7 +27,9 @@ class ProducttypesController extends ControllerBase
 {
     public function initialize()
     {
-        $this->tag->setTitle('Manage your products types');
+        $this->tag->title()
+                  ->set('Manage your products types')
+        ;
 
         parent::initialize();
     }
@@ -36,7 +39,7 @@ class ProducttypesController extends ControllerBase
      */
     public function indexAction(): void
     {
-        $this->view->form = new ProductTypesForm;
+        $this->view->form = new ProductTypesForm();
     }
 
     /**
@@ -77,7 +80,7 @@ class ProducttypesController extends ControllerBase
             'page'  => $this->request->getQuery('page', 'int', 1),
         ]);
 
-        $this->view->page = $paginator->paginate();
+        $this->view->page         = $paginator->paginate();
         $this->view->productTypes = $productTypes;
     }
 
@@ -125,13 +128,13 @@ class ProducttypesController extends ControllerBase
             return;
         }
 
-        $form = new ProductTypesForm();
+        $form         = new ProductTypesForm();
         $productTypes = new ProductTypes();
 
         $data = $this->request->getPost();
         if (!$form->isValid($data, $productTypes)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -144,7 +147,7 @@ class ProducttypesController extends ControllerBase
 
         if (!$productTypes->save()) {
             foreach ($productTypes->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -178,7 +181,7 @@ class ProducttypesController extends ControllerBase
             return;
         }
 
-        $id = $this->request->getPost('id', 'int');
+        $id           = $this->request->getPost('id', 'int');
         $productTypes = ProductTypes::findFirstById($id);
         if (!$productTypes) {
             $this->flash->error('productTypes does not exist');
@@ -248,7 +251,7 @@ class ProducttypesController extends ControllerBase
 
         if (!$productTypes->delete()) {
             foreach ($productTypes->getMessages() as $message) {
-                $this->flash->error((string)$message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([

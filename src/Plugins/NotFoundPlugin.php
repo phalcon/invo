@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Plugins;
 
@@ -28,9 +29,10 @@ class NotFoundPlugin extends Injectable
     /**
      * This action is executed before perform any action in the application
      *
-     * @param Event $event
+     * @param Event         $event
      * @param MvcDispatcher $dispatcher
-     * @param Exception $exception
+     * @param Exception     $exception
+     *
      * @return bool
      */
     public function beforeException(Event $event, MvcDispatcher $dispatcher, Exception $exception)

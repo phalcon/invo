@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Invo\Tests\Unit\Forms;
@@ -21,7 +22,7 @@ final class CompaniesFormTest extends Unit
     public function testIdElementType(): void
     {
         $createForm = new CompaniesForm();
-        $editForm = new CompaniesForm(null, ['edit' => true]);
+        $editForm   = new CompaniesForm(null, ['edit' => true]);
 
         $this->assertInstanceOf(Text::class, $createForm->getElements()['id']);
         $this->assertInstanceOf(Hidden::class, $editForm->getElements()['id']);

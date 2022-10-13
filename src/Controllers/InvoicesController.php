@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Controllers;
 
@@ -23,7 +24,9 @@ class InvoicesController extends ControllerBase
 {
     public function initialize()
     {
-        $this->tag->setTitle('Manage your Invoices');
+        $this->tag->title()
+                  ->set('Manage your Invoices')
+        ;
 
         parent::initialize();
     }
@@ -55,7 +58,7 @@ class InvoicesController extends ControllerBase
             $this->tag->setDefault('name', $user->name);
             $this->tag->setDefault('email', $user->email);
         } else {
-            $user->name = $this->request->getPost('name', ['string', 'striptags']);
+            $user->name  = $this->request->getPost('name', ['string', 'striptags']);
             $user->email = $this->request->getPost('email', 'email');
 
             if (!$user->save()) {
