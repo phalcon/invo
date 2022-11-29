@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Controllers;
 
@@ -25,7 +26,9 @@ class RegisterController extends ControllerBase
 {
     public function initialize()
     {
-        $this->tag->setTitle('Sign Up/Sign In');
+        $this->tag->title()
+                  ->set('Sign Up/Sign In')
+        ;
 
         parent::initialize();
     }
@@ -38,7 +41,7 @@ class RegisterController extends ControllerBase
         $form = new RegisterForm();
 
         if ($this->request->isPost()) {
-            $password = $this->request->getPost('password');
+            $password       = $this->request->getPost('password');
             $repeatPassword = $this->request->getPost('repeatPassword');
 
             if ($password !== $repeatPassword) {
@@ -47,13 +50,13 @@ class RegisterController extends ControllerBase
                 return;
             }
 
-            $user = new Users();
-            $user->username = $this->request->getPost('username', 'alphanum');
-            $user->password = sha1($password);
-            $user->name = $this->request->getPost('name', ['string', 'striptags']);
-            $user->email = $this->request->getPost('email', 'email');
+            $user             = new Users();
+            $user->username   = $this->request->getPost('username', 'alphanum');
+            $user->password   = sha1($password);
+            $user->name       = $this->request->getPost('name', ['string', 'striptags']);
+            $user->email      = $this->request->getPost('email', 'email');
             $user->created_at = new RawValue('now()');
-            $user->active = 1;
+            $user->active     = 1;
 
             if (!$user->save()) {
                 foreach ($user->getMessages() as $message) {

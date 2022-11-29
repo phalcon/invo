@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -10,6 +9,8 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Invo\Controllers;
 
 use Phalcon\Mvc\Controller;
@@ -18,7 +19,9 @@ class ControllerBase extends Controller
 {
     protected function initialize()
     {
-        $this->tag->prependTitle('INVO | ');
+        $this->tag->title()
+                  ->prepend('INVO | ')
+        ;
         $this->view->setTemplateAfter('main');
     }
 }

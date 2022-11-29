@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -10,12 +9,14 @@ declare(strict_types=1);
  * the LICENSE file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Invo\Plugins;
 
 use Phalcon\Acl\Adapter\Memory as AclList;
 use Phalcon\Acl\Component;
-use Phalcon\Acl\Role;
 use Phalcon\Acl\Enum;
+use Phalcon\Acl\Role;
 use Phalcon\Di\Injectable;
 use Phalcon\Events\Event;
 use Phalcon\Mvc\Dispatcher;
@@ -30,8 +31,9 @@ class SecurityPlugin extends Injectable
     /**
      * This action is executed before execute any action in the application
      *
-     * @param Event $event
+     * @param Event      $event
      * @param Dispatcher $dispatcher
+     *
      * @return bool
      */
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)
@@ -44,7 +46,7 @@ class SecurityPlugin extends Injectable
         }
 
         $controller = $dispatcher->getControllerName();
-        $action = $dispatcher->getActionName();
+        $action     = $dispatcher->getActionName();
 
         $acl = $this->getAcl();
 
@@ -115,12 +117,12 @@ class SecurityPlugin extends Injectable
 
         //Public area resources
         $publicResources = [
-            'index'      => ['index'],
-            'about'      => ['index'],
-            'register'   => ['index'],
-            'errors'     => ['show401', 'show404', 'show500'],
-            'session'    => ['index', 'register', 'start', 'end'],
-            'contact'    => ['index', 'send'],
+            'index'    => ['index'],
+            'about'    => ['index'],
+            'register' => ['index'],
+            'errors'   => ['show401', 'show404', 'show500'],
+            'session'  => ['index', 'register', 'start', 'end'],
+            'contact'  => ['index', 'send'],
         ];
         foreach ($publicResources as $resource => $actions) {
             $acl->addComponent(new Component($resource), $actions);

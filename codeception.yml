@@ -15,3 +15,6 @@ coverage:
     enabled: true
     include:
         - src/*
+params:
+    # get params from environment vars
+    - .env

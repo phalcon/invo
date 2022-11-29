@@ -11,24 +11,31 @@ jobs:
     services:
       mysql:
         image: mysql:5.7
+        ports:
+          - "3306:3306"
         env:
-          MYSQL_ROOT_PASSWORD: root
-    steps:
-      - uses: actions/checkout@v1
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_USER: phalcon
+          MYSQL_DATABASE: invo
+          MYSQL_PASSWORD: secret
 
-      - name: Init Database
-        run: |
-          mysql -uroot -h127.0.0.1 -proot -e 'CREATE DATABASE IF NOT EXISTS `invo`;'
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.0', '8.1' ]
+
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Copy .env file
         run: cp .env.example .env
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.2'
+          php-version: ${{ matrix.php }}
           tools: pecl
-          extensions: mbstring, intl, json, phalcon4
+          extensions: mbstring, intl, json, phalcon-5.0.3
           coverage: xdebug
 
       - name: Validate composer.json and composer.lock
@@ -37,22 +44,24 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Run Psalm
-        if: always()
-        run: vendor/bin/psalm --show-info=false
+#      Disabling temporarily
+#      - name: Run Psalm
+#        if: always()
+#        run: vendor/bin/psalm --show-info=false
 
       - name: Run tests
         if: always()
         run: |
-          sudo php -S 0.0.0.0:90 -t public/ &
+          sudo php -S 127.0.0.1:8000 -t public/ &
           vendor/bin/codecept build
           vendor/bin/codecept run acceptance
           vendor/bin/codecept run unit --coverage-xml=unit-coverage.xml
           vendor/bin/codecept run functional --coverage-xml=functional-coverage.xml
 
       - name: Upload coverage to Codecov
-        if: always()
-        uses: codecov/codecov-action@v1.0.3
+        if: success()
+        uses: codecov/codecov-action@v3
         with:
           token: ${{secrets.CODECOV_TOKEN}}
-          file: ./tests/_output/*-coverage.xml
+          directory: ./tests/_output/
+          files: unit-coverage.xml,functional-coverage.xml

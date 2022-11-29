@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 /**
  * This file is part of the Invo.
@@ -9,6 +8,8 @@ declare(strict_types=1);
  * For the full copyright and license information, please view
  * the LICENSE file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Invo\Controllers;
 
@@ -25,7 +26,9 @@ class SessionController extends ControllerBase
     {
         parent::initialize();
 
-        $this->tag->setTitle('Sign Up/Sign In');
+        $this->tag->title()
+                  ->set('Sign Up/Sign In')
+        ;
     }
 
     public function indexAction(): void
@@ -40,7 +43,7 @@ class SessionController extends ControllerBase
     public function startAction(): void
     {
         if ($this->request->isPost()) {
-            $email = $this->request->getPost('email');
+            $email    = $this->request->getPost('email');
             $password = $this->request->getPost('password');
 
             /** @var Users $user */

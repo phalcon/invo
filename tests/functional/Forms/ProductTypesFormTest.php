@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Invo\Tests\Functional\Forms;
 
 use Codeception\Test\Unit;
 use Invo\Forms\ProductTypesForm;
-use Phalcon\Di;
-use Phalcon\Filter;
+use Phalcon\Di\Di;
+use Phalcon\Filter\FilterFactory;
 
 final class ProductTypesFormTest extends Unit
 {
@@ -35,9 +36,10 @@ final class ProductTypesFormTest extends Unit
      */
     public function testValidation(array $data, bool $expected): void
     {
-        $di = new Di();
+        $di           = new Di();
         $di['filter'] = function () {
-            return new Filter();
+            $factory = new FilterFactory();
+            return $factory->newInstance();
         };
 
         $form = new ProductTypesForm();

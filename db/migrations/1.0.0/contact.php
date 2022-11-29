@@ -61,7 +61,7 @@ class ContactMigration_100 extends Migration
                         'created_at',
                         [
                             'type' => Column::TYPE_TIMESTAMP,
-                            'default' => "CURRENT_TIMESTAMP",
+                            'default' => "CURRENT_TIMESTAMP(1)",
                             'notNull' => true,
                             'size' => 1,
                             'after' => 'comments'
