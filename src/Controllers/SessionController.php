@@ -47,13 +47,16 @@ class SessionController extends ControllerBase
             $password = $this->request->getPost('password');
 
             /** @var Users $user */
-            $user = Users::findFirst([
-                "(email = :email: OR username = :email:) AND password = :password: AND active = 1",
-                'bind' => [
-                    'email'    => $email,
-                    'password' => sha1($password),
-                ],
-            ]);
+            $user = Users::findFirst(
+                [
+                    "conditions" => "(email = :email: OR username = :email:) "
+                        . "AND password = :password: AND active = 'Y'",
+                    'bind'       => [
+                        'email'    => $email,
+                        'password' => sha1($password),
+                    ],
+                ]
+            );
 
             if ($user) {
                 $this->registerSession($user);
