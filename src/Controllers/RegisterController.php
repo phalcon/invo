@@ -56,7 +56,7 @@ class RegisterController extends ControllerBase
             $user->name       = $this->request->getPost('name', ['string', 'striptags']);
             $user->email      = $this->request->getPost('email', 'email');
             $user->created_at = new RawValue('now()');
-            $user->active     = 'Y';
+            $user->active     = 1;
 
             if (!$user->save()) {
                 foreach ($user->getMessages() as $message) {

@@ -48,7 +48,7 @@ class SessionController extends ControllerBase
 
             /** @var Users $user */
             $user = Users::findFirst([
-                "(email = :email: OR username = :email:) AND password = :password: AND active = 'Y'",
+                "(email = :email: OR username = :email:) AND password = :password: AND active = 1",
                 'bind' => [
                     'email'    => $email,
                     'password' => sha1($password),
