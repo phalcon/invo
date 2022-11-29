@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Constants\Status;
 use Invo\Forms\ProductsForm;
 use Invo\Models\Products;
 use Phalcon\Mvc\Model\Criteria;
@@ -129,7 +130,7 @@ class ProductsController extends ControllerBase
 
         $form            = new ProductsForm();
         $product         = new Products();
-        $product->active = 'Y';
+        $product->active = Status::ACTIVE;
 
         if (!$form->isValid($this->request->getPost(), $product)) {
             foreach ($form->getMessages() as $message) {

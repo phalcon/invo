@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Constants\Status;
 use Invo\Models\Users;
 
 /**
@@ -50,10 +51,12 @@ class SessionController extends ControllerBase
             $user = Users::findFirst(
                 [
                     "conditions" => "(email = :email: OR username = :email:) "
-                        . "AND password = :password: AND active = 'Y'",
+                        . "AND password = :password: "
+                        . "AND active = :active:",
                     'bind'       => [
                         'email'    => $email,
                         'password' => sha1($password),
+                        'active'   => Status::ACTIVE,
                     ],
                 ]
             );

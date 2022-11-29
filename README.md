@@ -31,7 +31,7 @@ switch to the relevant branch.
 1. Copy project to local environment - `git clone git@github.com:phalcon/invo.git`
 2. Copy file `cp .env.example .env`
 3. Edit .env file with your DB connection information
-4. Run DB migrations `vendor/bin/phalcon-migrations migration run --config=migrations.php`
+4. Run DB migrations `vendor/bin/phalcon-migrations run --config=migrations.php`
 
 If you do not have PHP installed on your machine or do not wish to install it, you 
 can run the application in a docker container. You will need [docker][9] and [docker-compose][10].
@@ -63,7 +63,7 @@ See [CONTRIBUTING.md][7]
 
 ## Sponsors
 
-Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/phalcon#sponsor)]
+Become a sponsor and get your logo on our README on GitHub with a link to your site. [[Become a sponsor](https://opencollective.com/phalcon#sponsor)]
 
 <a href="https://opencollective.com/phalcon/#contributors">
 <img src="https://opencollective.com/phalcon/tiers/sponsors.svg?avatarHeight=48&width=800">
@@ -82,9 +82,9 @@ Support us with a monthly donation and help us continue our activities. [[Become
 Invo is open-sourced software licensed under the [New BSD License][8]. © Phalcon Framework Team and contributors
 
 [1]: https://phalcon.io/
-[2]: http://httpd.apache.org/
-[3]: http://httpd.apache.org/docs/current/mod/mod_rewrite.html
-[4]: http://nginx.org/
+[2]: https://httpd.apache.org/
+[3]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
+[4]: https://nginx.org/
 [5]: https://github.com/phalcon/cphalcon/releases
 [6]: https://www.mysql.com/
 [7]: https://github.com/phalcon/invo/blob/master/CONTRIBUTING.md
