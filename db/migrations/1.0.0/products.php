@@ -1,8 +1,8 @@
-<?php 
+<?php
 
+use Invo\Constants\Status;
 use Phalcon\Db\Column;
 use Phalcon\Db\Index;
-use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
@@ -22,49 +22,50 @@ class ProductsMigration_100 extends Migration
                     new Column(
                         'id',
                         [
-                            'type' => Column::TYPE_INTEGER,
-                            'unsigned' => true,
-                            'notNull' => true,
+                            'type'          => Column::TYPE_INTEGER,
+                            'unsigned'      => true,
+                            'notNull'       => true,
                             'autoIncrement' => true,
-                            'size' => 10,
-                            'first' => true
+                            'size'          => 10,
+                            'first'         => true
                         ]
                     ),
                     new Column(
                         'product_types_id',
                         [
-                            'type' => Column::TYPE_INTEGER,
+                            'type'     => Column::TYPE_INTEGER,
                             'unsigned' => true,
-                            'notNull' => true,
-                            'size' => 10,
-                            'after' => 'id'
+                            'notNull'  => true,
+                            'size'     => 10,
+                            'after'    => 'id'
                         ]
                     ),
                     new Column(
                         'name',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type'    => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 70,
-                            'after' => 'product_types_id'
+                            'size'    => 70,
+                            'after'   => 'product_types_id'
                         ]
                     ),
                     new Column(
                         'price',
                         [
-                            'type' => Column::TYPE_DECIMAL,
+                            'type'    => Column::TYPE_DECIMAL,
                             'notNull' => true,
-                            'size' => 16,
-                            'scale' => 2,
-                            'after' => 'name'
+                            'size'    => 16,
+                            'scale'   => 2,
+                            'after'   => 'name'
                         ]
                     ),
                     new Column(
                         'active',
                         [
-                            'type' => Column::TYPE_BOOLEAN,
-                            'size' => 1,
-                            'after' => 'price'
+                            'type'    => Column::TYPE_TINYINTEGER,
+                            'size'    => 1,
+                            'default' => Status::INACTIVE,
+                            'after'   => 'price'
                         ]
                     )
                 ],
@@ -72,9 +73,9 @@ class ProductsMigration_100 extends Migration
                     new Index('PRIMARY', ['id'], 'PRIMARY')
                 ],
                 'options' => [
-                    'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '8',
-                    'ENGINE' => 'InnoDB',
+                    'TABLE_TYPE'      => 'BASE TABLE',
+                    'AUTO_INCREMENT'  => '8',
+                    'ENGINE'          => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_unicode_ci'
                 ],
             ]
@@ -113,8 +114,8 @@ class ProductsMigration_100 extends Migration
      *
      * @return void
      */
-     public function afterCreateTable()
-     {
+    public function afterCreateTable()
+    {
         $this->batchInsert('products', [
                 'id',
                 'product_types_id',
@@ -123,5 +124,5 @@ class ProductsMigration_100 extends Migration
                 'active'
             ]
         );
-     }
+    }
 }
