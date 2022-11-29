@@ -27,7 +27,8 @@
         "codeception/codeception": "^5.0.0",
         "codeception/module-phpbrowser": "^3.0",
         "codeception/module-asserts": "^3.0",
-        "phalcon/ide-stubs": "^5.0"
+        "phalcon/ide-stubs": "^5.0",
+        "phalcon/migrations": "^3.0"
     },
     "autoload": {
         "psr-4": {
