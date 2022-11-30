@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Constants\Status;
 use Invo\Forms\RegisterForm;
 use Invo\Models\Users;
 use Phalcon\Db\RawValue;
@@ -56,7 +57,7 @@ class RegisterController extends ControllerBase
             $user->name       = $this->request->getPost('name', ['string', 'striptags']);
             $user->email      = $this->request->getPost('email', 'email');
             $user->created_at = new RawValue('now()');
-            $user->active     = 1;
+            $user->active     = Status::ACTIVE;
 
             if (!$user->save()) {
                 foreach ($user->getMessages() as $message) {
@@ -66,7 +67,9 @@ class RegisterController extends ControllerBase
                 $this->tag->setDefault('email', '');
                 $this->tag->setDefault('password', '');
 
-                $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
+                $this->flash->success(
+                    'Thanks for sign-up, please log-in to start generating invoices'
+                );
 
                 $this->dispatcher->forward([
                     'controller' => 'session',

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Invo\Models;
 
+use Invo\Constants\Status;
 use Phalcon\Mvc\Model;
 
 /**
@@ -67,6 +68,6 @@ class Products extends Model
      */
     public function getActiveDetail(): string
     {
-        return $this->active == 1 ? 'Yes' : 'No';
+        return $this->active == Status::ACTIVE ? 'Yes' : 'No';
     }
 }

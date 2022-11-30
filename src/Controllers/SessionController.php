@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Constants\Status;
 use Invo\Models\Users;
 
 /**
@@ -47,13 +48,18 @@ class SessionController extends ControllerBase
             $password = $this->request->getPost('password');
 
             /** @var Users $user */
-            $user = Users::findFirst([
-                "(email = :email: OR username = :email:) AND password = :password: AND active = 1",
-                'bind' => [
-                    'email'    => $email,
-                    'password' => sha1($password),
-                ],
-            ]);
+            $user = Users::findFirst(
+                [
+                    "conditions" => "(email = :email: OR username = :email:) "
+                        . "AND password = :password: "
+                        . "AND active = :active:",
+                    'bind'       => [
+                        'email'    => $email,
+                        'password' => sha1($password),
+                        'active'   => Status::ACTIVE,
+                    ],
+                ]
+            );
 
             if ($user) {
                 $this->registerSession($user);

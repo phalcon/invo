@@ -1,8 +1,7 @@
-<?php 
+<?php
 
 use Phalcon\Db\Column;
 use Phalcon\Db\Index;
-use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
@@ -22,21 +21,21 @@ class ProductTypesMigration_100 extends Migration
                     new Column(
                         'id',
                         [
-                            'type' => Column::TYPE_INTEGER,
-                            'unsigned' => true,
-                            'notNull' => true,
+                            'type'          => Column::TYPE_INTEGER,
+                            'unsigned'      => true,
+                            'notNull'       => true,
                             'autoIncrement' => true,
-                            'size' => 10,
-                            'first' => true
+                            'size'          => 10,
+                            'first'         => true
                         ]
                     ),
                     new Column(
                         'name',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type'    => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 70,
-                            'after' => 'id'
+                            'size'    => 70,
+                            'after'   => 'id'
                         ]
                     )
                 ],
@@ -44,9 +43,9 @@ class ProductTypesMigration_100 extends Migration
                     new Index('PRIMARY', ['id'], 'PRIMARY')
                 ],
                 'options' => [
-                    'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '7',
-                    'ENGINE' => 'InnoDB',
+                    'TABLE_TYPE'      => 'BASE TABLE',
+                    'AUTO_INCREMENT'  => '7',
+                    'ENGINE'          => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_unicode_ci'
                 ],
             ]
@@ -82,12 +81,12 @@ class ProductTypesMigration_100 extends Migration
      *
      * @return void
      */
-     public function afterCreateTable()
-     {
+    public function afterCreateTable()
+    {
         $this->batchInsert('product_types', [
                 'id',
                 'name'
             ]
         );
-     }
+    }
 }

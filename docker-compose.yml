@@ -21,9 +21,10 @@ services:
 
   mysql:
     container_name: invo-mysql
+    hostname: invo-mysql
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=secret
       - MYSQL_USER=phalcon
-      - MYSQL_DATABASE=phalcon
+      - MYSQL_DATABASE=phalcon_invo
       - MYSQL_PASSWORD=secret

@@ -16,7 +16,7 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_USER: phalcon
-          MYSQL_DATABASE: invo
+          MYSQL_DATABASE: phalcon_invo
           MYSQL_PASSWORD: secret
 
     strategy:
@@ -35,7 +35,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: pecl
-          extensions: mbstring, intl, json, phalcon-5.0.3
+          extensions: mbstring, intl, json, phalcon-5.1.1
           coverage: xdebug
 
       - name: Validate composer.json and composer.lock

@@ -1,8 +1,8 @@
-<?php 
+<?php
 
+use Invo\Constants\Status;
 use Phalcon\Db\Column;
 use Phalcon\Db\Index;
-use Phalcon\Db\Reference;
 use Phalcon\Migrations\Mvc\Model\Migration;
 
 /**
@@ -22,67 +22,68 @@ class UsersMigration_100 extends Migration
                     new Column(
                         'id',
                         [
-                            'type' => Column::TYPE_INTEGER,
-                            'unsigned' => true,
-                            'notNull' => true,
+                            'type'          => Column::TYPE_INTEGER,
+                            'unsigned'      => true,
+                            'notNull'       => true,
                             'autoIncrement' => true,
-                            'size' => 10,
-                            'first' => true
+                            'size'          => 10,
+                            'first'         => true
                         ]
                     ),
                     new Column(
                         'username',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type'    => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 32,
-                            'after' => 'id'
+                            'size'    => 32,
+                            'after'   => 'id'
                         ]
                     ),
                     new Column(
                         'password',
                         [
-                            'type' => Column::TYPE_CHAR,
+                            'type'    => Column::TYPE_CHAR,
                             'notNull' => true,
-                            'size' => 40,
-                            'after' => 'username'
+                            'size'    => 40,
+                            'after'   => 'username'
                         ]
                     ),
                     new Column(
                         'name',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type'    => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 120,
-                            'after' => 'password'
+                            'size'    => 120,
+                            'after'   => 'password'
                         ]
                     ),
                     new Column(
                         'email',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type'    => Column::TYPE_VARCHAR,
                             'notNull' => true,
-                            'size' => 70,
-                            'after' => 'name'
+                            'size'    => 70,
+                            'after'   => 'name'
                         ]
                     ),
                     new Column(
                         'created_at',
                         [
-                            'type' => Column::TYPE_TIMESTAMP,
+                            'type'    => Column::TYPE_TIMESTAMP,
                             'default' => "CURRENT_TIMESTAMP(1)",
                             'notNull' => true,
-                            'size' => 1,
-                            'after' => 'email'
+                            'size'    => 1,
+                            'after'   => 'email'
                         ]
                     ),
                     new Column(
                         'active',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type'    => Column::TYPE_TINYINTEGER,
                             'notNull' => true,
-                            'size' => 1,
-                            'after' => 'created_at'
+                            'size'    => 1,
+                            'default' => Status::INACTIVE,
+                            'after'   => 'created_at'
                         ]
                     )
                 ],
@@ -90,9 +91,9 @@ class UsersMigration_100 extends Migration
                     new Index('PRIMARY', ['id'], 'PRIMARY')
                 ],
                 'options' => [
-                    'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '2',
-                    'ENGINE' => 'InnoDB',
+                    'TABLE_TYPE'      => 'BASE TABLE',
+                    'AUTO_INCREMENT'  => '2',
+                    'ENGINE'          => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_unicode_ci'
                 ],
             ]
@@ -133,8 +134,8 @@ class UsersMigration_100 extends Migration
      *
      * @return void
      */
-     public function afterCreateTable()
-     {
+    public function afterCreateTable()
+    {
         $this->batchInsert('users', [
                 'id',
                 'username',
@@ -145,5 +146,5 @@ class UsersMigration_100 extends Migration
                 'active'
             ]
         );
-     }
+    }
 }

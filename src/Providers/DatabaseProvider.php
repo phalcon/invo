@@ -16,6 +16,8 @@ namespace Invo\Providers;
 use Phalcon\Di\DiInterface;
 use Phalcon\Di\ServiceProviderInterface;
 
+use function var_dump;
+
 /**
  * Database connection is created based in the parameters defined in the configuration file
  */
