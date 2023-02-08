@@ -75,18 +75,4 @@ class ProductTypesMigration_100 extends Migration
     {
         $this->batchDelete('product_types');
     }
-
-    /**
-     * This method is called after the table was created
-     *
-     * @return void
-     */
-    public function afterCreateTable()
-    {
-        $this->batchInsert('product_types', [
-                'id',
-                'name'
-            ]
-        );
-    }
 }
