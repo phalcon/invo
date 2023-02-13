@@ -35,7 +35,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           tools: pecl
-          extensions: mbstring, intl, json, phalcon-5.1.1
+          extensions: mbstring, intl, json, phalcon-5.1.4
           coverage: xdebug
 
       - name: Validate composer.json and composer.lock

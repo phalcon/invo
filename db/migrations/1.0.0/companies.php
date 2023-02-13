@@ -105,21 +105,4 @@ class CompaniesMigration_100 extends Migration
     {
         $this->batchDelete('companies');
     }
-
-    /**
-     * This method is called after the table was created
-     *
-     * @return void
-     */
-    public function afterCreateTable()
-    {
-        $this->batchInsert('companies', [
-                'id',
-                'name',
-                'telephone',
-                'address',
-                'city'
-            ]
-        );
-    }
 }

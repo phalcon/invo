@@ -128,23 +128,4 @@ class UsersMigration_100 extends Migration
     {
         $this->batchDelete('users');
     }
-
-    /**
-     * This method is called after the table was created
-     *
-     * @return void
-     */
-    public function afterCreateTable()
-    {
-        $this->batchInsert('users', [
-                'id',
-                'username',
-                'password',
-                'name',
-                'email',
-                'created_at',
-                'active'
-            ]
-        );
-    }
 }
