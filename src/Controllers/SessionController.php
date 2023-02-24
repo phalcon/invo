@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Invo\Controllers;
 
 use Invo\Constants\Status;
+use Invo\Forms\LoginForm;
 use Invo\Models\Users;
 
 /**
@@ -34,8 +35,13 @@ class SessionController extends ControllerBase
 
     public function indexAction(): void
     {
-        $this->tag->setDefault('email', 'demo');
-        $this->tag->setDefault('password', 'phalcon');
+        $form = new LoginForm();
+
+        // Set default Invo user credentials
+        $form->get('email')->setDefault('demo');
+        $form->get('password')->setDefault('phalcon');
+
+        $this->view->setVar('form', $form);
     }
 
     /**
