@@ -37,10 +37,10 @@
             <td colspan="7" align="right">
                 <div class="btn-group">
                     {{ link_to("companies/search", '<i class="icon-fast-backward"></i> First', "class": "btn btn-default") }}
-                    {{ link_to("companies/search?page=" ~ page.before, '<i class="icon-step-backward"></i> Previous', "class": "btn btn-default") }}
-                    {{ link_to("companies/search?page=" ~ page.next, '<i class="icon-step-forward"></i> Next', "class": "btn btn-default") }}
-                    {{ link_to("companies/search?page=" ~ page.last, '<i class="icon-fast-forward"></i> Last', "class": "btn btn-default") }}
-                    <span class="help-inline">{{ page.current }}/{{ page.total_pages }}</span>
+                    {{ link_to("companies/search?page=" ~ page.getPrevious(), '<i class="icon-step-backward"></i> Previous', "class": "btn btn-default") }}
+                    {{ link_to("companies/search?page=" ~ page.getNext(), '<i class="icon-step-forward"></i> Next', "class": "btn btn-default") }}
+                    {{ link_to("companies/search?page=" ~ page.getLast(), '<i class="icon-fast-forward"></i> Last', "class": "btn btn-default") }}
+                    <span class="help-inline">{{ page.getCurrent() }}/{{ page.getLast() }}</span>
                 </div>
             </td>
         </tr>
