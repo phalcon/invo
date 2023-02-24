@@ -21,22 +21,20 @@ use Phalcon\Forms\Form;
 class LoginForm extends Form
 {
     /**
-     * @param null $entity
-     * @param null $options
      */
-    public function initialize($entity = null, $options = null)
+    public function initialize()
     {
         /**
          * Username/Email text field
          */
-        $name = new Text('email');
-        $name->setLabel('Username/Email');
-        $name->setFilters(['striptags', 'string']);
-        $name->addValidators([
-            new PresenceOf(['message' => 'Name is required']),
+        $email = new Text('email');
+        $email->setLabel('Username/Email');
+        $email->setFilters(['striptags', 'string']);
+        $email->addValidators([
+            new PresenceOf(['message' => 'Username/Email is required']),
         ]);
 
-        $this->add($name);
+        $this->add($email);
 
         /**
          * Password field
