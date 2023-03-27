@@ -78,6 +78,6 @@ class InvoicesController extends ControllerBase
             }
         }
 
-        $this->view->setVar('form', $form);
+        $this->view->form = $form;
     }
 }
