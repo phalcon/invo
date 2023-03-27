@@ -65,9 +65,6 @@ class RegisterController extends ControllerBase
                         $this->flash->error((string) $message);
                     }
                 } else {
-                    $this->tag->setDefault('email', '');
-                    $this->tag->setDefault('password', '');
-
                     $this->flash->success(
                         'Thanks for sign-up, please log-in to start generating invoices'
                     );
