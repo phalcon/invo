@@ -75,6 +75,7 @@ class ProducttypesController extends ControllerBase
         }
 
         $paginator = new Paginator([
+            'model' => ProductTypes::class,
             'data'  => $productTypes,
             'limit' => 10,
             'page'  => $this->request->getQuery('page', 'int', 1),

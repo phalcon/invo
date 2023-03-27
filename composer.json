@@ -19,7 +19,8 @@
     "require": {
         "php": ">=8.0",
         "ext-phalcon": "^5.0.2",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",

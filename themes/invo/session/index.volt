@@ -7,15 +7,15 @@
         <form action="/session/start" role="form" method="post">
             <fieldset>
                 <div class="form-group">
-                    <label for="email">Username/Email</label>
+                    {{ form.label('email', ['class': 'control-label']) }}
                     <div class="controls">
-                        {{ text_field('email', 'class': "form-control") }}
+                        {{ form.render('email', ['class': 'form-control']) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    {{ form.label('password', ['class': 'control-label']) }}
                     <div class="controls">
-                        {{ password_field('password', 'class': "form-control") }}
+                        {{ form.render('password', ['class': 'form-control']) }}
                     </div>
                 </div>
                 <div class="form-group">

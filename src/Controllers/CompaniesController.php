@@ -70,6 +70,7 @@ class CompaniesController extends ControllerBase
         }
 
         $paginator = new Paginator([
+            'model' => Companies::class,
             'data'  => $companies,
             'limit' => 10,
             'page'  => $this->request->getQuery('page', 'int', 1),
