@@ -42,41 +42,47 @@ class RegisterController extends ControllerBase
         $form = new RegisterForm();
 
         if ($this->request->isPost()) {
-            $password       = $this->request->getPost('password');
-            $repeatPassword = $this->request->getPost('repeatPassword');
+            if ($form->isValid($this->request->getPost(), new Users())) {
+                $password       = $this->request->getPost('password');
+                $repeatPassword = $this->request->getPost('repeatPassword');
 
-            if ($password !== $repeatPassword) {
-                $this->flash->error('Passwords are different');
+                if ($password !== $repeatPassword) {
+                    $this->flash->error('Passwords are different');
 
-                return;
-            }
+                    return;
+                }
 
-            $user             = new Users();
-            $user->username   = $this->request->getPost('username', 'alphanum');
-            $user->password   = sha1($password);
-            $user->name       = $this->request->getPost('name', ['string', 'striptags']);
-            $user->email      = $this->request->getPost('email', 'email');
-            $user->created_at = new RawValue('now()');
-            $user->active     = Status::ACTIVE;
+                $user             = new Users();
+                $user->username   = $this->request->getPost('username', 'alphanum');
+                $user->password   = sha1($password);
+                $user->name       = $this->request->getPost('name', ['string', 'striptags']);
+                $user->email      = $this->request->getPost('email', 'email');
+                $user->created_at = new RawValue('now()');
+                $user->active     = Status::ACTIVE;
 
-            if (!$user->save()) {
-                foreach ($user->getMessages() as $message) {
-                    $this->flash->error((string) $message);
+                if (!$user->save()) {
+                    foreach ($user->getMessages() as $message) {
+                        $this->flash->error((string) $message);
+                    }
+                } else {
+                    $this->tag->setDefault('email', '');
+                    $this->tag->setDefault('password', '');
+
+                    $this->flash->success(
+                        'Thanks for sign-up, please log-in to start generating invoices'
+                    );
+
+                    $this->dispatcher->forward([
+                        'controller' => 'session',
+                        'action'     => 'index',
+                    ]);
+
+                    return;
                 }
             } else {
-                $this->tag->setDefault('email', '');
-                $this->tag->setDefault('password', '');
-
-                $this->flash->success(
-                    'Thanks for sign-up, please log-in to start generating invoices'
-                );
-
-                $this->dispatcher->forward([
-                    'controller' => 'session',
-                    'action'     => 'index',
-                ]);
-
-                return;
+                foreach ($form->getMessages() as $message) {
+                    $this->flash->error((string) $message);
+                }
             }
         }
 
