@@ -45,7 +45,7 @@ class RegisterForm extends Form
          */
         $name = new Text('username');
         $name->setLabel('Username');
-        $name->setFilters(['alpha']);
+        $name->setFilters(['alphanum']);
         $name->addValidators([
             new PresenceOf(['message' => 'Please enter your desired user name']),
             new UniquenessValidator(
