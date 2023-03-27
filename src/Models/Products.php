@@ -18,6 +18,7 @@ use Phalcon\Mvc\Model;
 
 /**
  * Products
+ * @property ProductTypes $productType
  */
 class Products extends Model
 {
@@ -57,6 +58,7 @@ class Products extends Model
             'id',
             [
                 'reusable' => true,
+                'alias' => 'productType'
             ]
         );
     }
