@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Invo\Controllers;
 
+use Invo\Forms\ProfileForm;
 use Invo\Models\Users;
 
 /**
@@ -54,20 +55,29 @@ class InvoicesController extends ControllerBase
             return;
         }
 
-        if (!$this->request->isPost()) {
-            $this->tag->setDefault('name', $user->name);
-            $this->tag->setDefault('email', $user->email);
-        } else {
-            $user->name  = $this->request->getPost('name', ['string', 'striptags']);
-            $user->email = $this->request->getPost('email', 'email');
+        // Pass user to fill the form with the user data
+        $form = new ProfileForm($user);
 
-            if (!$user->save()) {
-                foreach ($user->getMessages() as $message) {
-                    $this->flash->error((string) $message);
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+
+            if ($form->isValid($data, $user)) {
+                $user->assign($data);
+
+                if (!$user->save()) {
+                    foreach ($user->getMessages() as $message) {
+                        $this->flash->error((string) $message);
+                    }
+                } else {
+                    $this->flash->success('Your profile information was updated successfully');
                 }
             } else {
-                $this->flash->success('Your profile information was updated successfully');
+                foreach ($form->getMessages() as $message) {
+                    $this->flash->error((string) $message);
+                }
             }
         }
+
+        $this->view->form = $form;
     }
 }

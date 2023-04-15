@@ -41,7 +41,7 @@ class SessionController extends ControllerBase
         $form->get('email')->setDefault('demo');
         $form->get('password')->setDefault('phalcon');
 
-        $this->view->setVar('form', $form);
+        $this->view->form = $form;
     }
 
     /**

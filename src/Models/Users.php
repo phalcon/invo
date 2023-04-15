@@ -13,42 +13,43 @@ declare(strict_types=1);
 
 namespace Invo\Models;
 
-use Phalcon\Filter\Validation;
-use Phalcon\Filter\Validation\Validator\Email as EmailValidator;
-use Phalcon\Filter\Validation\Validator\Uniqueness as UniquenessValidator;
+use Phalcon\Db\RawValue;
 use Phalcon\Mvc\Model;
 
 class Users extends Model
 {
-    public function validation()
-    {
-        $validator = new Validation();
+    /**
+     * @var integer|null
+     */
+    public ?int $id = null;
 
-        $validator->add(
-            'email',
-            new EmailValidator(
-                [
-                    'message' => 'Invalid email given',
-                ]
-            )
-        );
-        $validator->add(
-            'email',
-            new UniquenessValidator(
-                [
-                    'message' => 'Sorry, The email was registered by another user',
-                ]
-            )
-        );
-        $validator->add(
-            'username',
-            new UniquenessValidator(
-                [
-                    'message' => 'Sorry, That username is already taken',
-                ]
-            )
-        );
+    /**
+     * @var string
+     */
+    public string $username;
 
-        return $this->validate($validator);
-    }
+    /**
+     * @var string
+     */
+    public string $password;
+
+    /**
+     * @var string
+     */
+    public string $name;
+
+    /**
+     * @var string
+     */
+    public string $email;
+
+    /**
+     * @var string|RawValue
+     */
+    public string|RawValue $created_at;
+
+    /**
+     * @var integer
+     */
+    public int $active;
 }

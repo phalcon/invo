@@ -15,6 +15,7 @@ namespace Invo\Forms;
 
 use Phalcon\Filter\Validation\Validator\Email;
 use Phalcon\Filter\Validation\Validator\PresenceOf;
+use Phalcon\Filter\Validation\Validator\Uniqueness as UniquenessValidator;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
@@ -44,9 +45,14 @@ class RegisterForm extends Form
          */
         $name = new Text('username');
         $name->setLabel('Username');
-        $name->setFilters(['alpha']);
+        $name->setFilters(['alphanum']);
         $name->addValidators([
             new PresenceOf(['message' => 'Please enter your desired user name']),
+            new UniquenessValidator(
+                [
+                    'message' => 'Sorry, That username is already taken',
+                ]
+            )
         ]);
 
         $this->add($name);
@@ -60,6 +66,11 @@ class RegisterForm extends Form
         $email->addValidators([
             new PresenceOf(['message' => 'E-mail is required']),
             new Email(['message' => 'E-mail is not valid']),
+            new UniquenessValidator(
+                [
+                    'message' => 'Sorry, The email was registered by another user',
+                ]
+            )
         ]);
 
         $this->add($email);

@@ -23,7 +23,7 @@
     {% endif %}
     <tr>
         <td>{{ product.id }}</td>
-        <td>{{ product.getProductTypes().name }}</td>
+        <td>{{ product.productType.name }}</td>
         <td>{{ product.name }}</td>
         <td>${{ "%.2f"|format(product.price) }}</td>
         <td>{{ product.getActiveDetail() }}</td>
