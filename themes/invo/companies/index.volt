@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<form action="/companies/search" role="form" method="get">
+<form action="/companies/search" role="form" method="post">
     {% for element in form %}
         {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
             {{ element }}

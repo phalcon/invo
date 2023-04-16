@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<form action="/producttypes/search" role="form" method="get">
+<form action="/producttypes/search" role="form" method="post">
     <div class="form-group">
         <label for="id">Id</label>
         {{ numeric_field("id", "size": 10, "maxlength": 10, "class": "form-control") }}

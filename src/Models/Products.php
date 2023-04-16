@@ -58,7 +58,7 @@ class Products extends Model
             'id',
             [
                 'reusable' => true,
-                'alias' => 'productType'
+                'alias' => 'productTypes',
             ]
         );
     }
