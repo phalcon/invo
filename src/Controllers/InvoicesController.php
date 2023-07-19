@@ -62,8 +62,6 @@ class InvoicesController extends ControllerBase
             $data = $this->request->getPost();
 
             if ($form->isValid($data, $user)) {
-                $user->assign($data);
-
                 if (!$user->save()) {
                     foreach ($user->getMessages() as $message) {
                         $this->flash->error((string) $message);

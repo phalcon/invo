@@ -16,6 +16,8 @@ namespace Invo\Forms;
 use Phalcon\Filter\Validation\Validator\Email;
 use Phalcon\Filter\Validation\Validator\PresenceOf;
 use Phalcon\Filter\Validation\Validator\Uniqueness as UniquenessValidator;
+use Phalcon\Filter\Validation\Validator\Confirmation;
+use Phalcon\Filter\Validation\Validator\StringLength\Min;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
@@ -45,7 +47,7 @@ class RegisterForm extends Form
          */
         $name = new Text('username');
         $name->setLabel('Username');
-        $name->setFilters(['alphanum']);
+        $name->setFilters(['alnum']);
         $name->addValidators([
             new PresenceOf(['message' => 'Please enter your desired user name']),
             new UniquenessValidator(
@@ -82,6 +84,7 @@ class RegisterForm extends Form
         $password->setLabel('Password');
         $password->addValidators([
             new PresenceOf(['message' => 'Password is required']),
+            new Min(['min' => 8, 'message' => 'Password must be at least 8 characters']),
         ]);
 
         $this->add($password);
@@ -93,6 +96,7 @@ class RegisterForm extends Form
         $repeatPassword->setLabel('Repeat Password');
         $repeatPassword->addValidators([
             new PresenceOf(['message' => 'Confirmation password is required']),
+            new Confirmation(["message" => "Passwords are different", "with" => "password",]),
         ]);
 
         $this->add($repeatPassword);
