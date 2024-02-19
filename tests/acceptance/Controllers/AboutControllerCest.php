@@ -11,6 +11,6 @@ final class AboutControllerCest
     public function testIndexAction(AcceptanceTester $I): void
     {
         $I->amOnPage('/about');
-        $I->see('About INVO');
+        $I->see('About Contractor');
     }
 }

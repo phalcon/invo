@@ -2,7 +2,7 @@
     <h2>Contact Us</h2>
 </div>
 
-<p>Send us a message and let us know how we can help. Please be as descriptive as possible as it will help us serve you better.</p>
+<p>Send us a message and let us know how we can help.</p>
 
 <form action="/contact/send" role="form" method="post">
     <fieldset>

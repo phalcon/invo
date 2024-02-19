@@ -20,7 +20,7 @@ class ControllerBase extends Controller
     protected function initialize()
     {
         $this->tag->title()
-                  ->prepend('INVO | ')
+                  ->prepend('Contractor | ')
         ;
         $this->view->setTemplateAfter('main');
     }
