@@ -17,4 +17,4 @@ or start from its base INVO application:
 
 ## License
 
-Contractor is open-sourced software licensed under the [New BSD License][8]. 
+Contractor is open-sourced software licensed under the MIT License. 
