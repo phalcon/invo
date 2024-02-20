@@ -8,7 +8,7 @@ return new Config([
         'adapter'  => $_ENV['DB_ADAPTER'] ?? 'Mysql',
         'host'     => $_ENV['DB_HOST'] ?? '127.0.0.1',
         'username' => $_ENV['DB_USERNAME'] ?? 'phalcon',
-        'password' => $_ENV['DB_PASSWORD'] ?? 'github',
+        'password' => $_ENV['DB_PASSWORD'] ?? 'main',
         'dbname'   => $_ENV['DB_DBNAME'] ?? 'phalcon_invo',
         'charset'  => $_ENV['DB_CHARSET'] ?? 'utf8',
         'options' => [
