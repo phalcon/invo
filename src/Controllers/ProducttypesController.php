@@ -54,7 +54,7 @@ class ProducttypesController extends ControllerBase
                 $this->request->getPost()
             );
 
-            $this->persistent->searchParams = $query->getParams();
+            $this->persistent->searchParams = ['di' => null] + $query->getParams();
         }
 
         $parameters = [];
@@ -76,7 +76,7 @@ class ProducttypesController extends ControllerBase
 
         $paginator = new Paginator([
             'model' => ProductTypes::class,
-            'data'  => $productTypes,
+            'parameters' => $parameters,
             'limit' => 10,
             'page'  => $this->request->getQuery('page', 'int', 1),
         ]);
