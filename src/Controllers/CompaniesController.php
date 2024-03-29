@@ -49,7 +49,7 @@ class CompaniesController extends ControllerBase
                 $this->request->getPost()
             );
 
-            $this->persistent->searchParams = array('di'=>null) + $query->getParams();
+            $this->persistent->searchParams = ['di' => null] + $query->getParams();
         }
 
         $parameters = [];
