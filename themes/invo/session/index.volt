@@ -4,22 +4,22 @@
             <h2>Log In</h2>
         </div>
 
-        <form action="/session/start" role="form" method="post">
+        <form action="{{ url('session/start') }}" role="form" method="post">
             <fieldset>
                 <div class="form-group">
-                    {{ form.label('email', ['class': 'control-label']) }}
+                    {{ form.label('email', ['class': 'control-label']) }} 
                     <div class="controls">
-                        {{ form.render('email', ['class': 'form-control']) }}
+                        {{ form.render('email', ['class': 'form-control']) }} 
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ form.label('password', ['class': 'control-label']) }}
+                    {{ form.label('password', ['class': 'control-label']) }} 
                     <div class="controls">
-                        {{ form.render('password', ['class': 'form-control']) }}
+                        {{ form.render('password', ['class': 'form-control']) }} 
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ submit_button('Login', 'class': 'btn btn-primary btn-large') }}
+                    {{ tag.inputSubmit('Login', null, ['class': 'btn btn-primary btn-large', 'id': null, 'name': null, 'value': 'Login']) }} 
                 </div>
             </fieldset>
         </form>
@@ -38,7 +38,7 @@
         </ul>
 
         <div class="clearfix center">
-            {{ link_to('register', 'Sign Up', 'class': 'btn btn-primary btn-large btn-success') }}
+            {{ tag.a(url('register'), 'Sign Up', ['class':'btn btn-primary btn-large btn-success']) }} 
         </div>
     </div>
 </div>

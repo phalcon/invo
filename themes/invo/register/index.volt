@@ -2,7 +2,7 @@
     <h2>Register for INVO</h2>
 </div>
 
-<form action="/register" id="registerForm" role="form" method="post">
+<form action="{{ url('register') }}" id="registerForm" role="form" method="post">
     <fieldset>
         <div class="control-group">
             {{ form.label('name', ['class': 'control-label']) }}
@@ -59,7 +59,7 @@
         </div>
 
         <div class="form-actions">
-            {{ submit_button('Register', 'class': 'btn btn-primary', 'onclick': 'return SignUp.validate();') }}
+            {{ tag.inputSubmit('Register', null, ['class': 'btn btn-primary', 'id': null, 'name': null, 'value': 'Register', 'onclick': 'return SignUp.validate();']) }} 
             <p class="help-block">By signing up, you accept terms of use and privacy policy.</p>
         </div>
     </fieldset>
