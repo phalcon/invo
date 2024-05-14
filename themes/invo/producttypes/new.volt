@@ -1,10 +1,10 @@
-<form action="/producttypes/create" role="form" method="post">
+<form action="{{ url('producttypes/create') }}" role="form" method="post">
     <ul class="pager">
         <li class="previous pull-left">
-            {{ link_to("producttypes", "&larr; Go Back") }}
+            {{ tag.a(url('producttypes'), '&larr; Go Back', [], true) }} 
         </li>
         <li class="pull-right">
-            {{ submit_button("Save", "class": "btn btn-success") }}
+            {{ tag.inputSubmit('Save', 'Save', ['class': 'btn btn-success', 'id':null, 'name':null]) }} 
         </li>
     </ul>
 
@@ -13,7 +13,7 @@
 
         <div class="clearfix">
             <label for="name">Name</label>
-            {{ text_field("name", "size": 24, "maxlength": 70) }}
+            {{ tag.inputText('name', '', ['size': 24, 'maxlength': 70]) }} 
         </div>
     </div>
 </form>

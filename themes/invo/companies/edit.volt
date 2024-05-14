@@ -1,10 +1,10 @@
-<form action="/companies/save" role="form" method="post">
+<form action="{{ url('companies/save') }}" role="form" method="post">
     <ul class="pager">
         <li class="previous pull-left">
-            {{ link_to("companies", "&larr; Go Back") }}
+            {{ tag.a(url('companies'), '&larr; Go Back', [], true) }}
         </li>
         <li class="pull-right">
-            {{ submit_button("Save", "class": "btn btn-success") }}
+            {{ tag.inputSubmit('Save', 'Save', ['class': 'btn btn-success']) }}
         </li>
     </ul>
 

@@ -1,23 +1,23 @@
-<form action="/companies/create" role="form" method="post">
+<form action="{{ url('companies/create') }}" role="form" method="post">
     <ul class="pager">
         <li class="previous pull-left">
-            {{ link_to("products", "&larr; Go Back") }}
+            {{ tag.a(url('companies'), '&larr; Go Back', [], true) }} 
         </li>
         <li class="pull-right">
-            {{ submit_button("Save", "class": "btn btn-success") }}
+            {{ tag.inputSubmit('Save', 'Save', ['class': 'btn btn-success', 'id':null, 'name':null]) }} 
         </li>
     </ul>
 
     <fieldset>
-        {% for element in form %}
-            {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
-                {{ element }}
-            {% else %}
-                <div class="form-group">
-                    {{ element.label() }}
-                    {{ element.render(['class': 'form-control']) }}
-                </div>
-            {% endif %}
-        {% endfor %}
+{% for element in form %}
+    {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
+    {{ element }} 
+    {% else %} 
+        <div class="form-group">
+            {{ element.label() }} 
+            {{ element.render(['class': 'form-control']) }} 
+        </div>
+    {% endif %}
+{% endfor %} 
     </fieldset>
 </form>
