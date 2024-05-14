@@ -1,4 +1,4 @@
-<form action="/producttypes/create" role="form" method="post">
+<form action="{{ url('producttypes/create') }}" role="form" method="post">
     <ul class="pager">
         <li class="previous pull-left">
             {{ tag.a(url('producttypes'), '&larr; Go Back', [], true) }} 

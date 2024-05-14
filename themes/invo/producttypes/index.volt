@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<form action="/producttypes/search" role="form" method="post">
+<form action="{{ url('producttypes/search') }}" role="form" method="post">
     <div class="form-group">
         <label for="id">Id</label>
         {{ tag.inputNumeric('id', '', ['size': 10, 'maxlength': 10, 'class': 'form-control']) }} 

@@ -3,38 +3,38 @@
         'controller': 'invoices',
         'action': 'index',
         'title': 'Invoices',
-        'uri': '/invoices/index'
+        'uri': 'invoices/index'
     ],
     [
         'controller': 'companies',
         'action': 'index',
         'title': 'Companies',
-        'uri': '/companies/index'
+        'uri': 'companies/index'
     ],
     [
         'controller': 'products',
         'action': 'index',
         'title': 'Products',
-        'uri': '/products/index'
+        'uri': 'products/index'
     ],
     [
         'controller': 'producttypes',
         'action': 'index',
         'title': 'Product Types',
-        'uri': '/producttypes/index'
+        'uri': 'producttypes/index'
     ],
     [
         'controller': 'invoices',
         'action': 'profile',
         'title': 'Your Profile',
-        'uri': '/invoices/profile'
+        'uri': 'invoices/profile'
     ]
 ] %}
 
 <ul class="nav nav-tabs mb-3">
 {% for controller, tab in tabs %}
     <li class="nav-item">
-        <a class="nav-link {% if tab['controller'] == dispatcher.getControllerName()|lower and tab['action'] == dispatcher.getActionName() %}active{% endif %}" href="{{ tab['uri'] }}">
+        <a class="nav-link {% if tab['controller'] == dispatcher.getControllerName()|lower and tab['action'] == dispatcher.getActionName() %}active{% endif %}" href="{{ url(tab['uri']) }}">
             {{ tab['title'] }} 
         </a>
     </li>

@@ -42,9 +42,9 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     {% if session.has('auth') %} 
-                    <a class="nav-link" href="/session/end">Log Out</a>
+                    <a class="nav-link" href="{{ url('session/end') }}">Log Out</a>
                     {% else %} 
-                    <a class="nav-link" href="/session/index">Log In/Sign Up</a>
+                    <a class="nav-link" href="{{ url('session/index') }}">Log In/Sign Up</a>
                     {% endif %} 
                 </li>
             </ul>
