@@ -1,5 +1,6 @@
-<div class="jumbotron">
-    <h1>Internal Error</h1>
-    <p>Something went wrong, if the error continue please contact us</p>
-    <p>{{ tag.a(url('index'), 'Home', ['class':'btn btn-primary']) }}</p>
-</div>
+<div class="container"><div class="error-page">
+    <div class="code">Error 500</div>
+    <h1>Something went wrong</h1>
+    <p>An unexpected error occurred. If it continues, please contact us.</p>
+    <a class="btn btn-primary" href="{{ url('/') }}">Back home</a>
+</div></div>
