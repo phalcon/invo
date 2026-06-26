@@ -19,19 +19,23 @@ use Phalcon\Mvc\Model;
 class Users extends Model
 {
     /**
+     * @var integer
+     */
+    public int $active;
+
+    /**
+     * @var string|RawValue
+     */
+    public string|RawValue $created_at;
+
+    /**
+     * @var string
+     */
+    public string $email;
+    /**
      * @var integer|null
      */
     public ?int $id = null;
-
-    /**
-     * @var string
-     */
-    public string $username;
-
-    /**
-     * @var string
-     */
-    public string $password;
 
     /**
      * @var string
@@ -41,15 +45,10 @@ class Users extends Model
     /**
      * @var string
      */
-    public string $email;
+    public string $password;
 
     /**
-     * @var string|RawValue
+     * @var string
      */
-    public string|RawValue $created_at;
-
-    /**
-     * @var integer
-     */
-    public int $active;
+    public string $username;
 }

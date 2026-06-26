@@ -18,6 +18,15 @@ use Phalcon\Mvc\Model;
 class Companies extends Model
 {
     /**
+     * @var string
+     */
+    public $address;
+
+    /**
+     * @var string
+     */
+    public $city;
+    /**
      * @var integer
      */
     public $id;
@@ -31,14 +40,4 @@ class Companies extends Model
      * @var string
      */
     public $telephone;
-
-    /**
-     * @var string
-     */
-    public $address;
-
-    /**
-     * @var string
-     */
-    public $city;
 }

@@ -24,13 +24,18 @@ use Invo\Models\Users;
  */
 class SessionController extends ControllerBase
 {
-    public function initialize()
+    /**
+     * Finishes the active session redirecting to the index
+     */
+    public function endAction(): void
     {
-        parent::initialize();
+        $this->session->remove('auth');
+        $this->flash->success('Goodbye!');
 
-        $this->tag->title()
-                  ->set('Sign Up/Sign In')
-        ;
+        $this->dispatcher->forward([
+            'controller' => 'index',
+            'action'     => 'index',
+        ]);
     }
 
     public function indexAction(): void
@@ -42,6 +47,14 @@ class SessionController extends ControllerBase
         $form->get('password')->setDefault('phalcon');
 
         $this->view->form = $form;
+    }
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->tag->title()
+                  ->set('Sign Up/Sign In')
+        ;
     }
 
     /**
@@ -84,20 +97,6 @@ class SessionController extends ControllerBase
 
         $this->dispatcher->forward([
             'controller' => 'session',
-            'action'     => 'index',
-        ]);
-    }
-
-    /**
-     * Finishes the active session redirecting to the index
-     */
-    public function endAction(): void
-    {
-        $this->session->remove('auth');
-        $this->flash->success('Goodbye!');
-
-        $this->dispatcher->forward([
-            'controller' => 'index',
             'action'     => 'index',
         ]);
     }

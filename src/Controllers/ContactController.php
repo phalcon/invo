@@ -23,6 +23,10 @@ use Invo\Models\Contact;
  */
 class ContactController extends ControllerBase
 {
+    public function indexAction(): void
+    {
+        $this->view->form = new ContactForm();
+    }
     public function initialize()
     {
         parent::initialize();
@@ -30,11 +34,6 @@ class ContactController extends ControllerBase
         $this->tag->title()
                   ->set('Contact us')
         ;
-    }
-
-    public function indexAction(): void
-    {
-        $this->view->form = new ContactForm();
     }
 
     /**

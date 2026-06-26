@@ -25,15 +25,6 @@ use Phalcon\Db\RawValue;
  */
 class RegisterController extends ControllerBase
 {
-    public function initialize()
-    {
-        $this->tag->title()
-                  ->set('Sign Up/Sign In')
-        ;
-
-        parent::initialize();
-    }
-
     /**
      * Action to register a new user
      */
@@ -68,5 +59,13 @@ class RegisterController extends ControllerBase
         }
 
         $this->view->form = $form;
+    }
+    public function initialize()
+    {
+        $this->tag->title()
+                  ->set('Sign Up/Sign In')
+        ;
+
+        parent::initialize();
     }
 }

@@ -26,95 +26,6 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
  */
 class ProductsController extends ControllerBase
 {
-    public function initialize()
-    {
-        parent::initialize();
-
-        $this->tag->title()
-                  ->set('Manage your products')
-        ;
-    }
-
-    /**
-     * Shows the index action
-     */
-    public function indexAction(): void
-    {
-        $this->view->form = new ProductsForm();
-    }
-
-    /**
-     * Search products based on current criteria
-     */
-    public function searchAction(): void
-    {
-        if ($this->request->isPost()) {
-            $query = Criteria::fromInput(
-                $this->di,
-                Products::class,
-                $this->request->getPost()
-            );
-
-            $this->persistent->searchParams = ['di' => null] + $query->getParams();
-        }
-
-        $parameters = [];
-        if ($this->persistent->searchParams) {
-            $parameters = $this->persistent->searchParams;
-        }
-
-        $products = Products::find($parameters);
-        if (count($products) == 0) {
-            $this->flash->notice('The search did not find any products');
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'index',
-            ]);
-
-            return;
-        }
-
-        $paginator = new Paginator([
-            'model' => Products::class,
-            'parameters' => $parameters,
-            'limit' => 10,
-            'page'  => $this->request->getQuery('page', 'int', 1),
-        ]);
-
-        $this->view->page = $paginator->paginate();
-    }
-
-    /**
-     * Shows the form to create a new product
-     */
-    public function newAction(): void
-    {
-        $this->view->form = new ProductsForm(null, ['edit' => true]);
-    }
-
-    /**
-     * Edits a product based on its id
-     *
-     * @param $id
-     */
-    public function editAction($id): void
-    {
-        $product = Products::findFirstById($id);
-        if (!$product) {
-            $this->flash->error('Product was not found');
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'index',
-            ]);
-
-            return;
-        }
-
-        $this->view->form = new ProductsForm($product, ['edit' => true]);
-    }
-
     /**
      * Creates a new product
      */
@@ -166,6 +77,92 @@ class ProductsController extends ControllerBase
             'controller' => 'products',
             'action'     => 'index',
         ]);
+    }
+
+    /**
+     * Deletes a product
+     *
+     * @param string $id
+     */
+    public function deleteAction($id): void
+    {
+        $products = Products::findFirstById($id);
+        if (!$products) {
+            $this->flash->error('Product was not found');
+
+            $this->dispatcher->forward([
+                'controller' => 'products',
+                'action'     => 'index',
+            ]);
+
+            return;
+        }
+
+        if (!$products->delete()) {
+            foreach ($products->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            $this->dispatcher->forward([
+                'controller' => 'products',
+                'action'     => 'search',
+            ]);
+
+            return;
+        }
+
+        $this->flash->success('Product was deleted');
+
+        $this->dispatcher->forward([
+            'controller' => 'products',
+            'action'     => 'index',
+        ]);
+    }
+
+    /**
+     * Edits a product based on its id
+     *
+     * @param $id
+     */
+    public function editAction($id): void
+    {
+        $product = Products::findFirstById($id);
+        if (!$product) {
+            $this->flash->error('Product was not found');
+
+            $this->dispatcher->forward([
+                'controller' => 'products',
+                'action'     => 'index',
+            ]);
+
+            return;
+        }
+
+        $this->view->form = new ProductsForm($product, ['edit' => true]);
+    }
+
+    /**
+     * Shows the index action
+     */
+    public function indexAction(): void
+    {
+        $this->view->form = new ProductsForm();
+    }
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->tag->title()
+                  ->set('Manage your products')
+        ;
+    }
+
+    /**
+     * Shows the form to create a new product
+     */
+    public function newAction(): void
+    {
+        $this->view->form = new ProductsForm(null, ['edit' => true]);
     }
 
     /**
@@ -237,15 +234,28 @@ class ProductsController extends ControllerBase
     }
 
     /**
-     * Deletes a product
-     *
-     * @param string $id
+     * Search products based on current criteria
      */
-    public function deleteAction($id): void
+    public function searchAction(): void
     {
-        $products = Products::findFirstById($id);
-        if (!$products) {
-            $this->flash->error('Product was not found');
+        if ($this->request->isPost()) {
+            $query = Criteria::fromInput(
+                $this->di,
+                Products::class,
+                $this->request->getPost()
+            );
+
+            $this->persistent->searchParams = ['di' => null] + $query->getParams();
+        }
+
+        $parameters = [];
+        if ($this->persistent->searchParams) {
+            $parameters = $this->persistent->searchParams;
+        }
+
+        $products = Products::find($parameters);
+        if (count($products) == 0) {
+            $this->flash->notice('The search did not find any products');
 
             $this->dispatcher->forward([
                 'controller' => 'products',
@@ -255,24 +265,13 @@ class ProductsController extends ControllerBase
             return;
         }
 
-        if (!$products->delete()) {
-            foreach ($products->getMessages() as $message) {
-                $this->flash->error($message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'search',
-            ]);
-
-            return;
-        }
-
-        $this->flash->success('Product was deleted');
-
-        $this->dispatcher->forward([
-            'controller' => 'products',
-            'action'     => 'index',
+        $paginator = new Paginator([
+            'model' => Products::class,
+            'parameters' => $parameters,
+            'limit' => 10,
+            'page'  => $this->request->getQuery('page', 'int', 1),
         ]);
+
+        $this->view->page = $paginator->paginate();
     }
 }
