@@ -1,19 +1,10 @@
-<form action="{{ url('producttypes/create') }}" role="form" method="post">
-    <ul class="pager">
-        <li class="previous pull-left">
-            {{ tag.a(url('producttypes'), '&larr; Go Back', [], true) }} 
-        </li>
-        <li class="pull-right">
-            {{ tag.inputSubmit('Save', 'Save', ['class': 'btn btn-success', 'id':null, 'name':null]) }} 
-        </li>
-    </ul>
-
-    <div class="center scaffold">
-        <h2>Create product types</h2>
-
-        <div class="clearfix">
-            <label for="name">Name</label>
-            {{ tag.inputText('name', '', ['size': 24, 'maxlength': 70]) }} 
-        </div>
+<div class="page-head">
+    <div><h1>New product type</h1><div class="sub">Name a category for your products.</div></div>
+    <div class="form-actions">
+        <a class="btn btn-secondary" href="{{ url('producttypes') }}">Cancel</a>
+        <button class="btn btn-primary" type="submit" form="type-form">Save type</button>
     </div>
+</div>
+<form id="type-form" class="form-card" action="{{ url('producttypes/create') }}" method="post">
+    <div class="field"><label class="field-label" for="name">Name</label>{{ tag.inputText('name', '', ['class': 'form-control']) }}</div>
 </form>
