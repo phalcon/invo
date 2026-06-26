@@ -1,21 +1,26 @@
-<div class="jumbotron">
-    <h1>Welcome to INVO</h1>
-    <p>INVO is a revolutionary application to create invoices online for free.
-    Receive online payments from your clients and improve your cash flow</p>
-    <p>{{ tag.a(url('register'), 'Try it for Free &raquo;', ['class':'btn btn-primary btn-large btn-success'], true) }}</p>
+<div class="hero">
+    <div>
+        <div class="eyebrow" style="color:var(--green);margin-bottom:18px;">Free online invoicing</div>
+        <h1>Invoices, kept in good order.</h1>
+        <p>Create, track and export your invoices online. Receive payments from your clients and improve your cash flow - all in one place.</p>
+        <div class="actions">
+            <a class="btn btn-primary" href="{{ url('register') }}">Try it for free</a>
+            <a href="{{ url('session/index') }}" style="font-weight:600;color:var(--ink);padding:14px 16px;">Log in →</a>
+        </div>
+    </div>
+    <div class="hero__art"><img src="{{ url('img/falcon.svg') }}" width="190" height="190" alt=""></div>
 </div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Manage Invoices Online</h2>
-        <p>Create, track and export your invoices online. Automate recurring invoices and design your own invoice using our invoice template and brand it with your business logo. </p>
+<div class="features">
+    <div class="feature">
+        <h3>Manage invoices online</h3>
+        <p>Create, track and export your invoices online. Automate recurring invoices and brand them with your own logo.</p>
     </div>
-    <div class="col-md-4">
-        <h2>Dashboards And Reports</h2>
-        <p>Gain critical insights into how your business is doing. See what sells most, who are your top paying customers and the average time your customers take to pay.</p>
+    <div class="feature">
+        <h3>Dashboards &amp; reports</h3>
+        <p>Gain critical insight into how your business is doing - what sells, who your top customers are, and how quickly they pay.</p>
     </div>
-    <div class="col-md-4">
-        <h2>Invite, Share And Collaborate</h2>
-        <p>Invite users and share your workload as invoice supports multiple users with different permissions. It helps your business to be more productive and efficient. </p>
+    <div class="feature">
+        <h3>Invite &amp; collaborate</h3>
+        <p>Share your workload - INVO supports multiple users with different permissions for a more productive, efficient team.</p>
     </div>
 </div>
