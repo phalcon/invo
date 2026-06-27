@@ -26,7 +26,7 @@
     "require-dev": {
         "codeception/codeception": "^5.0",
         "codeception/module-asserts": "^3.0",
-        "codeception/module-phpbrowser": "^3.0",
+        "codeception/module-phpbrowser": "^4.0",
         "friendsofphp/php-cs-fixer": "^3.95",
         "pds/composer-script-names": "^1.0",
         "pds/skeleton": "^1.0",
