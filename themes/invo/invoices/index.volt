@@ -1,5 +1,5 @@
 <div class="page-head">
-    <div><h1>Your invoices</h1><div class="sub">4 invoices · 2 paid this week</div></div>
+    <div><h1>Your invoices</h1><div class="sub">4 invoices - 2 paid this week</div></div>
     <a class="btn btn-primary" href="#">+ New invoice</a>
 </div>
 <div class="stats">

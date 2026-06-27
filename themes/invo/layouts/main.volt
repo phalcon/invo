@@ -47,5 +47,5 @@
         {{ content() }}
     {% endif %}
 
-    <footer class="app-footer">&copy; Company {{ date('Y') }} &middot; Built on Phalcon</footer>
+    <footer class="app-footer">&copy; Company {{ date('Y') }} - Built on Phalcon</footer>
 {% endif %}

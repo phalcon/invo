@@ -3,7 +3,7 @@
         <a class="brand" href="{{ url('/') }}"><span class="brand__mark">i</span><span class="brand__name">INVO</span></a>
         <div class="login__spacer">
             <h2>Invoices, kept<br>in good order.</h2>
-            <p>Create, send and track every invoice — and always know who has paid.</p>
+            <p>Create, send and track every invoice - and always know who has paid.</p>
             <div style="display:flex;align-items:center;gap:8px;opacity:.7;">
                 <img src="{{ url('img/falcon.svg') }}" width="18" height="18" alt="">
                 <span style="font-size:11.5px;letter-spacing:.04em;color:var(--on-dark-muted);">Built on Phalcon</span>

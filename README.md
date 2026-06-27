@@ -29,14 +29,14 @@ docker compose exec app bash
 
 The image is parameterized by `PHALCON_VARIANT`:
 
-* `v5` (default) — installs the Phalcon C extension from source via PIE.
-* `v6` — runs on the `phalcon/phalcon` package (no extension).
+* `v5` (default) - installs the Phalcon C extension from source via PIE.
+* `v6` - runs on the `phalcon/phalcon` package (no extension).
 
 ```shell
 PHALCON_VARIANT=v6 docker compose up -d --build
 ```
 
-Select the PHP version with `PHP_VERSION` (default `8.5`; supported `8.2`–`8.5`).
+Select the PHP version with `PHP_VERSION` (default `8.5`; supported `8.2`-`8.5`).
 
 ## Default login
 
