@@ -124,3 +124,7 @@ textarea.form-control{height:auto;padding:11px 13px;}
 .alert{border-radius:9px;padding:12px 16px;margin-bottom:16px;font-size:14px;}
 .alert-success{color:var(--green);background:var(--green-bg);}
 .alert-danger,.alert-error{color:var(--red);background:var(--red-bg);}
+.alert-info{color:var(--blue);background:#e9edf5;}
+.alert-warning{color:#8a6a1f;background:#f6efda;}
+.flash-wrap{max-width:1060px;margin:0 auto;padding:0 40px;}
+.flash-wrap .alert{margin-top:16px;}

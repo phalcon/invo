@@ -43,7 +43,7 @@
             {{ content() }}
         </div>
     {% else %}
-        {{ flash.output() }}
+        <div class="flash-wrap">{{ flash.output() }}</div>
         {{ content() }}
     {% endif %}
 
