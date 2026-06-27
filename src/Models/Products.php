@@ -23,14 +23,13 @@ use Phalcon\Mvc\Model;
 class Products extends Model
 {
     /**
-     * @var integer
+     * @var string
      */
-    public $id;
-
+    public $active;
     /**
      * @var integer
      */
-    public $product_types_id;
+    public $id;
 
     /**
      * @var string
@@ -43,9 +42,19 @@ class Products extends Model
     public $price;
 
     /**
-     * @var string
+     * @var integer
      */
-    public $active;
+    public $product_types_id;
+
+    /**
+     * Returns a human representation of 'active'
+     *
+     * @return string
+     */
+    public function getActiveDetail(): string
+    {
+        return $this->active == Status::ACTIVE ? 'Yes' : 'No';
+    }
 
     /**
      * Products initializer
@@ -61,15 +70,5 @@ class Products extends Model
                 'alias' => 'productTypes',
             ]
         );
-    }
-
-    /**
-     * Returns a human representation of 'active'
-     *
-     * @return string
-     */
-    public function getActiveDetail(): string
-    {
-        return $this->active == Status::ACTIVE ? 'Yes' : 'No';
     }
 }

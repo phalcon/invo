@@ -15,6 +15,9 @@ namespace Invo\Controllers;
 
 class AboutController extends ControllerBase
 {
+    public function indexAction(): void
+    {
+    }
     public function initialize()
     {
         parent::initialize();
@@ -22,9 +25,5 @@ class AboutController extends ControllerBase
         $this->tag->title()
                   ->set('About us')
         ;
-    }
-
-    public function indexAction(): void
-    {
     }
 }

@@ -1,16 +1,20 @@
-app/config/config.ini.dev
-cache/volt/*.php
-.DS_Store*
-ehthumbs.db
-Icon?
-Thumbs.db
-.project
-.settings
-.buildpath
-*.komodoproject
-*.sublime-project
-*.sublime-workspace
+# IDE / OS
 .idea/
-vendor/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Composer
+/vendor/
 composer.phar
+composer.lock
+
+# Environment
 /.env
+
+# Runtime
+tests/_output/*
+!tests/_output/.gitignore
+var/cache/volt/*.php
+var/logs/*.log
+var/*.sqlite*

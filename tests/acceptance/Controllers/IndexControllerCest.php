@@ -11,6 +11,6 @@ final class IndexControllerCest
     public function testIndex(AcceptanceTester $I): void
     {
         $I->amOnPage('/');
-        $I->see('Welcome to INVO');
+        $I->see('Invoices, kept in good order.');
     }
 }

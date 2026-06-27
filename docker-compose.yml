@@ -1,36 +1,43 @@
-# For local development only.
-
-version: '3'
-
 services:
-  invo-8.0:
-    container_name: invo-8.0
-    hostname: invo-80
-    build: docker/8.0
-    working_dir: /srv
-    volumes:
-      - .:/srv
+  app:
+    build:
+      context: .
+      dockerfile: resources/docker/Dockerfile
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.5}
+        PHALCON_VARIANT: ${PHALCON_VARIANT:-v5}
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: ${PROJECT_PREFIX:-invo}-app
     ports:
-      - 80:80
-
-  invo-8.1:
-    container_name: invo-8.1
-    hostname: invo-81
-    build: docker/8.1
-    working_dir: /srv
+      # Host and container both use APP_PORT (the port the app listens on).
+      - "${APP_PORT:-8080}:${APP_PORT:-8080}"
     volumes:
-      - .:/srv
-    ports:
-      - 81:80
+      - .:/app
+      - vendor:/app/vendor
+    env_file: .env
+    depends_on:
+      mysql:
+        condition: service_healthy
 
   mysql:
-    container_name: invo-mysql
-    hostname: invo-mysql
-    image: mysql:5.7
+    image: mysql:8.0
+    container_name: ${PROJECT_PREFIX:-invo}-mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_USER=phalcon
-      - MYSQL_DATABASE=phalcon_invo
-      - MYSQL_PASSWORD=secret
-    ports:
-      - 3306:3306
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_DATABASE: ${DB_DBNAME:-phalcon_invo}
+      MYSQL_USER: ${DB_USERNAME:-phalcon}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+    # No host port published: the app reaches the DB over the internal compose
+    # network as mysql:3306. Not exposed to the host by design.
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${DB_PASSWORD:-secret}"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    volumes:
+      - mysqldata:/var/lib/mysql
+
+volumes:
+  vendor:
+  mysqldata:

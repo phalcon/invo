@@ -20,96 +20,6 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class CompaniesController extends ControllerBase
 {
-    public function initialize()
-    {
-        parent::initialize();
-
-        $this->tag->title()
-                  ->set('Manage your companies')
-        ;
-    }
-
-    /**
-     * Shows the index action
-     */
-    public function indexAction(): void
-    {
-        $this->view->form = new CompaniesForm();
-    }
-
-    /**
-     * Search companies based on current criteria
-     */
-    public function searchAction(): void
-    {
-        if ($this->request->isPost()) {
-            $query = Criteria::fromInput(
-                $this->di,
-                Companies::class,
-                $this->request->getPost()
-            );
-
-            $this->persistent->searchParams = ['di' => null] + $query->getParams();
-        }
-
-        $parameters = [];
-        if ($this->persistent->searchParams) {
-            $parameters = $this->persistent->searchParams;
-        }
-
-        $companies = Companies::find($parameters);
-        if (count($companies) == 0) {
-            $this->flash->notice('The search did not find any companies');
-
-            $this->dispatcher->forward([
-                'controller' => 'companies',
-                'action'     => 'index',
-            ]);
-
-            return;
-        }
-
-        $paginator = new Paginator([
-            'model' => Companies::class,
-            'parameters' => $parameters,
-            'limit' => 10,
-            'page'  => $this->request->getQuery('page', 'int', 1),
-        ]);
-
-        $this->view->page      = $paginator->paginate();
-        $this->view->companies = $companies;
-    }
-
-    /**
-     * Shows the form to create a new company
-     */
-    public function newAction(): void
-    {
-        $this->view->form = new CompaniesForm(null, ['edit' => true]);
-    }
-
-    /**
-     * Edits a company based on its id
-     *
-     * @param int $id
-     */
-    public function editAction($id): void
-    {
-        $company = Companies::findFirstById($id);
-        if (!$company) {
-            $this->flash->error('Company was not found');
-
-            $this->dispatcher->forward([
-                'controller' => 'companies',
-                'action'     => 'index',
-            ]);
-
-            return;
-        }
-
-        $this->view->form = new CompaniesForm($company, ['edit' => true]);
-    }
-
     /**
      * Creates a new company
      */
@@ -161,6 +71,92 @@ class CompaniesController extends ControllerBase
             'controller' => 'companies',
             'action'     => 'index',
         ]);
+    }
+
+    /**
+     * Deletes a company
+     *
+     * @param string $id
+     */
+    public function deleteAction($id)
+    {
+        $companies = Companies::findFirstById($id);
+        if (!$companies) {
+            $this->flash->error('Company was not found');
+
+            $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'index',
+            ]);
+
+            return;
+        }
+
+        if (!$companies->delete()) {
+            foreach ($companies->getMessages() as $message) {
+                $this->flash->error((string) $message);
+            }
+
+            $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'search',
+            ]);
+
+            return;
+        }
+
+        $this->flash->success('Company was deleted');
+
+        $this->dispatcher->forward([
+            'controller' => 'companies',
+            'action'     => 'index',
+        ]);
+    }
+
+    /**
+     * Edits a company based on its id
+     *
+     * @param int $id
+     */
+    public function editAction($id): void
+    {
+        $company = Companies::findFirstById($id);
+        if (!$company) {
+            $this->flash->error('Company was not found');
+
+            $this->dispatcher->forward([
+                'controller' => 'companies',
+                'action'     => 'index',
+            ]);
+
+            return;
+        }
+
+        $this->view->form = new CompaniesForm($company, ['edit' => true]);
+    }
+
+    /**
+     * Shows the index action
+     */
+    public function indexAction(): void
+    {
+        $this->view->form = new CompaniesForm();
+    }
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->tag->title()
+                  ->set('Manage your companies')
+        ;
+    }
+
+    /**
+     * Shows the form to create a new company
+     */
+    public function newAction(): void
+    {
+        $this->view->form = new CompaniesForm(null, ['edit' => true]);
     }
 
     /**
@@ -228,15 +224,28 @@ class CompaniesController extends ControllerBase
     }
 
     /**
-     * Deletes a company
-     *
-     * @param string $id
+     * Search companies based on current criteria
      */
-    public function deleteAction($id)
+    public function searchAction(): void
     {
-        $companies = Companies::findFirstById($id);
-        if (!$companies) {
-            $this->flash->error('Company was not found');
+        if ($this->request->isPost()) {
+            $query = Criteria::fromInput(
+                $this->di,
+                Companies::class,
+                $this->request->getPost()
+            );
+
+            $this->persistent->searchParams = ['di' => null] + $query->getParams();
+        }
+
+        $parameters = [];
+        if ($this->persistent->searchParams) {
+            $parameters = $this->persistent->searchParams;
+        }
+
+        $companies = Companies::find($parameters);
+        if (count($companies) == 0) {
+            $this->flash->notice('The search did not find any companies');
 
             $this->dispatcher->forward([
                 'controller' => 'companies',
@@ -246,24 +255,14 @@ class CompaniesController extends ControllerBase
             return;
         }
 
-        if (!$companies->delete()) {
-            foreach ($companies->getMessages() as $message) {
-                $this->flash->error((string) $message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => 'companies',
-                'action'     => 'search',
-            ]);
-
-            return;
-        }
-
-        $this->flash->success('Company was deleted');
-
-        $this->dispatcher->forward([
-            'controller' => 'companies',
-            'action'     => 'index',
+        $paginator = new Paginator([
+            'model' => Companies::class,
+            'parameters' => $parameters,
+            'limit' => 10,
+            'page'  => $this->request->getQuery('page', 'int', 1),
         ]);
+
+        $this->view->page      = $paginator->paginate();
+        $this->view->companies = $companies;
     }
 }

@@ -1,93 +1,70 @@
 # INVO Application
 
-[Phalcon][1] is a web framework delivered as a C extension providing high
-performance and lower resource consumption.
+[Phalcon](https://phalcon.io) is a full-stack PHP framework delivered as a C
+extension (v5) and, from v6, as a pure-PHP package. INVO is a sample invoicing
+application that showcases the framework.
 
-This is a sample application for the Phalcon PHP Framework. We expect to
-implement as many features as possible to showcase the framework and its
-potential.
+## Requirements
 
-Please write us if you have any feedback.
+* Docker + Docker Compose (recommended), or
+* PHP >= 8.2 with the Phalcon v5 extension (or the `phalcon/phalcon` v6 package) and MySQL >= 8.0
 
-Thanks.
-
-## NOTE
-
-The master branch will always contain the latest stable version. If you wish
-to check older versions or newer ones currently under development, please
-switch to the relevant branch.
-
-## Get Started
-
-### Requirements
-
-* PHP >= 7.4
-* [Apache][2] Web Server with [mod_rewrite][3] enabled or [Nginx][4] Web Server
-* Latest stable [Phalcon Framework release][5] extension enabled
-* [MySQL][6] >= 5.7
-
-### Installation
-
-1. Copy project to local environment - `git clone git@github.com:phalcon/invo.git`
-2. Copy file `cp .env.example .env`
-3. Edit .env file with your DB connection information
-4. Run DB migrations `vendor/bin/phalcon-migrations run --config=migrations.php`
-
-If you do not have PHP installed on your machine or do not wish to install it, you 
-can run the application in a docker container. You will need [docker][9] and [docker-compose][10].
+## Quick start (Docker)
 
 ```shell
-docker-compose up -d 
+cp .env.example .env
+docker compose up -d --build
 ```
 
-will build and start your environment
+The app is served at http://localhost:8080 (override with `APP_PORT` in `.env`).
+The database schema and seed data are applied automatically on container start.
+
+Open a shell in the container:
 
 ```shell
-docker exec -it invo-8.0 /bin/bash
+docker compose exec app bash
 ```
 
-will allow you to enter the environment and run the tests. There is also `invo-8.1` 
-as an option, if you wish to run an environment with PHP 8.1.
+### Phalcon v5 (default) or v6
 
-To see the dockerized invo in action run:
+The image is parameterized by `PHALCON_VARIANT`:
+
+* `v5` (default) - installs the Phalcon C extension from source via PIE.
+* `v6` - runs on the `phalcon/phalcon` package (no extension).
 
 ```shell
-docker inspect invo-8.0
+PHALCON_VARIANT=v6 docker compose up -d --build
 ```
-and make a note of the `IPAddress`. Type the address in your browser and you 
-will see the invo application in action.
+
+Select the PHP version with `PHP_VERSION` (default `8.5`; supported `8.2`-`8.5`).
+
+## Default login
+
+The seeded demo account is **`demo`** / **`phalcon`**.
+
+## Composer scripts
+
+Run them inside the container, e.g. `docker compose exec app composer test`.
+
+| Script | Purpose |
+|---|---|
+| `composer migrate` | Run database migrations (`phalcon/migrations`) |
+| `composer test` | Run all Codeception suites |
+| `composer test-unit` / `test-functional` / `test-acceptance` | Run one suite |
+| `composer cs` / `cs-fix` | PHP_CodeSniffer check / fix (PSR-12) |
+| `composer cs-fixer` / `cs-fixer-fix` | PHP CS Fixer check / fix |
+| `composer analyze` | PHPStan static analysis |
+
+## Design exports
+
+`design/` contains a static HTML snapshot of every page the app renders,
+suitable for UI-refresh work.
 
 ## Contributing
 
-See [CONTRIBUTING.md][7]
-
-## Sponsors
-
-Become a sponsor and get your logo on our README on GitHub with a link to your site. [[Become a sponsor](https://opencollective.com/phalcon#sponsor)]
-
-<a href="https://opencollective.com/phalcon/#contributors">
-<img src="https://opencollective.com/phalcon/tiers/sponsors.svg?avatarHeight=48&width=800">
-</a>
-
-## Backers
-
-Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/phalcon#backer)]
-
-<a href="https://opencollective.com/phalcon/#contributors">
-<img src="https://opencollective.com/phalcon/tiers/backers.svg?avatarHeight=48&width=800&height=200">
-</a>
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-Invo is open-sourced software licensed under the [New BSD License][8]. © Phalcon Framework Team and contributors
-
-[1]: https://phalcon.io/
-[2]: https://httpd.apache.org/
-[3]: https://httpd.apache.org/docs/current/mod/mod_rewrite.html
-[4]: https://nginx.org/
-[5]: https://github.com/phalcon/cphalcon/releases
-[6]: https://www.mysql.com/
-[7]: https://github.com/phalcon/invo/blob/master/CONTRIBUTING.md
-[8]: https://github.com/phalcon/invo/blob/master/docs/LICENSE.md
-[9]: https://docs.docker.com/engine/install/
-[10]: https://docs.docker.com/compose/install/
+INVO is open-sourced software licensed under the [New BSD License](LICENSE).
+© Phalcon Framework Team and contributors

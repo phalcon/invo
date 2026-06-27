@@ -29,14 +29,14 @@ class ErrorsController extends ControllerBase
         parent::initialize();
     }
 
-    public function show404Action(): void
-    {
-        $this->response->setStatusCode(404);
-    }
-
     public function show401Action(): void
     {
         $this->response->setStatusCode(401);
+    }
+
+    public function show404Action(): void
+    {
+        $this->response->setStatusCode(404);
     }
 
     public function show500Action(): void

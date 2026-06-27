@@ -12,13 +12,6 @@ use Phalcon\Forms\Form;
 
 final class CompaniesFormTest extends Unit
 {
-    public function testImplementation(): void
-    {
-        $class = $this->createMock(CompaniesForm::class);
-
-        $this->assertInstanceOf(Form::class, $class);
-    }
-
     public function testIdElementType(): void
     {
         $createForm = new CompaniesForm();
@@ -26,5 +19,11 @@ final class CompaniesFormTest extends Unit
 
         $this->assertInstanceOf(Text::class, $createForm->getElements()['id']);
         $this->assertInstanceOf(Hidden::class, $editForm->getElements()['id']);
+    }
+    public function testImplementation(): void
+    {
+        $class = $this->createMock(CompaniesForm::class);
+
+        $this->assertInstanceOf(Form::class, $class);
     }
 }

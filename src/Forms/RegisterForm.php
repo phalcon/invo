@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Invo\Forms;
 
+use Phalcon\Filter\Validation\Validator\Confirmation;
 use Phalcon\Filter\Validation\Validator\Email;
 use Phalcon\Filter\Validation\Validator\PresenceOf;
-use Phalcon\Filter\Validation\Validator\Uniqueness as UniquenessValidator;
-use Phalcon\Filter\Validation\Validator\Confirmation;
 use Phalcon\Filter\Validation\Validator\StringLength\Min;
+use Phalcon\Filter\Validation\Validator\Uniqueness as UniquenessValidator;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;

@@ -15,6 +15,13 @@ namespace Invo\Controllers;
 
 class IndexController extends ControllerBase
 {
+    public function indexAction(): void
+    {
+        $this->flash->notice(
+            'This is a sample application of the Phalcon Framework.
+                Please don\'t provide us any personal information. Thanks'
+        );
+    }
     public function initialize()
     {
         parent::initialize();
@@ -22,13 +29,5 @@ class IndexController extends ControllerBase
         $this->tag->title()
                   ->set('Welcome')
         ;
-    }
-
-    public function indexAction(): void
-    {
-        $this->flash->notice(
-            'This is a sample application of the Phalcon Framework.
-                Please don\'t provide us any personal information. Thanks'
-        );
     }
 }

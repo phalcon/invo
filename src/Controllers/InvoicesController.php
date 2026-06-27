@@ -23,6 +23,9 @@ use Invo\Models\Users;
  */
 class InvoicesController extends ControllerBase
 {
+    public function indexAction(): void
+    {
+    }
     public function initialize()
     {
         $this->tag->title()
@@ -30,10 +33,6 @@ class InvoicesController extends ControllerBase
         ;
 
         parent::initialize();
-    }
-
-    public function indexAction(): void
-    {
     }
 
     /**

@@ -1,4 +1,2 @@
-{{ partial('layouts/patial_tabs') }}
-
-<!-- Content is picked from producttypes/ views folder -->
+<div class="breadcrumb"><a href="{{ url('products/index') }}">Products</a> / <span class="here">Types</span></div>
 {{ content() }}

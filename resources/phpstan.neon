@@ -1,0 +1,15 @@
+parameters:
+    paths:
+        - ../src
+        - ../config
+        - ../public/index.php
+    level: 1
+    reportUnmatchedIgnoredErrors: false
+    tmpDir: ../tests/_output
+    bootstrapFiles:
+        - ../vendor/autoload.php
+    ignoreErrors:
+        # Phalcon models expose magic static finders (findFirstBy<Field>, findBy<Field>)
+        - '#Call to an undefined static method Invo\\Models\\[A-Za-z]+::(find|findFirst)By[A-Za-z]+\(\)#'
+        # v6 source / v5 extension differ in case for MetaData\Stream; resolves at runtime.
+        - '#Class Phalcon\\Mvc\\Model\\MetaData\\Stream referenced with incorrect case#'

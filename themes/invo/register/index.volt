@@ -1,66 +1,32 @@
-<div class="page-header">
-    <h2>Register for INVO</h2>
+<div class="container" style="max-width:560px;">
+    <div class="page-head"><div><h1>Create an account</h1><div class="sub">Start invoicing for free.</div></div></div>
+    <form class="form-card" action="{{ url('register') }}" id="registerForm" method="post">
+        <div class="field">
+            {{ form.label('name', ['class': 'field-label']) }}
+            {{ form.render('name', ['class': 'form-control']) }}
+            <div class="alert alert-danger" id="name_alert" style="display:none;margin:8px 0 0;">Please enter your full name</div>
+        </div>
+        <div class="field">
+            {{ form.label('username', ['class': 'field-label']) }}
+            {{ form.render('username', ['class': 'form-control']) }}
+            <div class="alert alert-danger" id="username_alert" style="display:none;margin:8px 0 0;">Please enter your desired user name</div>
+        </div>
+        <div class="field">
+            {{ form.label('email', ['class': 'field-label']) }}
+            {{ form.render('email', ['class': 'form-control']) }}
+            <div class="alert alert-danger" id="email_alert" style="display:none;margin:8px 0 0;">Please enter your email</div>
+        </div>
+        <div class="field">
+            {{ form.label('password', ['class': 'field-label']) }}
+            {{ form.render('password', ['class': 'form-control']) }}
+            <div class="alert alert-danger" id="password_alert" style="display:none;margin:8px 0 0;">Please provide a valid password</div>
+        </div>
+        <div class="field">
+            <label class="field-label" for="repeatPassword">Repeat password</label>
+            {{ password_field('repeatPassword', 'class': 'form-control') }}
+            <div class="alert alert-danger" id="repeatPassword_alert" style="display:none;margin:8px 0 0;">The password does not match</div>
+        </div>
+        {{ tag.inputSubmit('Register', null, ['class': 'btn btn-primary', 'id': null, 'name': null, 'value': 'Sign up', 'onclick': 'return SignUp.validate();']) }}
+        <p style="font-size:12.5px;color:var(--muted);margin-top:14px;">By signing up, you accept the terms of use and privacy policy.</p>
+    </form>
 </div>
-
-<form action="{{ url('register') }}" id="registerForm" role="form" method="post">
-    <fieldset>
-        <div class="control-group">
-            {{ form.label('name', ['class': 'control-label']) }}
-            <div class="controls">
-                {{ form.render('name', ['class': 'form-control']) }}
-                <p class="help-block">(required)</p>
-                <div class="alert alert-warning" id="name_alert">
-                    <strong>Warning!</strong> Please enter your full name
-                </div>
-            </div>
-        </div>
-
-        <div class="control-group">
-            {{ form.label('username', ['class': 'control-label']) }}
-            <div class="controls">
-                {{ form.render('username', ['class': 'form-control']) }}
-                <p class="help-block">(required)</p>
-                <div class="alert alert-warning" id="username_alert">
-                    <strong>Warning!</strong> Please enter your desired user name
-                </div>
-            </div>
-        </div>
-
-        <div class="control-group">
-            {{ form.label('email', ['class': 'control-label']) }}
-            <div class="controls">
-                {{ form.render('email', ['class': 'form-control']) }}
-                <p class="help-block">(required)</p>
-                <div class="alert alert-warning" id="email_alert">
-                    <strong>Warning!</strong> Please enter your email
-                </div>
-            </div>
-        </div>
-
-        <div class="control-group">
-            {{ form.label('password', ['class': 'control-label']) }}
-            <div class="controls">
-                {{ form.render('password', ['class': 'form-control']) }}
-                <p class="help-block">(minimum 8 characters)</p>
-                <div class="alert alert-warning" id="password_alert">
-                    <strong>Warning!</strong> Please provide a valid password
-                </div>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <label class="control-label" for="repeatPassword">Repeat Password</label>
-            <div class="controls">
-                {{ password_field('repeatPassword', 'class': 'form-control') }}
-                <div class="alert" id="repeatPassword_alert">
-                    <strong>Warning!</strong> The password does not match
-                </div>
-            </div>
-        </div>
-
-        <div class="form-actions">
-            {{ tag.inputSubmit('Register', null, ['class': 'btn btn-primary', 'id': null, 'name': null, 'value': 'Register', 'onclick': 'return SignUp.validate();']) }} 
-            <p class="help-block">By signing up, you accept terms of use and privacy policy.</p>
-        </div>
-    </fieldset>
-</form>

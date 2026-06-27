@@ -1,25 +1,9 @@
-<div class="page-header">
-    <h2>Contact Us</h2>
+<div class="container" style="max-width:560px;">
+    <div class="page-head"><div><h1>Contact</h1><div class="sub">Send us a message and let us know how we can help.</div></div></div>
+    <form class="form-card" action="{{ url('contact/send') }}" method="post">
+        <div class="field">{{ form.label('name') }}{{ form.render('name', ['class': 'form-control']) }}</div>
+        <div class="field">{{ form.label('email') }}{{ form.render('email', ['class': 'form-control']) }}</div>
+        <div class="field">{{ form.label('comments') }}{{ form.render('comments', ['class': 'form-control']) }}</div>
+        <button class="btn btn-primary" type="submit">Send message</button>
+    </form>
 </div>
-
-<p>Send us a message and let us know how we can help. Please be as descriptive as possible as it will help us serve you better.</p>
-
-<form action="{{ url('contact/send') }}" role="form" method="post">
-    <fieldset>
-        <div class="form-group">
-            {{ form.label('name') }}
-            {{ form.render('name', ['class': 'form-control']) }} 
-        </div>
-        <div class="form-group">
-            {{ form.label('email') }}
-            {{ form.render('email', ['class': 'form-control']) }} 
-        </div>
-        <div class="form-group">
-            {{ form.label('comments') }}
-            {{ form.render('comments', ['class': 'form-control']) }} 
-        </div>
-        <div class="form-group">
-            {{ tag.inputSubmit('Save', 'Save', ['class': 'btn btn-primary btn-large']) }}
-        </div>
-    </fieldset>
-</form>

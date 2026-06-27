@@ -1,44 +1,28 @@
-<ul class="pager">
-    <li class="previous">
-        {{ tag.a(url('producttypes'), '&larr; Go Back', [], true) }} 
-    </li>
-    <li class="next">
-        {{ tag.a(url('producttypes/new'), 'Create product types', ['class': 'btn btn-primary']) }} 
-    </li>
-</ul>
-
-{% for producttype in page.items %}
-{% if loop.first %}
-<table class="table table-bordered table-striped" align="center">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-        </tr>
-    </thead>
+<div class="page-head">
+    <div><h1>Product types</h1><div class="sub">Search results.</div></div>
+    <a class="btn btn-primary" href="{{ url('producttypes/new') }}">+ New type</a>
+</div>
+<table class="data-table" style="max-width:620px;">
+    <thead><tr><th>ID</th><th>Name</th><th></th></tr></thead>
     <tbody>
-    {% endif %} 
+    {% for producttype in page.items %}
         <tr>
-            <td>{{ producttype.id }}</td>
-            <td>{{ producttype.name }}</td>
-            <td width="7%">{{ tag.a(url('producttypes/edit/' ~ producttype.id), "<i class=\"glyphicon glyphicon-edit\"></i> Edit", ['class': 'btn btn-default'], true) }}</td>
-            <td width="7%">{{ tag.a(url('producttypes/delete/' ~ producttype.id), "<i class=\"glyphicon glyphicon-remove\"></i> Delete", ['class': 'btn btn-default'], true) }}</td>
-        </tr>
-    {% if loop.last %} 
-        <tr>
-            <td colspan="4" align="right">
-                <div class="btn-group">
-                    {{ tag.a(url('producttypes/search'), "<i class=\"icon-fast-backward\"></i> First", ['class': 'btn'], true) }} 
-                    {{ tag.a(url('producttypes/search?page=') ~ page.getPrevious(), "<i class=\"icon-step-backward\"></i> Previous", ['class': 'btn'], true) }} 
-                    {{ tag.a(url('producttypes/search?page=') ~ page.getNext(), "<i class=\"icon-step-forward\"></i> Next", ['class': 'btn'], true) }} 
-                    {{ tag.a(url('producttypes/search?page=') ~ page.getLast(), "<i class=\"icon-fast-forward\"></i> Last", ['class': 'btn'], true) }} 
-                    <span class="help-inline">{{ page.getCurrent() }}/{{ page.getLast() }}</span>
-                </div>
+            <td class="id">{{ producttype.id }}</td>
+            <td class="name">{{ producttype.name }}</td>
+            <td class="actions">
+                <a href="{{ url('producttypes/edit/' ~ producttype.id) }}">Edit</a>
+                <a class="del" href="{{ url('producttypes/delete/' ~ producttype.id) }}">Delete</a>
             </td>
         </tr>
-    <tbody>
+    {% else %}
+        <tr><td colspan="3" style="text-align:center;color:var(--muted);padding:28px;">No product types are recorded.</td></tr>
+    {% endfor %}
+    </tbody>
 </table>
-    {% endif %}
-{% else %}
-    No product types are recorded
-{% endfor %}
+{% if page.getLast() > 1 %}
+<div style="display:flex;gap:8px;align-items:center;margin-top:16px;font-size:13px;">
+    <a class="btn btn-secondary" href="{{ url('producttypes/search?page=' ~ page.getPrevious()) }}">← Prev</a>
+    <span style="color:var(--muted);">{{ page.getCurrent() }} / {{ page.getLast() }}</span>
+    <a class="btn btn-secondary" href="{{ url('producttypes/search?page=' ~ page.getNext()) }}">Next →</a>
+</div>
+{% endif %}

@@ -1,6 +1,6 @@
 {
     "name": "phalcon/invo",
-    "type": "library",
+    "type": "project",
     "description": "This is a sample application for the Phalcon PHP Framework",
     "keywords": [
         "phalcon",
@@ -13,32 +13,58 @@
     "authors": [
         {
             "name": "Contributors",
-            "homepage": "https://github.com/phalcon/vokuro/graphs/contributors"
+            "homepage": "https://github.com/phalcon/invo/graphs/contributors"
         }
     ],
     "require": {
-        "php": ">=8.0",
-        "ext-phalcon": "^5.0.2",
-        "vlucas/phpdotenv": "^5.4",
-        "ext-pdo": "*"
+        "php": ">=8.2",
+        "ext-openssl": "*",
+        "ext-pdo": "*",
+        "phalcon/migrations": "dev-master",
+        "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.7",
-        "vimeo/psalm": "^4.27",
-        "codeception/codeception": "^5.0.0",
-        "codeception/module-phpbrowser": "^3.0",
+        "codeception/codeception": "^5.0",
         "codeception/module-asserts": "^3.0",
-        "phalcon/ide-stubs": "^5.0",
-        "phalcon/migrations": "^3.0"
+        "codeception/module-phpbrowser": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "pds/composer-script-names": "^1.0",
+        "pds/skeleton": "^1.0",
+        "phalcon/phalcon": "^6.0@alpha",
+        "phalcon/phql": "1.0.x-dev",
+        "phalcon/volt": "1.0.x-dev",
+        "phpstan/phpstan": "^2.2",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "suggest": {
+        "ext-phalcon": "Install the Phalcon v5 C extension to run on v5 (the default); alternatively run on v6 via the phalcon/phalcon package - see the Dockerfile PHALCON_VARIANT build arg and the README."
     },
     "autoload": {
         "psr-4": {
             "Invo\\": "src/"
         }
     },
-    "archive": {
-        "exclude": [
-            "CONTRIBUTING.md"
-        ]
+    "autoload-dev": {
+        "psr-4": {
+            "Invo\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "scripts": {
+        "analyze": "phpstan analyse -c resources/phpstan.neon --memory-limit 1024M",
+        "cs": "phpcs --standard=resources/phpcs.xml",
+        "cs-fix": "phpcbf --standard=resources/phpcs.xml",
+        "cs-fixer": "php-cs-fixer fix --config=resources/php-cs-fixer.php --dry-run --diff",
+        "cs-fixer-fix": "php-cs-fixer fix --config=resources/php-cs-fixer.php",
+        "test": "codecept run -c resources/codeception.yml",
+        "test-unit": "codecept run unit -c resources/codeception.yml",
+        "test-functional": "codecept run functional -c resources/codeception.yml",
+        "test-acceptance": "codecept run acceptance -c resources/codeception.yml",
+        "migrate": "phalcon-migrations run --config=resources/migrations.php"
     }
 }
