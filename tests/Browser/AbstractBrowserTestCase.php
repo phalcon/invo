@@ -41,6 +41,6 @@ abstract class AbstractBrowserTestCase extends TalonBrowserTestCase
         $this->visitPage('/session');
         $this->fillField('email', 'demo');
         $this->fillField('password', 'phalcon');
-        $this->pressButton('//form/*[@type="submit"]');
+        $this->pressButton('Log in');
     }
 }

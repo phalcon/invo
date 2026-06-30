@@ -78,7 +78,9 @@ trait DatabaseSeedTrait
             [2, 5, 'Bell pepper', 10.40, 0],
         ];
 
-        $stmt = $pdo->prepare('INSERT INTO products (id, product_types_id, name, price, active) VALUES (?, ?, ?, ?, ?)');
+        $stmt = $pdo->prepare(
+            'INSERT INTO products (id, product_types_id, name, price, active) VALUES (?, ?, ?, ?, ?)'
+        );
         foreach ($rows as $row) {
             $stmt->execute($row);
         }
@@ -102,7 +104,10 @@ trait DatabaseSeedTrait
     {
         // id, username, password (sha1 of "phalcon"), name, email, created_at, active
         $rows = [
-            [1, 'demo', 'c0bd96dc7ea4ec56741a4e07f6ce98012814d853', 'Phalcon Demo', 'demo@phalcon.io', '2012-04-10 20:53:03', 1],
+            [
+                1, 'demo', 'c0bd96dc7ea4ec56741a4e07f6ce98012814d853',
+                'Phalcon Demo', 'demo@phalcon.io', '2012-04-10 20:53:03', 1,
+            ],
         ];
 
         $stmt = $pdo->prepare(
