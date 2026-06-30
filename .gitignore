@@ -7,7 +7,6 @@ Thumbs.db
 # Composer
 /vendor/
 composer.phar
-composer.lock
 
 # Environment
 /.env
