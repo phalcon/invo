@@ -93,6 +93,15 @@ final class ProductsControllerTest extends AbstractBrowserTestCase
         $this->assertPageContainsText('New product');
     }
 
+    public function testSaveMissingShowsError(): void
+    {
+        $this->visitPage('/products/edit/1');
+        $this->fillField('id', '999');
+        $this->pressButton('Save product');
+
+        $this->assertPageContainsText('Product does not exist');
+    }
+
     public function testSaveRedirectsOnGet(): void
     {
         $this->visitPage('/products/save');
@@ -116,6 +125,15 @@ final class ProductsControllerTest extends AbstractBrowserTestCase
         $this->pressButton('Save product');
 
         $this->assertPageContainsText('Name is required');
+    }
+
+    public function testSaveWithoutTypeShowsError(): void
+    {
+        $this->visitPage('/products/edit/1');
+        $this->selectOption('product_types_id', '');
+        $this->pressButton('Save product');
+
+        $this->assertPageContainsText('product_types_id is required');
     }
 
     public function testSearchFindsResults(): void

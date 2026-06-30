@@ -84,6 +84,15 @@ final class CompaniesControllerTest extends AbstractBrowserTestCase
         $this->assertPageContainsText('New company');
     }
 
+    public function testSaveMissingShowsError(): void
+    {
+        $this->visitPage('/companies/edit/1');
+        $this->fillField('id', '999');
+        $this->pressButton('Save company');
+
+        $this->assertPageContainsText('Company does not exist');
+    }
+
     public function testSaveRedirectsOnGet(): void
     {
         $this->visitPage('/companies/save');

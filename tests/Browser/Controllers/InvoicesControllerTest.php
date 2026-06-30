@@ -22,6 +22,15 @@ final class InvoicesControllerTest extends AbstractBrowserTestCase
         $this->assertPageContainsText('Your invoices');
     }
 
+    public function testProfileMissingUserRedirects(): void
+    {
+        $this->pdo()->exec('DELETE FROM users WHERE id = 1');
+
+        $this->visitPage('/invoices/profile');
+
+        $this->assertPageMissingText('Update your profile');
+    }
+
     public function testProfileShowsForm(): void
     {
         $this->visitPage('/invoices/profile');

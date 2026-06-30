@@ -88,6 +88,15 @@ final class ProducttypesControllerTest extends AbstractBrowserTestCase
         $this->assertPageContainsText('New product type');
     }
 
+    public function testSaveMissingShowsError(): void
+    {
+        $this->visitPage('/producttypes/edit/5');
+        $this->fillField('id', '999');
+        $this->pressButton('Save type');
+
+        $this->assertPageContainsText('productTypes does not exist');
+    }
+
     public function testSaveRedirectsOnGet(): void
     {
         $this->visitPage('/producttypes/save');
