@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Invo;
 
-use Exception;
 use Phalcon\Di\DiInterface;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Http\ResponseInterface;
