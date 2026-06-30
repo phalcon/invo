@@ -194,7 +194,7 @@ class ProducttypesController extends ControllerBase
         $form = new ProductTypesForm();
         if (!$form->isValid($this->request->getPost(), $productTypes)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -207,7 +207,7 @@ class ProducttypesController extends ControllerBase
 
         if (!$productTypes->save()) {
             foreach ($productTypes->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([

@@ -46,7 +46,7 @@ class ProductsController extends ControllerBase
 
         if (!$form->isValid($this->request->getPost(), $product)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -100,7 +100,7 @@ class ProductsController extends ControllerBase
 
         if (!$products->delete()) {
             foreach ($products->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -198,7 +198,7 @@ class ProductsController extends ControllerBase
 
         if (!$form->isValid($data, $product)) {
             foreach ($form->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
@@ -212,7 +212,7 @@ class ProductsController extends ControllerBase
 
         if (!$product->save()) {
             foreach ($product->getMessages() as $message) {
-                $this->flash->error($message);
+                $this->flash->error((string) $message);
             }
 
             $this->dispatcher->forward([
