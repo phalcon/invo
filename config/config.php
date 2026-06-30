@@ -8,9 +8,9 @@ return new Config([
     'database' => [
         'adapter'  => $_ENV['DB_ADAPTER'] ?? 'Mysql',
         'host'     => $_ENV['DB_HOST'] ?? 'localhost',
-        'username' => $_ENV['DB_USERNAME'] ?? 'phalcon',
+        'username' => $_ENV['DB_USERNAME'] ?? 'root',
         'password' => $_ENV['DB_PASSWORD'] ?? 'secret',
-        'dbname'   => $_ENV['DB_DBNAME'] ?? 'phalcon_invo',
+        'dbname'   => $_ENV['DB_NAME'] ?? 'invo',
         'charset'  => $_ENV['DB_CHARSET'] ?? 'utf8',
         'options' => [
             PDO::ATTR_EMULATE_PREPARES => true
