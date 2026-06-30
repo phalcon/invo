@@ -58,7 +58,7 @@ jobs:
         run: composer cs-fixer
 
   tests:
-    name: "Tests (PHP ${{ matrix.php }})"
+    name: "Tests (PHP ${{ matrix.php }}, Phalcon ${{ matrix.variant }})"
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -67,7 +67,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.2', '8.3', '8.4', '8.5']
+        php:
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
+        variant:
+          # v5 = cphalcon C extension; v6 = phalcon/phalcon composer package
+          - 'v5'
+          - 'v6'
     services:
       mysql:
         image: mysql:8.0
@@ -75,9 +83,7 @@ jobs:
           - "3306:3306"
         env:
           MYSQL_ROOT_PASSWORD: secret
-          MYSQL_DATABASE: phalcon_invo
-          MYSQL_USER: phalcon
-          MYSQL_PASSWORD: secret
+          MYSQL_DATABASE: invo
         options: >-
           --health-cmd "mysqladmin ping --silent"
           --health-interval 10s
@@ -96,6 +102,68 @@ jobs:
           extensions: ${{ env.EXTENSIONS }}
           tools: composer:v2
 
+      # v5 = cphalcon C extension, built from source via PIE (pecl caps at PHP 8.4).
+      # v6 needs no extension: it runs on the phalcon/phalcon composer package (a require-dev dep).
+      - name: "Install Phalcon v5 (cphalcon) via PIE"
+        if: matrix.variant == 'v5'
+        run: |
+          curl -fsSL https://github.com/php/pie/releases/latest/download/pie.phar -o pie.phar
+          sudo "$(which php)" pie.phar install --no-interaction "phalcon/cphalcon:${{ env.PHALCON_CONSTRAINT }}"
+          php -m | grep -i phalcon
+
+      - name: "Install dependencies"
+        uses: ramsey/composer-install@26d8a556604053a9612623447203a691f406fbe6 # v4
+        with:
+          composer-options: "--prefer-dist"
+
+      - name: "Prepare environment"
+        run: |
+          cp .env.example .env
+          sed -i 's/^DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          mkdir -p var/cache/volt var/logs
+
+      - name: "Migrate"
+        run: composer migrate
+
+      - name: "Tests"
+        run: composer test
+
+  coverage:
+    name: "Coverage"
+    permissions:
+      contents: read
+      pull-requests: write
+      actions: read
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - "3306:3306"
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: invo
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          # SonarQube needs full history for blame/new-code detection;
+          # octocov uses it for the base-branch diff.
+          fetch-depth: 0
+
+      - name: "Setup PHP"
+        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.3'
+          extensions: ${{ env.EXTENSIONS }}
+          coverage: pcov
+          tools: composer:v2
+
       # pecl's phalcon release metadata caps at PHP 8.4; PIE builds it from source.
       - name: "Install Phalcon (v5) via PIE"
         run: |
@@ -112,19 +180,41 @@ jobs:
         run: |
           cp .env.example .env
           sed -i 's/^DB_HOST=.*/DB_HOST=127.0.0.1/' .env
-          sed -i 's#^APP_URL=.*#APP_URL=http://127.0.0.1:8888#' .env
           mkdir -p var/cache/volt var/logs
 
       - name: "Migrate"
         run: composer migrate
 
-      - name: "Start web server"
-        run: php -S 127.0.0.1:8888 -t public .htrouter.php &>/dev/null &
+      - name: "Tests with coverage"
+        run: composer test-coverage
 
-      - name: "Unit and functional tests"
-        run: |
-          composer test-unit
-          composer test-functional
+      # SonarQube first (push only) so a failing octocov gate can't skip the upload.
+      - name: "SonarQube Scan"
+        if: github.event_name == 'push'
+        uses: SonarSource/sonarqube-scan-action@713881670b6b3676cda39549040e2d88c70d582e # v8.2.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=phalcon
+            -Dsonar.projectKey=phalcon_invo
+            -Dsonar.sources=src
+            -Dsonar.tests=tests
+            -Dsonar.exclusions=resources/**
+            -Dsonar.php.coverage.reportPaths=tests/_output/coverage.xml
 
-      - name: "Acceptance tests"
-        run: composer test-acceptance
+      # octocov last: PR comment + coverage gate (strict on PRs via
+      # .octocov.pr.yml, floor only on pushes via .octocov.yml), stores the
+      # baseline report on the default branch, and writes the badge SVG.
+      - name: "octocov"
+        uses: k1LoW/octocov-action@b3b6ee60482a667950f87553abf1df63217235d9 # v1.5.1
+        with:
+          config: ${{ github.event_name == 'pull_request' && '.octocov.pr.yml' || '.octocov.yml' }}
+
+      - name: "Upload coverage badge"
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: coverage-badge
+          path: tests/_output/coverage.svg
+          if-no-files-found: ignore

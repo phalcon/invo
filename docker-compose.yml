@@ -9,12 +9,13 @@ services:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
     container_name: ${PROJECT_PREFIX:-invo}-app
+    hostname: ${PROJECT_PREFIX:-invo}-app
     ports:
-      # Host and container both use APP_PORT (the port the app listens on).
-      - "${APP_PORT:-8080}:${APP_PORT:-8080}"
+      # Host port is configurable (APP_PORT) so multiple apps can coexist;
+      # the container always listens on 8080.
+      - "${APP_PORT:-8080}:8080"
     volumes:
-      - .:/app
-      - vendor:/app/vendor
+      - .:/srv
     env_file: .env
     depends_on:
       mysql:
@@ -25,9 +26,7 @@ services:
     container_name: ${PROJECT_PREFIX:-invo}-mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
-      MYSQL_DATABASE: ${DB_DBNAME:-phalcon_invo}
-      MYSQL_USER: ${DB_USERNAME:-phalcon}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_DATABASE: ${DB_NAME:-invo}
     # No host port published: the app reaches the DB over the internal compose
     # network as mysql:3306. Not exposed to the host by design.
     healthcheck:
@@ -35,9 +34,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 12
-    volumes:
-      - mysqldata:/var/lib/mysql
-
-volumes:
-  vendor:
-  mysqldata:

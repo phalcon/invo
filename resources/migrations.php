@@ -13,9 +13,9 @@ return [
         'adapter'  => $_ENV['DB_ADAPTER']  ?? 'Mysql',
         'host'     => $_ENV['DB_HOST']     ?? 'localhost',
         'port'     => $_ENV['DB_PORT']     ?? 3306,
-        'username' => $_ENV['DB_USERNAME'] ?? 'phalcon',
+        'username' => $_ENV['DB_USERNAME'] ?? 'root',
         'password' => $_ENV['DB_PASSWORD'] ?? 'secret',
-        'dbname'   => $_ENV['DB_DBNAME']   ?? 'phalcon_invo',
+        'dbname'   => $_ENV['DB_NAME']     ?? 'invo',
     ],
     'application' => [
         'migrationsDir'        => 'resources/migrations',

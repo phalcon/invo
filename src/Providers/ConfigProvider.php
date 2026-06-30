@@ -30,7 +30,7 @@ class ConfigProvider implements ServiceProviderInterface
         }
 
         $di->setShared('config', function () use ($configPath) {
-            return require_once $configPath;
+            return require $configPath;
         });
     }
 }
