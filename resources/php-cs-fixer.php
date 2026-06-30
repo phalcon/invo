@@ -8,9 +8,8 @@ $finder = PhpCsFixer\Finder::create()
             __DIR__ . '/../src',
             __DIR__ . '/../config',
             __DIR__ . '/../public',
-            __DIR__ . '/../tests/unit',
-            __DIR__ . '/../tests/functional',
-            __DIR__ . '/../tests/acceptance',
+            __DIR__ . '/../tests/Unit',
+            __DIR__ . '/../tests/Functional',
         ]
     );
 
