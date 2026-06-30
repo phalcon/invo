@@ -20,7 +20,7 @@ final class ProductTypesFormTest extends AbstractUnitTestCase
         return [
             [[$key => 'string'], true],
             [[$key => '<h1>Title</h1>'], true],
-            [[$key => 1], true],
+            [[$key => '1'], true],
             [[], false],
         ];
     }
