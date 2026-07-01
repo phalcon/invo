@@ -16,13 +16,14 @@ namespace Invo\Forms;
 use Invo\Models\ProductTypes;
 use Phalcon\Filter\Validation\Validator\Numericality;
 use Phalcon\Filter\Validation\Validator\PresenceOf;
-use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Select;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Form;
 
 class ProductsForm extends Form
 {
+    use IdAndNameFieldsTrait;
+
     /**
      * Initialize the products form
      *
@@ -31,23 +32,7 @@ class ProductsForm extends Form
      */
     public function initialize($entity = null, array $options = [])
     {
-        if (!isset($options['edit'])) {
-            $this->add((new Text('id'))->setLabel('Id'));
-        } else {
-            $this->add(new Hidden('id'));
-        }
-
-        /**
-         * Name text field
-         */
-        $name = new Text('name');
-        $name->setLabel('Name');
-        $name->setFilters(['striptags', 'string']);
-        $name->addValidators([
-            new PresenceOf(['message' => 'Name is required']),
-        ]);
-
-        $this->add($name);
+        $this->addIdAndNameFields($options);
 
         /**
          * Product Type Id Select
