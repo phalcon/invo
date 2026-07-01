@@ -58,23 +58,32 @@ class InvoicesController extends ControllerBase
         $form = new ProfileForm($user);
 
         if ($this->request->isPost()) {
-            $data = $this->request->getPost();
-
-            if ($form->isValid($data, $user)) {
-                if (!$user->save()) {
-                    foreach ($user->getMessages() as $message) {
-                        $this->flash->error((string) $message);
-                    }
-                } else {
-                    $this->flash->success('Your profile information was updated successfully');
-                }
-            } else {
-                foreach ($form->getMessages() as $message) {
-                    $this->flash->error((string) $message);
-                }
-            }
+            $this->updateProfile($user, $form);
         }
 
         $this->view->form = $form;
+    }
+
+    private function updateProfile(Users $user, ProfileForm $form): void
+    {
+        $data = $this->request->getPost();
+
+        if (!$form->isValid($data, $user)) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error((string) $message);
+            }
+
+            return;
+        }
+
+        if (!$user->save()) {
+            foreach ($user->getMessages() as $message) {
+                $this->flash->error((string) $message);
+            }
+
+            return;
+        }
+
+        $this->flash->success('Your profile information was updated successfully');
     }
 }

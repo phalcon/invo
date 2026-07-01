@@ -39,17 +39,18 @@ class NotFoundPlugin extends Injectable
     {
         error_log($exception->getMessage() . PHP_EOL . $exception->getTraceAsString());
 
-        if ($exception instanceof DispatcherException) {
-            switch ($exception->getCode()) {
-                case DispatcherException::EXCEPTION_HANDLER_NOT_FOUND:
-                case DispatcherException::EXCEPTION_ACTION_NOT_FOUND:
-                    $dispatcher->forward([
-                        'controller' => 'errors',
-                        'action'     => 'show404',
-                    ]);
+        $notFoundCodes = [
+            DispatcherException::EXCEPTION_HANDLER_NOT_FOUND,
+            DispatcherException::EXCEPTION_ACTION_NOT_FOUND,
+        ];
 
-                    return false;
-            }
+        if ($exception instanceof DispatcherException && in_array($exception->getCode(), $notFoundCodes, true)) {
+            $dispatcher->forward([
+                'controller' => 'errors',
+                'action'     => 'show404',
+            ]);
+
+            return false;
         }
 
         if ($dispatcher->getControllerName() !== 'errors') {

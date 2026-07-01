@@ -70,17 +70,15 @@ class SessionController extends ControllerBase
             $user = Users::findFirst(
                 [
                     "conditions" => "(email = :email: OR username = :email:) "
-                        . "AND password = :password: "
                         . "AND active = :active:",
                     'bind'       => [
-                        'email'    => $email,
-                        'password' => sha1($password),
-                        'active'   => Status::ACTIVE,
+                        'email'  => $email,
+                        'active' => Status::ACTIVE,
                     ],
                 ]
             );
 
-            if ($user) {
+            if ($user && $this->security->checkHash($password, $user->password)) {
                 $this->registerSession($user);
                 $this->flash->success('Welcome ' . $user->name);
 

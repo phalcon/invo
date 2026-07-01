@@ -35,7 +35,7 @@ class RegisterController extends ControllerBase
         if ($this->request->isPost()) {
             $newUser = new Users();
             if ($form->isValid($this->request->getPost(), $newUser)) {
-                $newUser->password = sha1($form->getFilteredValue('password'));
+                $newUser->password = $this->security->hash($form->getFilteredValue('password'));
                 $newUser->created_at = new RawValue('now()');
                 $newUser->active     = Status::ACTIVE;
 

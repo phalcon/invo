@@ -102,10 +102,10 @@ trait DatabaseSeedTrait
 
     private function seedUsers(PDO $pdo): void
     {
-        // id, username, password (sha1 of "phalcon"), name, email, created_at, active
+        // id, username, password (bcrypt hash of "phalcon"), name, email, created_at, active
         $rows = [
             [
-                1, 'demo', 'c0bd96dc7ea4ec56741a4e07f6ce98012814d853',
+                1, 'demo', '$2y$10$2iPUdY1zwrv45DTB04h6eeWFg63gnnayLX.UIVMU/9ds1Hs2BDuZq',
                 'Phalcon Demo', 'demo@phalcon.io', '2012-04-10 20:53:03', 1,
             ],
         ];
