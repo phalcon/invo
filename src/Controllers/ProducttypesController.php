@@ -31,7 +31,7 @@ class ProducttypesController extends ControllerBase
     public function createAction(): void
     {
         if (!$this->request->isPost()) {
-            $this->forwardTo('index');
+            $this->forward('producttypes', 'index');
 
             return;
         }
@@ -41,17 +41,13 @@ class ProducttypesController extends ControllerBase
 
         $data = $this->request->getPost();
         if (!$form->isValid($data, $productTypes)) {
-            $this->flashErrors($form->getMessages());
-
-            $this->forwardTo('new');
+            $this->flashErrorsAndForward($form->getMessages(), 'producttypes', 'new');
 
             return;
         }
 
         if (!$productTypes->save()) {
-            $this->flashErrors($productTypes->getMessages());
-
-            $this->forwardTo('new');
+            $this->flashErrorsAndForward($productTypes->getMessages(), 'producttypes', 'new');
 
             return;
         }
@@ -59,7 +55,7 @@ class ProducttypesController extends ControllerBase
         $form->clear();
         $this->flash->success('Product type was created successfully');
 
-        $this->forwardTo('index');
+        $this->forward('producttypes', 'index');
     }
 
     /**
@@ -71,24 +67,20 @@ class ProducttypesController extends ControllerBase
     {
         $productTypes = ProductTypes::findFirstById($id);
         if (!$productTypes) {
-            $this->flash->error('Product types was not found');
-
-            $this->forwardTo('index');
+            $this->notFound('Product types was not found', 'producttypes', 'index');
 
             return;
         }
 
         if (!$productTypes->delete()) {
-            $this->flashErrors($productTypes->getMessages());
-
-            $this->forwardTo('search');
+            $this->flashErrorsAndForward($productTypes->getMessages(), 'producttypes', 'search');
 
             return;
         }
 
         $this->flash->success('Product types was deleted');
 
-        $this->forwardTo('index');
+        $this->forward('producttypes', 'index');
     }
 
     /**
@@ -100,9 +92,7 @@ class ProducttypesController extends ControllerBase
     {
         $productTypes = ProductTypes::findFirstById($id);
         if (!$productTypes) {
-            $this->flash->error('Product type to edit was not found');
-
-            $this->forwardTo('index');
+            $this->notFound('Product type to edit was not found', 'producttypes', 'index');
 
             return;
         }
@@ -140,7 +130,7 @@ class ProducttypesController extends ControllerBase
     public function saveAction(): void
     {
         if (!$this->request->isPost()) {
-            $this->forwardTo('index');
+            $this->forward('producttypes', 'index');
 
             return;
         }
@@ -148,26 +138,20 @@ class ProducttypesController extends ControllerBase
         $id           = $this->request->getPost('id', 'int');
         $productTypes = ProductTypes::findFirstById($id);
         if (!$productTypes) {
-            $this->flash->error('productTypes does not exist');
-
-            $this->forwardTo('index');
+            $this->notFound('productTypes does not exist', 'producttypes', 'index');
 
             return;
         }
 
         $form = new ProductTypesForm();
         if (!$form->isValid($this->request->getPost(), $productTypes)) {
-            $this->flashErrors($form->getMessages());
-
-            $this->forwardTo('new');
+            $this->flashErrorsAndForward($form->getMessages(), 'producttypes', 'new');
 
             return;
         }
 
         if (!$productTypes->save()) {
-            $this->flashErrors($productTypes->getMessages());
-
-            $this->forwardTo('new');
+            $this->flashErrorsAndForward($productTypes->getMessages(), 'producttypes', 'new');
 
             return;
         }
@@ -175,7 +159,7 @@ class ProducttypesController extends ControllerBase
         $form->clear();
         $this->flash->success('Product Type was updated successfully');
 
-        $this->forwardTo('index');
+        $this->forward('producttypes', 'index');
     }
 
     /**
@@ -202,7 +186,7 @@ class ProducttypesController extends ControllerBase
         if (count($productTypes) === 0) {
             $this->flash->notice('The search did not find any product types');
 
-            $this->forwardTo('index');
+            $this->forward('producttypes', 'index');
 
             return;
         }
@@ -216,20 +200,5 @@ class ProducttypesController extends ControllerBase
 
         $this->view->page         = $paginator->paginate();
         $this->view->productTypes = $productTypes;
-    }
-
-    private function flashErrors(iterable $messages): void
-    {
-        foreach ($messages as $message) {
-            $this->flash->error((string) $message);
-        }
-    }
-
-    private function forwardTo(string $action): void
-    {
-        $this->dispatcher->forward([
-            'controller' => 'producttypes',
-            'action'     => $action,
-        ]);
     }
 }
