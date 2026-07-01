@@ -32,10 +32,7 @@ class ProductsController extends ControllerBase
     public function createAction(): void
     {
         if (!$this->request->isPost()) {
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'index',
-            ]);
+            $this->forward('products', 'index');
 
             return;
         }
@@ -45,27 +42,13 @@ class ProductsController extends ControllerBase
         $product->active = Status::ACTIVE;
 
         if (!$form->isValid($this->request->getPost(), $product)) {
-            foreach ($form->getMessages() as $message) {
-                $this->flash->error((string) $message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'new',
-            ]);
+            $this->flashErrorsAndForward($form->getMessages(), 'products', 'new');
 
             return;
         }
 
         if (!$product->save()) {
-            foreach ($product->getMessages() as $message) {
-                $this->flash->error((string) $message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'new',
-            ]);
+            $this->flashErrorsAndForward($product->getMessages(), 'products', 'new');
 
             return;
         }
@@ -73,10 +56,7 @@ class ProductsController extends ControllerBase
         $form->clear();
         $this->flash->success('Product was created successfully');
 
-        $this->dispatcher->forward([
-            'controller' => 'products',
-            'action'     => 'index',
-        ]);
+        $this->forward('products', 'index');
     }
 
     /**
@@ -88,35 +68,20 @@ class ProductsController extends ControllerBase
     {
         $products = Products::findFirstById($id);
         if (!$products) {
-            $this->flash->error('Product was not found');
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'index',
-            ]);
+            $this->notFound('Product was not found', 'products', 'index');
 
             return;
         }
 
         if (!$products->delete()) {
-            foreach ($products->getMessages() as $message) {
-                $this->flash->error((string) $message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'search',
-            ]);
+            $this->flashErrorsAndForward($products->getMessages(), 'products', 'search');
 
             return;
         }
 
         $this->flash->success('Product was deleted');
 
-        $this->dispatcher->forward([
-            'controller' => 'products',
-            'action'     => 'index',
-        ]);
+        $this->forward('products', 'index');
     }
 
     /**
@@ -128,12 +93,7 @@ class ProductsController extends ControllerBase
     {
         $product = Products::findFirstById($id);
         if (!$product) {
-            $this->flash->error('Product was not found');
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'index',
-            ]);
+            $this->notFound('Product was not found', 'products', 'index');
 
             return;
         }
@@ -171,10 +131,7 @@ class ProductsController extends ControllerBase
     public function saveAction(): void
     {
         if (!$this->request->isPost()) {
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'index',
-            ]);
+            $this->forward('products', 'index');
 
             return;
         }
@@ -182,12 +139,7 @@ class ProductsController extends ControllerBase
         $id      = $this->request->getPost('id', 'int');
         $product = Products::findFirstById($id);
         if (!$product) {
-            $this->flash->error('Product does not exist');
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'index',
-            ]);
+            $this->notFound('Product does not exist', 'products', 'index');
 
             return;
         }
@@ -197,29 +149,13 @@ class ProductsController extends ControllerBase
         $data             = $this->request->getPost();
 
         if (!$form->isValid($data, $product)) {
-            foreach ($form->getMessages() as $message) {
-                $this->flash->error((string) $message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'edit',
-                'params'     => [$id],
-            ]);
+            $this->flashErrorsAndForward($form->getMessages(), 'products', 'edit', [$id]);
 
             return;
         }
 
         if (!$product->save()) {
-            foreach ($product->getMessages() as $message) {
-                $this->flash->error((string) $message);
-            }
-
-            $this->dispatcher->forward([
-                'controller' => 'products',
-                'action'     => 'edit',
-                'params'     => [$id],
-            ]);
+            $this->flashErrorsAndForward($product->getMessages(), 'products', 'edit', [$id]);
 
             return;
         }
@@ -227,10 +163,7 @@ class ProductsController extends ControllerBase
         $form->clear();
         $this->flash->success('Product was updated successfully');
 
-        $this->dispatcher->forward([
-            'controller' => 'products',
-            'action'     => 'index',
-        ]);
+        $this->forward('products', 'index');
     }
 
     /**
