@@ -164,13 +164,6 @@ jobs:
           coverage: pcov
           tools: composer:v2
 
-      # pecl's phalcon release metadata caps at PHP 8.4; PIE builds it from source.
-      - name: "Install Phalcon (v5) via PIE"
-        run: |
-          curl -fsSL https://github.com/php/pie/releases/latest/download/pie.phar -o pie.phar
-          sudo "$(which php)" pie.phar install --no-interaction "phalcon/cphalcon:${{ env.PHALCON_CONSTRAINT }}"
-          php -m | grep -i phalcon
-
       - name: "Install dependencies"
         uses: ramsey/composer-install@26d8a556604053a9612623447203a691f406fbe6 # v4
         with:
@@ -204,12 +197,12 @@ jobs:
             -Dsonar.php.coverage.reportPaths=tests/_output/coverage.xml
 
       # octocov last: PR comment + coverage gate (strict on PRs via
-      # .octocov.pr.yml, floor only on pushes via .octocov.yml), stores the
-      # baseline report on the default branch, and writes the badge SVG.
+      # resources/octocov.pr.yml, floor only on pushes via resources/octocov.yml),
+      # stores the baseline report on the default branch, and writes the badge SVG.
       - name: "octocov"
         uses: k1LoW/octocov-action@b3b6ee60482a667950f87553abf1df63217235d9 # v1.5.1
         with:
-          config: ${{ github.event_name == 'pull_request' && '.octocov.pr.yml' || '.octocov.yml' }}
+          config: ${{ github.event_name == 'pull_request' && 'resources/octocov.pr.yml' || 'resources/octocov.yml' }}
 
       - name: "Upload coverage badge"
         if: always()

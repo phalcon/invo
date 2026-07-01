@@ -2,21 +2,27 @@
 #
 # Default config: used on pushes (including the default branch).
 # The gate here is a stable FLOOR only, so a coverage measurement blip on the
-# default branch never red-Xs the build. Pull requests use .octocov.pr.yml,
+# default branch never red-Xs the build. Pull requests use octocov.pr.yml,
 # which adds the no-regression (diff >= 0) ratchet on top of this floor.
 # (octocov's `acceptable` cannot branch on is_pull_request, so the two gates
 # live in separate files selected by the workflow.)
+#
+# Floor verified locally at 94.99% under the phalcon/phalcon (v6) provider,
+# which the coverage job now uses instead of ext-phalcon (v5).
+#
+# Paths below are relative to THIS file's directory (resources/), not the
+# repo root - octocov resolves them that way, so everything is prefixed `../`.
 coverage:
   paths:
-    - tests/_output/coverage.xml
-  acceptable: "current >= 89%"
+    - ../tests/_output/coverage.xml
+  acceptable: "current >= 94.9%"
   badge:
-    path: tests/_output/coverage.svg
+    path: ../tests/_output/coverage.svg
 codeToTestRatio:
   code:
-    - src/**/*.php
+    - ../src/**/*.php
   test:
-    - tests/**/*.php
+    - ../tests/**/*.php
 testExecutionTime:
   steps:
     - Tests with coverage
