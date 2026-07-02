@@ -63,6 +63,10 @@
         "test": "talon run",
         "test-coverage": "talon run unit -- --coverage-clover tests/_output/coverage.xml",
         "test-coverage-html": "talon run unit -- --coverage-html tests/_output/coverage",
-        "migrate": "phalcon-migrations run --config=resources/migrations.php"
+        "migrate": "phalcon-migrations run --config=resources/migrations.php",
+        "post-create-project-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php -r \"echo PHP_EOL . 'INVO is ready (.env created from .env.example). Next steps:' . PHP_EOL . '  docker: docker compose up -d --build, then composer migrate' . PHP_EOL . '  local:  install the v5 extension via PIE, or run on the bundled phalcon/phalcon (v6) as-is - see the README' . PHP_EOL . '  tests:  vendor/bin/talon run' . PHP_EOL;\""
+        ]
     }
 }

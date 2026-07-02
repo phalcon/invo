@@ -79,6 +79,32 @@ PHP_VERSION=8.2 PROJECT_PREFIX=invo82 docker compose -p invo82 up -d --build
 # then: docker exec -w /srv invo82-app composer test
 ```
 
+## Quick start (Composer)
+
+Prefer a local PHP over Docker? Bootstrap a fresh copy straight from Packagist:
+
+```bash
+composer create-project phalcon/invo invo
+cd invo
+```
+
+The post-create hook copies `.env.example` to `.env` and prints the next steps.
+Out of the box the app runs on the bundled `phalcon/phalcon` (v6) package - no
+extension needed. To run on the Phalcon v5 C extension instead, install it with
+[PIE](https://github.com/php/pie), the official PHP extension installer (unlike
+pecl, it builds from source and supports current PHP versions):
+
+```bash
+curl -fsSL https://github.com/php/pie/releases/latest/download/pie.phar -o pie.phar
+sudo php pie.phar install phalcon/cphalcon:^5.0
+php -m | grep -i phalcon
+```
+
+Once the extension is loaded, PHP prefers it automatically and the bundled v6
+package is simply shadowed - it can stay installed. Point `.env` at your MySQL,
+then `composer migrate`, serve `public/`, and run the suites with
+`vendor/bin/talon run`.
+
 ## Composer scripts
 
 Run them inside the container, e.g. `docker compose exec app composer cs`:
