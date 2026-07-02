@@ -90,7 +90,7 @@ Run them inside the container, e.g. `docker compose exec app composer cs`:
 | `composer cs-fixer` | PHP CS Fixer (dry-run) |
 | `composer cs-fixer-fix` | Apply PHP CS Fixer |
 | `composer analyze` | PHPStan static analysis |
-| `composer test` | PHPUnit suites (unit, functional) |
+| `composer test` | PHPUnit suites (unit, functional) via `vendor/bin/talon` |
 | `composer test-coverage` | PHPUnit + Clover coverage (`tests/_output/coverage.xml`) |
 | `composer migrate` | Run database migrations (`phalcon/migrations`) |
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a782b0af33853339dc2d3d7bacc1886a",
+    "content-hash": "79c724606a8adce77c739a1429f25da0",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -1905,19 +1905,20 @@
         },
         {
             "name": "phalcon/talon",
-            "version": "v0.5.0",
+            "version": "v0.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/talon.git",
-                "reference": "df20b55840bbfbe38b0443710e90946f1bcf5e5b"
+                "reference": "93018138c2c50f7225d5994bc506b35069b2de36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/talon/zipball/df20b55840bbfbe38b0443710e90946f1bcf5e5b",
-                "reference": "df20b55840bbfbe38b0443710e90946f1bcf5e5b",
+                "url": "https://api.github.com/repos/phalcon/talon/zipball/93018138c2c50f7225d5994bc506b35069b2de36",
+                "reference": "93018138c2c50f7225d5994bc506b35069b2de36",
                 "shasum": ""
             },
             "require": {
+                "phalcon/cli-options-parser": "^2.0",
                 "php": "^8.1",
                 "symfony/browser-kit": "^6.4 || ^7.0",
                 "symfony/dom-crawler": "^6.4 || ^7.0"
@@ -1926,6 +1927,7 @@
                 "ext-pdo": "*",
                 "ext-sqlite3": "*",
                 "friendsofphp/php-cs-fixer": "^3",
+                "infection/infection": "^0.29.9",
                 "pds/composer-script-names": "^1",
                 "pds/skeleton": "^1",
                 "phalcon/phalcon": "^6.0@alpha",
@@ -1940,6 +1942,9 @@
                 "phalcon/phalcon": "Phalcon PHP implementation (^6) - alternative to the C extension",
                 "predis/predis": "For the Services (Redis) helpers"
             },
+            "bin": [
+                "bin/talon"
+            ],
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -1960,7 +1965,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phalcon/talon/issues",
-                "source": "https://github.com/phalcon/talon/tree/v0.5.0"
+                "source": "https://github.com/phalcon/talon/tree/v0.6.0"
             },
             "funding": [
                 {
@@ -1972,7 +1977,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-07-01T22:12:00+00:00"
+            "time": "2026-07-02T20:38:17+00:00"
         },
         {
             "name": "phalcon/traits",
