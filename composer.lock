@@ -1748,16 +1748,16 @@
         },
         {
             "name": "phalcon/phalcon",
-            "version": "v6.0.0alpha4",
+            "version": "v6.0.0alpha5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon.git",
-                "reference": "4568057c441baf0a729c3eca7585dcb0c5c97d2f"
+                "reference": "db3a33c6c80922e86d18000fcc7f4157f6d6e708"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon/zipball/4568057c441baf0a729c3eca7585dcb0c5c97d2f",
-                "reference": "4568057c441baf0a729c3eca7585dcb0c5c97d2f",
+                "url": "https://api.github.com/repos/phalcon/phalcon/zipball/db3a33c6c80922e86d18000fcc7f4157f6d6e708",
+                "reference": "db3a33c6c80922e86d18000fcc7f4157f6d6e708",
                 "shasum": ""
             },
             "require": {
@@ -1778,7 +1778,7 @@
                 "pds/composer-script-names": "^1.0",
                 "pds/skeleton": "^1.0",
                 "phalcon/phql": "1.0.x-dev",
-                "phalcon/talon": "^0.6.0",
+                "phalcon/talon": "^0.8.0",
                 "phalcon/volt": "1.0.x-dev",
                 "phpbench/phpbench": "^1.4",
                 "phpstan/phpstan": "^2.2",
@@ -1815,7 +1815,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phalcon/phalcon/issues",
-                "source": "https://github.com/phalcon/phalcon/tree/v6.0.0alpha4"
+                "source": "https://github.com/phalcon/phalcon/tree/v6.0.0alpha5"
             },
             "funding": [
                 {
@@ -1827,7 +1827,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-07-13T18:05:01+00:00"
+            "time": "2026-07-22T02:13:49+00:00"
         },
         {
             "name": "phalcon/phql",
