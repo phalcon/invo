@@ -1748,16 +1748,16 @@
         },
         {
             "name": "phalcon/phalcon",
-            "version": "v6.0.0beta4",
+            "version": "v6.0.0beta5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon.git",
-                "reference": "3d0965e7bd78949d6d1156e200ff1f34d96f3c49"
+                "reference": "b4c2c42e8d49c64ac362cdde92aee472ea3f6d93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon/zipball/3d0965e7bd78949d6d1156e200ff1f34d96f3c49",
-                "reference": "3d0965e7bd78949d6d1156e200ff1f34d96f3c49",
+                "url": "https://api.github.com/repos/phalcon/phalcon/zipball/b4c2c42e8d49c64ac362cdde92aee472ea3f6d93",
+                "reference": "b4c2c42e8d49c64ac362cdde92aee472ea3f6d93",
                 "shasum": ""
             },
             "require": {
@@ -1778,7 +1778,7 @@
                 "pds/composer-script-names": "^1.0",
                 "pds/skeleton": "^1.0",
                 "phalcon/phql": "1.0.x-dev",
-                "phalcon/talon": "^0.8.0",
+                "phalcon/talon": "^0.9.0",
                 "phalcon/volt": "1.0.x-dev",
                 "phpbench/phpbench": "^1.4",
                 "phpstan/phpstan": "^2.2",
@@ -1815,7 +1815,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phalcon/phalcon/issues",
-                "source": "https://github.com/phalcon/phalcon/tree/v6.0.0beta4"
+                "source": "https://github.com/phalcon/phalcon/tree/v6.0.0beta5"
             },
             "funding": [
                 {
@@ -1827,7 +1827,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-07-28T22:30:14+00:00"
+            "time": "2026-07-31T12:49:58+00:00"
         },
         {
             "name": "phalcon/phql",
@@ -6400,7 +6400,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "phalcon/migrations": 20,
-        "phalcon/phalcon": 15,
         "phalcon/phql": 20,
         "phalcon/volt": 20
     },
