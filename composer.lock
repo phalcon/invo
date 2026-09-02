@@ -1746,16 +1746,16 @@
         },
         {
             "name": "phalcon/phalcon",
-            "version": "v6.0.0beta10",
+            "version": "v6.0.0beta11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon.git",
-                "reference": "938c779255106514ba476960d3f973d7509d3ccd"
+                "reference": "6deb1b3bfb03f4a2f96d9800e693f2834a85bfd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon/zipball/938c779255106514ba476960d3f973d7509d3ccd",
-                "reference": "938c779255106514ba476960d3f973d7509d3ccd",
+                "url": "https://api.github.com/repos/phalcon/phalcon/zipball/6deb1b3bfb03f4a2f96d9800e693f2834a85bfd7",
+                "reference": "6deb1b3bfb03f4a2f96d9800e693f2834a85bfd7",
                 "shasum": ""
             },
             "require": {
@@ -1814,7 +1814,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phalcon/phalcon/issues",
-                "source": "https://github.com/phalcon/phalcon/tree/v6.0.0beta10"
+                "source": "https://github.com/phalcon/phalcon/tree/v6.0.0beta11"
             },
             "funding": [
                 {
@@ -1826,7 +1826,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-08-25T15:32:39+00:00"
+            "time": "2026-08-26T22:47:47+00:00"
         },
         {
             "name": "phalcon/phql",
@@ -6392,7 +6392,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "phalcon/migrations": 20,
-        "phalcon/phalcon": 10,
         "phalcon/phql": 20,
         "phalcon/volt": 20
     },
