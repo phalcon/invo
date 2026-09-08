@@ -12,7 +12,7 @@ return new Config([
         'password' => $_ENV['DB_PASSWORD'] ?? 'secret',
         'dbname'   => $_ENV['DB_NAME'] ?? 'invo',
         'charset'  => $_ENV['DB_CHARSET'] ?? 'utf8',
-        'options' => [
+        'options'  => [
             PDO::ATTR_EMULATE_PREPARES => true
         ]
     ],

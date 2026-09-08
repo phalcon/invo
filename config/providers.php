@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     \Invo\Providers\ConfigProvider::class,
     \Invo\Providers\DatabaseProvider::class,
