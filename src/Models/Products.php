@@ -26,6 +26,7 @@ class Products extends Model
      * @var string
      */
     public $active;
+
     /**
      * @var integer
      */
@@ -48,8 +49,6 @@ class Products extends Model
 
     /**
      * Returns a human representation of 'active'
-     *
-     * @return string
      */
     public function getActiveDetail(): string
     {
@@ -67,7 +66,7 @@ class Products extends Model
             'id',
             [
                 'reusable' => true,
-                'alias' => 'productTypes',
+                'alias'    => 'productTypes',
             ]
         );
     }

@@ -27,6 +27,7 @@ class ContactController extends ControllerBase
     {
         $this->view->form = new ContactForm();
     }
+
     public function initialize()
     {
         parent::initialize();

@@ -102,6 +102,7 @@ class CompaniesController extends ControllerBase
     {
         $this->view->form = new CompaniesForm();
     }
+
     public function initialize()
     {
         parent::initialize();
@@ -191,10 +192,10 @@ class CompaniesController extends ControllerBase
         }
 
         $paginator = new Paginator([
-            'model' => Companies::class,
+            'model'      => Companies::class,
             'parameters' => $parameters,
-            'limit' => 10,
-            'page'  => $this->request->getQuery('page', 'int', 1),
+            'limit'      => 10,
+            'page'       => $this->request->getQuery('page', 'int', 1),
         ]);
 
         $this->view->page      = $paginator->paginate();

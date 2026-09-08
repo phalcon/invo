@@ -24,8 +24,7 @@ class CompaniesForm extends Form
     /**
      * Initialize the companies form
      *
-     * @param null  $entity
-     * @param array $options
+     * @param null $entity
      */
     public function initialize($entity = null, array $options = [])
     {

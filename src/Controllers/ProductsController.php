@@ -86,8 +86,6 @@ class ProductsController extends ControllerBase
 
     /**
      * Edits a product based on its id
-     *
-     * @param $id
      */
     public function editAction($id): void
     {
@@ -108,6 +106,7 @@ class ProductsController extends ControllerBase
     {
         $this->view->form = new ProductsForm();
     }
+
     public function initialize()
     {
         parent::initialize();
@@ -199,10 +198,10 @@ class ProductsController extends ControllerBase
         }
 
         $paginator = new Paginator([
-            'model' => Products::class,
+            'model'      => Products::class,
             'parameters' => $parameters,
-            'limit' => 10,
-            'page'  => $this->request->getQuery('page', 'int', 1),
+            'limit'      => 10,
+            'page'       => $this->request->getQuery('page', 'int', 1),
         ]);
 
         $this->view->page = $paginator->paginate();

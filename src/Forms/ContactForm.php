@@ -22,8 +22,7 @@ use Phalcon\Forms\Form;
 class ContactForm extends Form
 {
     /**
-     * @param null  $entity
-     * @param array $options
+     * @param null $entity
      */
     public function initialize($entity = null, array $options = [])
     {

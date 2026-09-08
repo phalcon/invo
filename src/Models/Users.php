@@ -23,32 +23,18 @@ class Users extends Model
      */
     public int $active;
 
-    /**
-     * @var string|RawValue
-     */
-    public string|RawValue $created_at;
+    public RawValue | string $created_at;
 
-    /**
-     * @var string
-     */
     public string $email;
+
     /**
      * @var integer|null
      */
     public ?int $id = null;
 
-    /**
-     * @var string
-     */
     public string $name;
 
-    /**
-     * @var string
-     */
     public string $password;
 
-    /**
-     * @var string
-     */
     public string $username;
 }

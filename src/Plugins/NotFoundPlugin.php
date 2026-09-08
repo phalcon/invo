@@ -29,10 +29,6 @@ class NotFoundPlugin extends Injectable
     /**
      * This action is executed before perform any action in the application
      *
-     * @param Event         $event
-     * @param MvcDispatcher $dispatcher
-     * @param Exception     $exception
-     *
      * @return bool
      */
     public function beforeException(Event $event, MvcDispatcher $dispatcher, Exception $exception)

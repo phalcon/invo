@@ -31,9 +31,6 @@ class SecurityPlugin extends Injectable
     /**
      * This action is executed before execute any action in the application
      *
-     * @param Event      $event
-     * @param Dispatcher $dispatcher
-     *
      * @return bool
      */
     public function beforeExecuteRoute(Event $event, Dispatcher $dispatcher)

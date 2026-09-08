@@ -48,6 +48,7 @@ class SessionController extends ControllerBase
 
         $this->view->form = $form;
     }
+
     public function initialize()
     {
         parent::initialize();
@@ -101,8 +102,6 @@ class SessionController extends ControllerBase
 
     /**
      * Register an authenticated user into session data
-     *
-     * @param Users $user
      */
     private function registerSession(Users $user): void
     {

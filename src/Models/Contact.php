@@ -23,6 +23,7 @@ class Contact extends Model
     public $created_at;
 
     public $email;
+
     public $id;
 
     public $name;

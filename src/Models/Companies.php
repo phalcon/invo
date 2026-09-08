@@ -26,6 +26,7 @@ class Companies extends Model
      * @var string
      */
     public $city;
+
     /**
      * @var integer
      */

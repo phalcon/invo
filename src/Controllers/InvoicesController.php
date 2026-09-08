@@ -26,6 +26,7 @@ class InvoicesController extends ControllerBase
     public function indexAction(): void
     {
     }
+
     public function initialize()
     {
         $this->tag->title()

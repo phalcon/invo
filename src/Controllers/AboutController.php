@@ -18,6 +18,7 @@ class AboutController extends ControllerBase
     public function indexAction(): void
     {
     }
+
     public function initialize()
     {
         parent::initialize();

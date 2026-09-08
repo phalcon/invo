@@ -27,8 +27,7 @@ class ProductsForm extends Form
     /**
      * Initialize the products form
      *
-     * @param null  $entity
-     * @param array $options
+     * @param null $entity
      */
     public function initialize($entity = null, array $options = [])
     {

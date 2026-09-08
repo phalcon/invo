@@ -12,7 +12,9 @@ use Phalcon\Mvc\Application as MvcApplication;
 class Application
 {
     protected MvcApplication $app;
+
     protected DiInterface $di;
+
     protected string $rootPath;
 
     public function __construct(string $rootPath)

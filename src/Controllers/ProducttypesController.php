@@ -107,6 +107,7 @@ class ProducttypesController extends ControllerBase
     {
         $this->view->form = new ProductTypesForm();
     }
+
     public function initialize()
     {
         $this->tag->title()
@@ -192,10 +193,10 @@ class ProducttypesController extends ControllerBase
         }
 
         $paginator = new Paginator([
-            'model' => ProductTypes::class,
+            'model'      => ProductTypes::class,
             'parameters' => $parameters,
-            'limit' => 10,
-            'page'  => $this->request->getQuery('page', 'int', 1),
+            'limit'      => 10,
+            'page'       => $this->request->getQuery('page', 'int', 1),
         ]);
 
         $this->view->page         = $paginator->paginate();
