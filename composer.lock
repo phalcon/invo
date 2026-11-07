@@ -320,12 +320,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/migrations.git",
-                "reference": "8068574e742b31f89cc53cee3397e605e0de961e"
+                "reference": "7e47e56997c99ef87b9836cf91017b90a4984350"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/migrations/zipball/8068574e742b31f89cc53cee3397e605e0de961e",
-                "reference": "8068574e742b31f89cc53cee3397e605e0de961e",
+                "url": "https://api.github.com/repos/phalcon/migrations/zipball/7e47e56997c99ef87b9836cf91017b90a4984350",
+                "reference": "7e47e56997c99ef87b9836cf91017b90a4984350",
                 "shasum": ""
             },
             "require": {
@@ -397,8 +397,8 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-10-19T08:05:45+00:00",
-            "published-time": "2026-10-19T08:05:50+00:00"
+            "time": "2026-10-31T03:29:23+00:00",
+            "published-time": "2026-10-31T03:29:31+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -2017,12 +2017,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phql.git",
-                "reference": "5d446bcc293724e214a04908e134541883f215d2"
+                "reference": "fa5b6388842ab1703425c10014351bfd0f376346"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phql/zipball/5d446bcc293724e214a04908e134541883f215d2",
-                "reference": "5d446bcc293724e214a04908e134541883f215d2",
+                "url": "https://api.github.com/repos/phalcon/phql/zipball/fa5b6388842ab1703425c10014351bfd0f376346",
+                "reference": "fa5b6388842ab1703425c10014351bfd0f376346",
                 "shasum": ""
             },
             "require": {
@@ -2087,8 +2087,8 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-10-19T11:04:18+00:00",
-            "published-time": "2026-10-19T11:04:23+00:00"
+            "time": "2026-10-31T03:30:07+00:00",
+            "published-time": "2026-10-31T03:30:15+00:00"
         },
         {
             "name": "phalcon/talon",
@@ -2259,12 +2259,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/volt.git",
-                "reference": "4b6631fd4396fe6ff54a08716e00d7807396ab03"
+                "reference": "1e5a8d3d8cab8baf11ee14847e1e2382e1481139"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/volt/zipball/4b6631fd4396fe6ff54a08716e00d7807396ab03",
-                "reference": "4b6631fd4396fe6ff54a08716e00d7807396ab03",
+                "url": "https://api.github.com/repos/phalcon/volt/zipball/1e5a8d3d8cab8baf11ee14847e1e2382e1481139",
+                "reference": "1e5a8d3d8cab8baf11ee14847e1e2382e1481139",
                 "shasum": ""
             },
             "require": {
@@ -2288,9 +2288,6 @@
             "default-branch": true,
             "type": "library",
             "autoload": {
-                "files": [
-                    "resources/files/parser.php"
-                ],
                 "psr-4": {
                     "Phalcon\\Volt\\": "src/"
                 }
@@ -2337,8 +2334,8 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-10-31T03:19:22+00:00",
-            "published-time": "2026-10-31T03:19:32+00:00"
+            "time": "2026-11-01T17:18:52+00:00",
+            "published-time": "2026-11-01T17:18:58+00:00"
         },
         {
             "name": "phar-io/manifest",
