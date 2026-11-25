@@ -33,7 +33,7 @@
         "phalcon/code-quality": "^1.0",
         "phalcon/volt": "1.0.x-dev",
         "phpstan/phpstan": "^2.2",
-        "phpunit/phpunit": "^11.5",
+        "phpunit/phpunit": "^13.4",
         "squizlabs/php_codesniffer": "^4.0"
     },
     "suggest": {
